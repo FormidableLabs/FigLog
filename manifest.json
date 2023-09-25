@@ -1,19 +1,15 @@
 {
-  "name": "Figma Changelog",
+  "name": "FigLog",
   "id": "1283863437208022953",
   "api": "1.0.0",
   "main": "dist/code.js",
+  "permissions": ["currentuser"],
   "capabilities": [],
   "enableProposedApi": false,
-  "editorType": [
-    "figma",
-    "figjam"
-  ],
+  "editorType": ["figma", "figjam"],
   "containsWidget": true,
   "widgetApi": "1.0.0",
   "networkAccess": {
-    "allowedDomains": [
-      "none"
-    ]
+    "allowedDomains": ["https://*.figma.com/static/"]
   }
 }

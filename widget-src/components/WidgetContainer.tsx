@@ -1,7 +1,5 @@
 const { widget } = figma;
-const {
-  AutoLayout
-} = widget;
+const { AutoLayout } = widget;
 
 interface WidgetContainerProps {
   children?: FigmaDeclarativeNode | FigmaDeclarativeNode[];
@@ -15,7 +13,7 @@ export const WidgetContainer = (props: WidgetContainerProps) => (
     overflow="visible"
     direction="vertical"
     padding={{
-      vertical: 32,
+      vertical: 24,
       horizontal: 24,
     }}
     width={800}
