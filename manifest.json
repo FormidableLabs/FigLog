@@ -10,6 +10,6 @@
   "containsWidget": true,
   "widgetApi": "1.0.0",
   "networkAccess": {
-    "allowedDomains": ["https://*.figma.com/static/"]
+    "allowedDomains": ["https://*.figma.com/static/", "https://*.figma.com/profile/"]
   }
 }
