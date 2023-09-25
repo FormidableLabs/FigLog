@@ -12,7 +12,7 @@ export const User = (props: UserProps) => {
       name="User"
       overflow="visible"
       direction="vertical"
-      spacing={-2}
+      spacing={0}
       padding={{
         vertical: 24,
         horizontal: 0,
@@ -23,9 +23,9 @@ export const User = (props: UserProps) => {
     >
       <AutoLayout name="Avatar" overflow="visible" spacing={8} verticalAlignItems="center" {...props}>
         {props.userPhotoUrl ? (
-          <Image name="UserImage" cornerRadius={24} width={24} height={24} src={props.userPhotoUrl} />
+          <Image name="UserImage" cornerRadius={8} width={24} height={24} src={props.userPhotoUrl} />
         ) : (
-          <Rectangle name="Placeholder" fill="#E6E6E6" cornerRadius={24} width={24} height={24} />
+          <Rectangle name="Placeholder" fill="#E6E6E6" cornerRadius={8} width={24} height={24} />
         )}
         <Text
           name="UserName"
@@ -40,7 +40,18 @@ export const User = (props: UserProps) => {
           {props.userName || 'Unknown User'}
         </Text>
       </AutoLayout>
-      <Rectangle name="Divider" fill="#E6E6E6" cornerRadius={8} width={1} height="fill-parent" />
+      <Rectangle
+        name="Divider"
+        fill="#E6E6E6"
+        cornerRadius={{
+          topLeft: 0,
+          topRight: 0,
+          bottomRight: 8,
+          bottomLeft: 8,
+        }}
+        width={1}
+        height="fill-parent"
+      />
     </AutoLayout>
   );
 };
