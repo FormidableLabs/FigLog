@@ -15,7 +15,7 @@ function Widget() {
   const [nameText, setNameText] = useSyncedState('nameText', '');
   const [description, setDescription] = useSyncedState('description', true);
   const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
-  const [status, setStatus] = useSyncedState('status', '');
+  const [status, setStatus] = useSyncedState('status', '0');
   // Change Logs
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
   const changeLogs = useSyncedMap<ChangeLog>('changes');
@@ -70,13 +70,6 @@ function Widget() {
         tooltip: 'Set Status',
         propertyName: 'status',
       },
-      // {
-      //   itemType: 'link',
-      //   propertyName: 'formidaLink',
-      //   tooltip: 'Formidable OSS',
-      //   icon: null,
-      //   href: 'https://formidable.com/open-source/',
-      // },
     ],
     ({ propertyName, propertyValue }) => {
       if (propertyName === 'status' && propertyValue) {
@@ -88,16 +81,6 @@ function Widget() {
       }
     }
   );
-
-  useEffect(() => {
-    if (!name) {
-      if (currentUser) {
-        console.log('currentUser', currentUser);
-      } else {
-        figma.notify('Please login to figma');
-      }
-    }
-  });
 
   return (
     <WidgetContainer>
