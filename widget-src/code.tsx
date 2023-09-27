@@ -3,43 +3,49 @@ import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
-import { getDate } from './utilities/Utils';
+import { getDate, getTime } from './utilities/Utils';
 
 const { currentUser, widget } = figma;
-const { useEffect, usePropertyMenu, useSyncedMap, useSyncedState } = widget;
+const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
 
 function Widget() {
-  const [currentDate, setCurrentDate] = useSyncedState('currentDate', getDate());
-  // Widget Meta
-  const [name, setName] = useSyncedState('name', true);
-  const [nameText, setNameText] = useSyncedState('nameText', '');
-  const [description, setDescription] = useSyncedState('description', true);
-  const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
-  const [status, setStatus] = useSyncedState('status', '0');
+  // Property Menu
+  const [showName, setShowName] = useSyncedState('showName', true);
+  const [showDescription, setShowDescription] = useSyncedState('showDescription', true);
+  const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
+  const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
+  const [showBranding, setShowBranding] = useSyncedState('showBradning', true);
+  // Meta Data
+  const [createdDate, setCreatedDate] = useSyncedState('createdDate', '');
+  const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', '');
+  const [version, setVersion] = useSyncedState('version', '');
   // Change Logs
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
   const changeLogs = useSyncedMap<ChangeLog>('changes');
 
   const addChange = (changeToAdd: string) => {
-    console.log('changeId', changeToAdd);
     changeLogs.set(changeToAdd, {
       change: '',
-      status: 'none',
+      type: 'added',
       date: getDate(),
+      time: getTime(),
       user: currentUser,
+      editCount: 0,
     });
-    setChangeIds([...changeIds, changeToAdd]);
+    setChangeIds([changeToAdd, ...changeIds]);
+    setUpdatedDate(getDate());
   };
   const deleteChange = (changeToDelete: string) => {
     changeLogs.delete(changeToDelete);
     setChangeIds([...changeIds].filter(changeId => changeId !== changeToDelete));
+    setUpdatedDate(getDate());
   };
 
   usePropertyMenu(
     [
       {
         itemType: 'action',
-        tooltip: name ? 'Hide Name' : 'Show Name',
+        tooltip: showName ? 'Hide Name' : 'Show Name',
         propertyName: 'name',
         icon: '',
       },
@@ -48,7 +54,7 @@ function Widget() {
       },
       {
         itemType: 'action',
-        tooltip: description ? 'Hide Description' : 'Show Description',
+        tooltip: showDescription ? 'Hide Description' : 'Show Description',
         propertyName: 'description',
         icon: '',
       },
@@ -66,41 +72,82 @@ function Widget() {
           { option: '5', label: 'Depreciated' },
           { option: '6', label: 'Archived' },
         ],
-        selectedOption: status.toString(),
+        selectedOption: showStatus.toString(),
         tooltip: 'Set Status',
         propertyName: 'status',
+      },
+      {
+        itemType: 'separator',
+      },
+      {
+        itemType: 'action',
+        tooltip: showVersion ? 'Hide Version' : 'Show Version',
+        propertyName: 'version',
+        icon: '',
+      },
+      {
+        itemType: 'action',
+        tooltip: showBranding ? 'Hide Branding' : 'Show Branding',
+        propertyName: 'branding',
+        icon: '',
       },
     ],
     ({ propertyName, propertyValue }) => {
       if (propertyName === 'status' && propertyValue) {
-        setStatus(propertyValue);
+        setShowStatus(propertyValue);
+        setUpdatedDate(getDate());
       } else if (propertyName === 'name') {
-        setName(!name);
+        setShowName(!showName);
+        setUpdatedDate(getDate());
       } else if (propertyName === 'description') {
-        setDescription(!description);
+        setShowDescription(!showDescription);
+        setUpdatedDate(getDate());
+      } else if (propertyName === 'version') {
+        setShowVersion(!showVersion);
+        setUpdatedDate(getDate());
+      } else if (propertyName === 'branding') {
+        setShowBranding(!showBranding);
+        setUpdatedDate(getDate());
       }
     }
   );
 
+  useEffect(() => {
+    if (createdDate === '') {
+      setCreatedDate(getDate());
+    }
+
+    if (updatedDate === '') {
+      setUpdatedDate(getDate());
+    }
+  });
+
   return (
     <WidgetContainer>
       <Header
-        name={name}
-        description={description}
-        nameText={nameText}
-        setNameText={setNameText}
-        descriptionText={descriptionText}
-        setDescriptionText={setDescriptionText}
-        status={status}
-        currentDate={currentDate}
+        name={showName}
+        description={showDescription}
+        status={showStatus}
+        createdDate={createdDate}
+        setCreatedDate={setCreatedDate}
+        updatedDate={updatedDate}
+        setUpdatedDate={setUpdatedDate}
+        version={version}
+        setVersion={setVersion}
+        showVersion={showVersion}
         addChange={addChange}
       />
       {changeIds.length === 0 ? (
         <ChangeLogEmpty />
       ) : (
-        <ChangeLogList changeLogs={changeLogs} changeLogIds={changeIds} deleteChange={deleteChange} />
+        <ChangeLogList
+          changeLogs={changeLogs}
+          changeLogIds={changeIds}
+          deleteChange={deleteChange}
+          setUpdatedDate={setUpdatedDate}
+        />
       )}
-      <Footer />
+      <Footer showBranding={showBranding} />
     </WidgetContainer>
   );
 }

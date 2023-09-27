@@ -1,11 +1,12 @@
-import { User } from './User';
-import { LogDate } from './LogDate';
 import { Button } from './Button';
-import { LogType } from './LogType';
-// Links
+import { User } from './log/User';
+import { Date } from './log/Date';
+import { Type } from './log/Type';
+import { getDate, getTime } from '../utilities/Utils';
+import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Input, Text, Rectangle } = widget;
+const { AutoLayout, Input, Rectangle } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;
@@ -13,69 +14,88 @@ interface ChangeLogRowProps {
   isLastRow: boolean;
   updateChange: (changes: Partial<ChangeLog>) => void;
   deleteChange: () => void;
+  setUpdatedDate: (updatedDate: string) => void;
 }
 
 export const ChangeLogRow = (props: ChangeLogRowProps) => {
-  console.log('changeLogId', props.changeLogId, 'changeLog', props.changeLog);
+  console.log('ChangeLogRow', props.changeLog);
 
   return (
-    <AutoLayout name="ChangeLogRow" fill="#FFF" overflow="visible" direction="vertical" width="fill-parent" {...props}>
-      <AutoLayout name="Wrapper" overflow="visible" spacing={8} width="fill-parent">
-        <User userName={props.changeLog?.user?.name} userPhotoUrl={props.changeLog?.user?.photoUrl} />
+    <AutoLayout
+      name="ChangeLogRow"
+      fill={COLOR.white}
+      overflow="visible"
+      direction="vertical"
+      width="fill-parent"
+      {...props}
+    >
+      <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
+        <User userName={props.changeLog.user?.name} userPhotoUrl={props.changeLog.user?.photoUrl} />
         <AutoLayout
           name="Change Content"
           overflow="visible"
           direction="vertical"
-          spacing={16}
+          spacing={GAP.lg}
           padding={{
-            vertical: 24,
-            horizontal: 0,
+            vertical: PADDING.xl,
+            horizontal: PADDING.none,
           }}
           width="fill-parent"
         >
           <AutoLayout
             name="Meta"
             overflow="visible"
-            spacing={8}
+            spacing={GAP.md}
             padding={{
-              top: 0,
-              right: 4,
-              bottom: 0,
-              left: 0,
+              top: PADDING.none,
+              right: PADDING.xxs,
+              bottom: PADDING.none,
+              left: PADDING.none,
             }}
             width="fill-parent"
             verticalAlignItems="center"
           >
-            <LogType type="Added" />
-            <LogDate date={props.changeLog?.date} edited={false} />
+            <Type type="Added" />
+            <Date
+              time={props.changeLog.time}
+              date={props.changeLog.date}
+              editCount={props.changeLog.editCount}
+              edited={false}
+            />
             <AutoLayout
               name="Actions"
               overflow="visible"
-              spacing={8}
+              spacing={GAP.md}
               width="fill-parent"
               horizontalAlignItems="end"
               verticalAlignItems="center"
             >
-              {/* <Button label="Edit" hideLabel={true} action={} /> */}
+              {/* <Button label="Edit" hideLabel={true} /> */}
               <Button label="Delete" hideLabel={true} action={props.deleteChange} />
             </AutoLayout>
           </AutoLayout>
           <AutoLayout name="Changes" overflow="visible" width="fill-parent">
             <Input
               name="Change"
-              fill="#2F2D2E"
+              fill={COLOR.black}
               inputBehavior="multiline"
               inputFrameProps={{
-                fill: '#FFF',
+                fill: COLOR.white,
               }}
               onTextEditEnd={e => {
-                props.updateChange({ change: e.characters });
+                props.updateChange({
+                  change: e.characters,
+                  editCount: props.changeLog.editCount + 1,
+                  date: getDate(),
+                  time: getTime(),
+                });
+                props.setUpdatedDate(getDate());
               }}
               placeholder="Your update..."
               value={props.changeLog.change}
               width="fill-parent"
-              lineHeight={24}
-              fontFamily="IBM Plex Sans"
+              lineHeight={FONT.lineHeight.lg}
+              fontFamily={FONT.family}
             />
           </AutoLayout>
           {/* <Links name="Links" /> */}
@@ -84,10 +104,10 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
       <Rectangle
         name="Divider"
         hidden={props.isLastRow}
-        stroke="#E6E6E6"
+        stroke={COLOR.grey}
         width="fill-parent"
-        height={1}
-        strokeDashPattern={[4, 4]}
+        height={SPACE.one}
+        strokeDashPattern={[GAP.sm, GAP.sm]}
       />
     </AutoLayout>
   );

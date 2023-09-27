@@ -1,15 +1,34 @@
 import { LogoFormidable } from '../svgs/LogoFormidable';
+import { COLOR, GAP, OPACITY, SPACE } from '../utilities/Styles';
 
-const { widget } = figma;
-const { AutoLayout, Frame, Rectangle, SVG } = widget;
+const { widget, showUI } = figma;
+const { AutoLayout, Rectangle, SVG } = widget;
 
-interface FooterProps {}
+interface FooterProps {
+  showBranding: boolean;
+}
 
 export const Footer = (props: FooterProps) => (
-  <AutoLayout name="Footer" overflow="visible" direction="vertical" spacing={16} width={752}>
-    <Rectangle name="Divider" fill="#2F2D2E" strokeAlign="outside" width="fill-parent" height={1} />
-    <AutoLayout name="Logo" overflow="visible" spacing={8} verticalAlignItems="center">
-      <SVG name="Formidable Logo" height={24} width={108} src={LogoFormidable} />
-    </AutoLayout>
+  <AutoLayout name="Footer" overflow="visible" direction="vertical" spacing={GAP.lg} width="fill-parent">
+    <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />
+    {props.showBranding && (
+      <AutoLayout
+        name="Logo"
+        overflow="visible"
+        spacing={GAP.md}
+        verticalAlignItems="center"
+        opacity={OPACITY.semiOpaque}
+        onClick={() => {
+          const url = 'https://formidable.com/open-source/';
+          const openLinkUIString = `<script>window.open('${url}','_blank');</script>`;
+          showUI(openLinkUIString, { visible: false });
+        }}
+        hoverStyle={{
+          opacity: OPACITY.opaque,
+        }}
+      >
+        <SVG name="Formidable Logo" height={SPACE.sm} width={SPACE.md} src={LogoFormidable} />
+      </AutoLayout>
+    )}
   </AutoLayout>
 );

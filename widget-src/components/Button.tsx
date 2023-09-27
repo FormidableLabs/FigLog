@@ -1,5 +1,6 @@
 import { ActionEditIcon } from '../svgs/ActionEditIcon';
 import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
+import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
 const { AutoLayout, Frame, SVG, Text } = widget;
@@ -26,44 +27,44 @@ export const Button = (props: ButtonProps) => {
   return (
     <AutoLayout
       name="Button"
-      fill="#FFF"
-      cornerRadius={4}
+      fill={COLOR.white}
+      cornerRadius={RADIUS.sm}
       overflow="visible"
-      hoverStyle={{ fill: '#E6E6E6' }}
+      hoverStyle={{ fill: COLOR.grey }}
       onClick={() => {
         props.action();
       }}
-      spacing={4}
-      padding={6}
+      spacing={GAP.sm}
+      padding={PADDING.xs}
       horizontalAlignItems="center"
       verticalAlignItems="center"
       {...props}
     >
-      <Frame name="Icon" overflow="visible" width={12} height={12} {...props}>
+      <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs} {...props}>
         <SVG
           name={props.label}
           x={{
             type: 'center',
-            offset: 0,
+            offset: PADDING.none,
           }}
           y={{
             type: 'center',
-            offset: 0,
+            offset: PADDING.none,
           }}
-          height={12}
-          width={12}
+          height={SPACE.xxs}
+          width={SPACE.xxs}
           src={svgSrc}
         />
       </Frame>
       <Text
         name="Label"
-        fill="#676D75"
+        fill={COLOR.greyDark}
         verticalAlignText="center"
-        lineHeight={12}
-        fontFamily="IBM Plex Sans Condensed"
-        fontSize={10}
-        letterSpacing={0.4}
-        fontWeight={700}
+        lineHeight={FONT.lineHeight.xs}
+        fontFamily={FONT.family}
+        fontSize={FONT.size.xs}
+        letterSpacing={FONT.letterSpacing.sm}
+        fontWeight={FONT.weight.bold}
         textCase="upper"
         hidden={props.hideLabel}
       >

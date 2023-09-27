@@ -1,62 +1,64 @@
+import { COLOR, FONT, RADIUS, PADDING } from '../../utilities/Styles';
+
 const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
-interface LogTypeProps {
+interface TypeProps {
   type: 'Added' | 'Breaking' | 'Changed' | 'Deprecated' | 'Fixed' | 'Other' | 'Removed';
 }
 
-export const LogType = (props: LogTypeProps) => {
-  let txColor = '#FFFFFF';
-  let bgColor = '#2F2D2E';
+export const Type = (props: TypeProps) => {
+  let txColor = COLOR.white;
+  let bgColor = COLOR.black;
   switch (props.type) {
     case 'Added':
-      bgColor = '#99C24D';
+      bgColor = COLOR.green;
       break;
     case 'Breaking':
-      bgColor = '#C34C4E';
+      bgColor = COLOR.red;
       break;
     case 'Changed':
-      bgColor = '#7F2982';
+      bgColor = COLOR.purple;
       break;
     case 'Deprecated':
-      bgColor = '#F18F01';
+      bgColor = COLOR.orange;
       break;
     case 'Fixed':
-      bgColor = '#0077B6';
+      bgColor = COLOR.blue;
       break;
     case 'Other':
-      txColor = '#2F2D2E';
-      bgColor = '#E6E6E6';
+      txColor = COLOR.black;
+      bgColor = COLOR.grey;
       break;
     case 'Removed':
-      bgColor = '#2F2D2E';
+      bgColor = COLOR.black;
       break;
     default:
       break;
   }
   return (
     <AutoLayout
-      name="LogType"
+      name="Log Type"
       fill={bgColor}
-      cornerRadius={16}
+      cornerRadius={RADIUS.lg}
       padding={{
-        vertical: 6,
-        horizontal: 12,
+        vertical: PADDING.xs,
+        horizontal: PADDING.md,
       }}
       horizontalAlignItems="center"
       verticalAlignItems="center"
       {...props}
     >
       <Text
-        name="Depreciated"
+        name="Type"
         fill={txColor}
         verticalAlignText="center"
         horizontalAlignText="center"
-        lineHeight={12}
-        fontFamily="IBM Plex Sans Condensed"
-        fontSize={10}
-        letterSpacing={0.4}
-        fontWeight={700}
+        lineHeight={FONT.lineHeight.xs}
+        fontFamily={FONT.family}
+        fontSize={FONT.size.xs}
+        letterSpacing={FONT.letterSpacing.sm}
+        fontWeight={FONT.weight.bold}
         textCase="upper"
       >
         {props.type}

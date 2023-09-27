@@ -1,3 +1,5 @@
+import { COLOR, RADIUS, PADDING, SPACE } from '../utilities/Styles';
+
 const { widget } = figma;
 const { AutoLayout } = widget;
 
@@ -8,15 +10,16 @@ interface WidgetContainerProps {
 export const WidgetContainer = (props: WidgetContainerProps) => (
   <AutoLayout
     name="Widget"
-    fill="#FFF"
-    cornerRadius={16}
+    fill={COLOR.white}
+    cornerRadius={RADIUS.lg}
     overflow="visible"
     direction="vertical"
+    stroke={COLOR.grey}
     padding={{
-      vertical: 24,
-      horizontal: 24,
+      vertical: PADDING.xl,
+      horizontal: PADDING.xl,
     }}
-    width={800}
+    width={SPACE.xxl}
   >
     {props.children}
   </AutoLayout>
