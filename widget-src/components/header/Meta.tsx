@@ -25,9 +25,9 @@ export const Meta = (props: MetaProps) => {
       spacing={GAP.xl}
       padding={{
         top: PADDING.sm,
-        right: 0,
-        bottom: 0,
-        left: 0,
+        right: PADDING.none,
+        bottom: PADDING.none,
+        left: PADDING.none,
       }}
       width="fill-parent"
       verticalAlignItems="center"

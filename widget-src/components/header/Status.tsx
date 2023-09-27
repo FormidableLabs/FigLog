@@ -47,10 +47,10 @@ export const Status = (props: StatusProps) => {
       overflow="visible"
       direction="vertical"
       padding={{
-        top: 0,
-        right: 0,
+        top: PADDING.none,
+        right: PADDING.none,
         bottom: PADDING.lg,
-        left: 0,
+        left: PADDING.none,
       }}
       width={'fill-parent'}
     >

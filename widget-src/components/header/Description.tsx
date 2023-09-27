@@ -19,7 +19,7 @@ export const Description = (props: DescriptionProps) => {
       direction="vertical"
       padding={{
         vertical: PADDING.lg,
-        horizontal: 0,
+        horizontal: PADDING.none,
       }}
       width="fill-parent"
       hidden={!props.description}

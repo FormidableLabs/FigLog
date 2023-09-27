@@ -11,7 +11,7 @@ export const ChangeLogEmpty = () => (
     direction="vertical"
     padding={{
       vertical: PADDING.sm,
-      horizontal: 0,
+      horizontal: PADDING.none,
     }}
     width="fill-parent"
   >

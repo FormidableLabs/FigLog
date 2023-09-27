@@ -1,4 +1,4 @@
-import { COLOR, FONT, GAP, PADDING } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING, SPACE } from '../../utilities/Styles';
 import { getDate } from '../../utilities/Utils';
 
 const { widget } = figma;
@@ -19,7 +19,7 @@ export const MetaValue = (props: MetaValueProps) => {
       spacing={GAP.md}
       padding={{
         vertical: PADDING.xxs,
-        horizontal: 0,
+        horizontal: PADDING.none,
       }}
       verticalAlignItems="center"
     >
@@ -51,7 +51,7 @@ export const MetaValue = (props: MetaValueProps) => {
           }}
           placeholder="0.0.0"
           value={props.value}
-          width={60}
+          width={SPACE.md}
           inputBehavior="truncate"
           truncate={0}
         />
