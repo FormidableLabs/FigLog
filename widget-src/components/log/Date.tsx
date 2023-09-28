@@ -39,19 +39,22 @@ export const Date = (props: DateProps) => {
       >
         {props.time}
       </Text>
-      {props.editCount >= 2 && (
-        <Text
-          name="Edited"
-          fill={COLOR.greyDark}
-          lineHeight={FONT.lineHeight.sm}
-          fontFamily={FONT.family}
-          fontSize={FONT.size.sm}
-          letterSpacing={FONT.letterSpacing.sm}
-          textCase="upper"
-        >
-          Edited
-        </Text>
-      )}
+      {props.editCount >= 2 &&
+        console.log(
+          'edited'
+        )
+        // <Text
+        //   name="Edited"
+        //   fill={COLOR.greyDark}
+        //   lineHeight={FONT.lineHeight.sm}
+        //   fontFamily={FONT.family}
+        //   fontSize={FONT.size.sm}
+        //   letterSpacing={FONT.letterSpacing.sm}
+        //   textCase="upper"
+        // >
+        //   Edited
+        // </Text>
+      }
     </AutoLayout>
   );
 };

@@ -38,7 +38,7 @@ export const MetaValue = (props: MetaValueProps) => {
       {props.setValue && props.setUpdatedDate ? (
         <Input
           name="EditableMetaValueValue"
-          fill={COLOR.black}
+          fill={COLOR.greyDark}
           lineHeight={FONT.lineHeight.xs}
           fontFamily={FONT.family}
           fontSize={FONT.size.xs}
