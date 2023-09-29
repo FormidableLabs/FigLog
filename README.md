@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://formidable.com/open-source/" target="_blank">
-    <img alt="FigLog — Formidable, We build the modern web" src="https://raw.githubusercontent.com/FormidableLabs/figma-changelog/blob/main/example.png" />
+    <img alt="FigLog — Formidable, We build the modern web" src="https://github.com/FormidableLabs/figlog/main/example.png" />
   </a>
 
   <strong>
@@ -13,8 +13,8 @@
   <a href="https://github.com/FormidableLabs/figma-changelog#maintenance-status">
     <img alt="Maintenance Status" src="https://img.shields.io/badge/maintenance-active-green.svg" />
   </a>
-  <a href="https://github.com/FormidableLabs/figma-changelog/blob/main/LICENSE.md">
-    <img src="https://img.shields.io/github/license/FormidableLabs/figma-changelog" alt="License" />
+  <a href="https://github.com/FormidableLabs/figlog/main/LICENSE.md">
+    <img src="https://img.shields.io/github/license/FormidableLabs/figlog" alt="License" />
   </a>
 
   <br />
