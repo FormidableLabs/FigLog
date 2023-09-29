@@ -32,7 +32,7 @@ We hope **FigLog** becomes a useful tool for you as a way of documenting the evo
 ## FigLog Features
 
 - Optional name, description, version, and branding 🕹️
-- Multiplayer collaboration and user info 👫
+- Multiplayer collaboration with user name and avatar 👫
 - Automatic date handling 🗓️
 - 5 status types 💅
 - 7 changelog types 🐙 _(coming soon)_
