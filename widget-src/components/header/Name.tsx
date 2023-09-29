@@ -31,7 +31,6 @@ export const Name = (props: NameProps) => {
         }}
         placeholder="Name..."
         value={props.nameText}
-        textCase="upper"
         hidden={!props.name}
       />
     </AutoLayout>
