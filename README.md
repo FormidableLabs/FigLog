@@ -29,7 +29,7 @@ The **FigLog** widget works with both Figma and FigJam files and can be used sol
 
 We hope **FigLog** becomes a useful tool for you as a way of documenting the evolution of your work and the decisions and context around those updates.
 
-## FigLog Features
+## Features
 
 - Optional name, description, version, and branding 🕹️
 - Multiplayer collaboration with user name and avatar 👫
