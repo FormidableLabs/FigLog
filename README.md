@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://formidable.com/open-source/" target="_blank">
-    <img alt="FigLog — Formidable, We build the modern web" src="https://raw.githubusercontent.com/FormidableLabs/figma-changelog/blob/main/widget-src/static/Logo.png" />
+    <img alt="FigLog — Formidable, We build the modern web" src="https://raw.githubusercontent.com/FormidableLabs/figma-changelog/blob/main/example.png" />
   </a>
 
   <strong>
