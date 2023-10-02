@@ -2,8 +2,37 @@
 
 ## 1.0.0 (09-29-2023)
 
-can probably break up the MVP into a few versions for context on how and what was done
+README update
+Added CONTRIBUTION guide
+Added CHANGELOG
+Documentation
+Cleanup and documentation
 
-a lot of features will be in the first push but we could follow git pushes for this first part
+## 0.5.0 (09-28-2023)
 
-## 0.1.0 (09-06-2023)
+Update name to not be uppercase and increase line height
+New widget id
+Variable cleanup
+Locking logs to original owner, no updates for just clicking in the box, new static assets
+
+## 0.4.0 (09-27-2023)
+
+Zero values and adjusting version spacing
+Major update with lots of changes
+Added variables for all values
+
+## 0.3.0 (09-25-2023)
+
+Initial batch of features
+Adding an additional domain for profile pictures
+Adjustments to user divider to remove overlap and decrease border radius
+Added default status value and clean up
+
+## 0.2.0 (09-18-2023)
+
+Added main container, header, and footer
+
+## 0.1.0 (09-13-2023)
+
+Initial base code for widget
+Init commit to repo
