@@ -1,5 +1,4 @@
 import { COLOR, FONT } from '../../utilities/Styles';
-import { getDate } from '../../utilities/Utils';
 
 const { widget } = figma;
 const { AutoLayout, Input } = widget;
@@ -8,7 +7,7 @@ interface NameProps {
   name: boolean;
   nameText: string;
   setNameText: (name: string) => void;
-  setUpdatedDate: (updatedDate: string) => void;
+  setUpdatedDate: (updatedDate: number) => void;
 }
 
 export const Name = (props: NameProps) => {
@@ -27,7 +26,7 @@ export const Name = (props: NameProps) => {
         }}
         onTextEditEnd={e => {
           props.setNameText(e.characters);
-          props.setUpdatedDate(getDate());
+          props.setUpdatedDate(Date.now());
         }}
         placeholder="Name..."
         value={props.nameText}

@@ -1,12 +1,12 @@
 import { Button } from './Button';
 import { User } from './log/User';
-import { Date } from './log/Date';
+import { DateRange } from './log/DateRange';
 // import { Type } from './log/Type';
-import { getDate, getTime } from '../utilities/Utils';
+import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 
-const { currentUser, widget } = figma;
-const { AutoLayout, Input, Rectangle, Text } = widget;
+const { widget } = figma;
+const { AutoLayout, Input, Rectangle, Text, useEffect } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;
@@ -14,14 +14,11 @@ interface ChangeLogRowProps {
   isLastRow: boolean;
   updateChange: (changes: Partial<ChangeLog>) => void;
   deleteChange: () => void;
-  setUpdatedDate: (updatedDate: string) => void;
+  setUpdatedDate: (updatedDate: number) => void;
+  isEditable: boolean;
 }
 
 export const ChangeLogRow = (props: ChangeLogRowProps) => {
-  console.log('ChangeLogRow', props.changeLog);
-
-  const changeOwner = props.changeLog.user?.id === currentUser?.id;
-
   return (
     <AutoLayout
       name="ChangeLogRow"
@@ -71,27 +68,28 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
               {props.changeLog.user?.name || ''}
             </Text>
 
-            <Date
-              time={props.changeLog.time}
-              date={props.changeLog.date}
+            <DateRange
+              editedTime={formatDate(props.changeLog.editedDate, 'datetime')}
+              time={formatDate(props.changeLog.createdDate, 'time')}
+              date={formatDate(props.changeLog.createdDate, 'date')}
               editCount={props.changeLog.editCount}
               edited={false}
             />
-            <AutoLayout
-              name="Actions"
-              overflow="visible"
-              spacing={GAP.md}
-              width="fill-parent"
-              horizontalAlignItems="end"
-              verticalAlignItems="center"
-              hidden={!changeOwner}
-            >
-              {/* <Button label="Edit" hideLabel={true} /> */}
-              <Button label="Delete" hideLabel={true} action={props.deleteChange} />
-            </AutoLayout>
+            {props.isEditable && (
+              <AutoLayout
+                name="Actions"
+                overflow="visible"
+                spacing={GAP.md}
+                width="fill-parent"
+                horizontalAlignItems="end"
+                verticalAlignItems="center"
+              >
+                <Button label="Delete" hideLabel={true} action={props.deleteChange} />
+              </AutoLayout>
+            )}
           </AutoLayout>
           <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-            {changeOwner ? (
+            {props.isEditable ? (
               <Input
                 name="EditableChange"
                 fill={COLOR.black}
@@ -104,10 +102,9 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
                     props.updateChange({
                       change: e.characters,
                       editCount: props.changeLog.editCount + 1,
-                      date: getDate(),
-                      time: getTime(),
+                      editedDate: Date.now(),
                     });
-                    props.setUpdatedDate(getDate());
+                    props.setUpdatedDate(Date.now());
                   }
                 }}
                 placeholder="Your update..."

@@ -11,10 +11,10 @@ interface HeaderProps {
   name: boolean;
   description: boolean;
   status: string;
-  createdDate: string;
-  setCreatedDate: (updatedDate: string) => void;
-  updatedDate: string;
-  setUpdatedDate: (updatedDate: string) => void;
+  createdDate: number;
+  setCreatedDate: (updatedDate: number) => void;
+  updatedDate: number;
+  setUpdatedDate: (updatedDate: number) => void;
   version: string;
   showVersion: boolean;
   setVersion: (updatedVersion: string) => void;
@@ -45,9 +45,9 @@ export const Header = (props: HeaderProps) => {
         )}
         {/* META */}
         <Meta
-          createdDate={props.createdDate === '' ? '...' : props.createdDate}
+          createdDate={props.createdDate}
           setCreatedDate={props.setCreatedDate}
-          updatedDate={props.updatedDate === '' ? '...' : props.updatedDate}
+          updatedDate={props.updatedDate}
           setUpdatedDate={props.setUpdatedDate}
           version={props.version}
           showVersion={props.showVersion}

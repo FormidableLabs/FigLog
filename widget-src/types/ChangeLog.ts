@@ -1,6 +1,6 @@
 interface ChangeLog {
-  date: string;
-  time: string;
+  createdDate: number;
+  editedDate: number;
   type: ChangeType;
   user: User | null;
   change: string;

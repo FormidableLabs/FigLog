@@ -1,5 +1,4 @@
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../../utilities/Styles';
-import { getDate } from '../../utilities/Utils';
 
 const { widget } = figma;
 const { AutoLayout, Input, Text } = widget;
@@ -8,7 +7,7 @@ interface MetaValueProps {
   label: string;
   value: string;
   setValue?: (value: string) => void;
-  setUpdatedDate?: (updatedDate: string) => void;
+  setUpdatedDate?: (updatedDate: number) => void;
 }
 
 export const MetaValue = (props: MetaValueProps) => {
@@ -47,7 +46,7 @@ export const MetaValue = (props: MetaValueProps) => {
           }}
           onTextEditEnd={e => {
             props.setValue ? props.setValue(e.characters) : null;
-            props.setUpdatedDate ? props.setUpdatedDate(getDate()) : null;
+            props.setUpdatedDate ? props.setUpdatedDate(Date.now()) : null;
           }}
           placeholder="0.0.0"
           value={props.value}

@@ -3,7 +3,6 @@ import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
-import { getDate, getTime } from './utilities/Utils';
 
 const { currentUser, widget } = figma;
 const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
@@ -16,8 +15,9 @@ function Widget() {
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
   const [showBranding, setShowBranding] = useSyncedState('showBradning', true);
   // Meta Data
-  const [createdDate, setCreatedDate] = useSyncedState('createdDate', '');
-  const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', '');
+  const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
+  const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
+  const [adminId, setAdminId] = useSyncedState('adminId', '');
   const [version, setVersion] = useSyncedState('version', '');
   // Change Logs
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
@@ -27,18 +27,18 @@ function Widget() {
     changeLogs.set(changeToAdd, {
       change: '',
       type: 'added',
-      date: getDate(),
-      time: getTime(),
+      createdDate: Date.now(),
+      editedDate: Date.now(),
       user: currentUser,
       editCount: 0,
     });
     setChangeIds([changeToAdd, ...changeIds]);
-    setUpdatedDate(getDate());
+    setUpdatedDate(Date.now());
   };
   const deleteChange = (changeToDelete: string) => {
     changeLogs.delete(changeToDelete);
     setChangeIds([...changeIds].filter(changeId => changeId !== changeToDelete));
-    setUpdatedDate(getDate());
+    setUpdatedDate(Date.now());
   };
 
   usePropertyMenu(
@@ -95,30 +95,36 @@ function Widget() {
     ({ propertyName, propertyValue }) => {
       if (propertyName === 'status' && propertyValue) {
         setShowStatus(propertyValue);
-        setUpdatedDate(getDate());
+        setUpdatedDate(Date.now());
       } else if (propertyName === 'name') {
         setShowName(!showName);
-        setUpdatedDate(getDate());
+        setUpdatedDate(Date.now());
       } else if (propertyName === 'description') {
         setShowDescription(!showDescription);
-        setUpdatedDate(getDate());
+        setUpdatedDate(Date.now());
       } else if (propertyName === 'version') {
         setShowVersion(!showVersion);
-        setUpdatedDate(getDate());
+        setUpdatedDate(Date.now());
       } else if (propertyName === 'branding') {
         setShowBranding(!showBranding);
-        setUpdatedDate(getDate());
+        setUpdatedDate(Date.now());
       }
     }
   );
 
   useEffect(() => {
-    if (createdDate === '') {
-      setCreatedDate(getDate());
+    const today = Date.now();
+
+    if (createdDate === 0) {
+      setCreatedDate(today);
     }
 
-    if (updatedDate === '') {
-      setUpdatedDate(getDate());
+    if (updatedDate === 0) {
+      setUpdatedDate(today);
+    }
+
+    if (adminId === '') {
+      setAdminId(currentUser?.id || '');
     }
   });
 
@@ -143,6 +149,7 @@ function Widget() {
         <ChangeLogList
           changeLogs={changeLogs}
           changeLogIds={changeIds}
+          adminId={adminId}
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
         />

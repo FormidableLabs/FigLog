@@ -1,16 +1,16 @@
 import { ActionAddIcon } from '../../svgs/ActionAddIcon';
 import { COLOR, GAP, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
-import { randomId } from '../../utilities/Utils';
+import { randomId, formatDate } from '../../utilities/Utils';
 import { MetaValue } from './MetaValue';
 
-const { widget } = figma;
+const { currentUser, widget } = figma;
 const { AutoLayout, SVG } = widget;
 
 interface MetaProps {
-  createdDate: string;
-  setCreatedDate: (updatedDate: string) => void;
-  updatedDate: string;
-  setUpdatedDate: (updatedDate: string) => void;
+  createdDate: number;
+  setCreatedDate: (updatedDate: number) => void;
+  updatedDate: number;
+  setUpdatedDate: (updatedDate: number) => void;
   version: string;
   showVersion: boolean;
   setVersion: (updatedVersion: string) => void;
@@ -33,9 +33,9 @@ export const Meta = (props: MetaProps) => {
       verticalAlignItems="center"
     >
       {/* LOGGING SINCE */}
-      <MetaValue label="Created" value={props.createdDate} />
+      <MetaValue label="Created" value={formatDate(props.createdDate, 'datetime')} />
       {/* LAST UPDATED */}
-      <MetaValue label="Updated" value={props.updatedDate} />
+      <MetaValue label="Updated" value={formatDate(props.updatedDate, 'datetime')} />
       {/* VERSION */}
       {props.showVersion && (
         <MetaValue
@@ -46,31 +46,33 @@ export const Meta = (props: MetaProps) => {
         />
       )}
       {/* NEW */}
-      <AutoLayout
-        name="Actions"
-        overflow="visible"
-        width={'fill-parent'}
-        horizontalAlignItems="end"
-        verticalAlignItems="center"
-      >
+      {currentUser && (
         <AutoLayout
-          name="NewLog"
-          cornerRadius={RADIUS.sm}
-          fill={COLOR.white}
-          hoverStyle={{ fill: COLOR.grey }}
-          onClick={() => {
-            const changeId = randomId();
-            props.addChange(changeId);
-          }}
+          name="Actions"
           overflow="visible"
-          spacing={GAP.md}
-          padding={PADDING.sm}
+          width={'fill-parent'}
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <SVG name="Vector" height={SPACE.xs} width={SPACE.xs} src={ActionAddIcon} />
+          <AutoLayout
+            name="NewLog"
+            cornerRadius={RADIUS.sm}
+            fill={COLOR.white}
+            hoverStyle={{ fill: COLOR.grey }}
+            onClick={() => {
+              const changeId = randomId();
+              props.addChange(changeId);
+            }}
+            overflow="visible"
+            spacing={GAP.md}
+            padding={PADDING.sm}
+            horizontalAlignItems="end"
+            verticalAlignItems="center"
+          >
+            <SVG name="Vector" height={SPACE.xs} width={SPACE.xs} src={ActionAddIcon} />
+          </AutoLayout>
         </AutoLayout>
-      </AutoLayout>
+      )}
     </AutoLayout>
   );
 };

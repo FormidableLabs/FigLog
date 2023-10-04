@@ -1,20 +1,21 @@
 import { COLOR, FONT, GAP } from '../../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Text } = widget;
+const { AutoLayout, Span, Text } = widget;
 
-interface DateProps {
+interface DateRangeProps {
+  editedTime: string;
   date: string;
   time: string;
   editCount: number;
   edited?: boolean;
 }
 
-export const Date = (props: DateProps) => {
+export const DateRange = (props: DateRangeProps) => {
   return (
     <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center" {...props}>
       <Text
-        name="Date"
+        name="Created"
         fill={COLOR.black}
         lineHeight={FONT.lineHeight.sm}
         fontFamily={FONT.family}
@@ -26,7 +27,7 @@ export const Date = (props: DateProps) => {
       >
         {props.date}
       </Text>
-      <Text
+      {/* <Text
         name="Time"
         fill={COLOR.greyDark}
         lineHeight={FONT.lineHeight.sm}
@@ -38,23 +39,20 @@ export const Date = (props: DateProps) => {
         hidden={props.time === undefined}
       >
         {props.time}
-      </Text>
-      {props.editCount >= 2 &&
-        console.log(
-          'edited'
-        )
-        // <Text
-        //   name="Edited"
-        //   fill={COLOR.greyDark}
-        //   lineHeight={FONT.lineHeight.sm}
-        //   fontFamily={FONT.family}
-        //   fontSize={FONT.size.sm}
-        //   letterSpacing={FONT.letterSpacing.sm}
-        //   textCase="upper"
-        // >
-        //   Edited
-        // </Text>
-      }
+      </Text> */}
+
+      {props.editCount >= 2 && (
+        <Text
+          name="Edited"
+          fill={COLOR.greyDark}
+          lineHeight={FONT.lineHeight.xs}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.xs}
+          letterSpacing={FONT.letterSpacing.sm}
+        >
+          {`(Edited ${props.editedTime})`}
+        </Text>
+      )}
     </AutoLayout>
   );
 };
