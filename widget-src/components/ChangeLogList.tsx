@@ -2,7 +2,7 @@ import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
 const { widget, currentUser } = figma;
-const { AutoLayout } = widget;
+const { AutoLayout, useEffect } = widget;
 
 interface ChangeLogListProps {
   changeLogIds: string[];
@@ -13,6 +13,10 @@ interface ChangeLogListProps {
 }
 
 export const ChangeLogList = (props: ChangeLogListProps) => {
+  useEffect(() => {
+    console.log('ChangeLogs', props.changeLogs.entries());
+  });
+
   return (
     <AutoLayout
       name="ChangeLog"
@@ -28,16 +32,11 @@ export const ChangeLogList = (props: ChangeLogListProps) => {
         const changeLog = props.changeLogs.get(changeLogId) as ChangeLog;
 
         function isEditable(): boolean {
-          return true;
           // if widget admin
-          if (props.adminId === currentUser?.id) {
-            return true;
-          }
+          // if (props.adminId === currentUser?.id) { return true; }
           // if changeLog owner
-          if (changeLog?.user?.id === currentUser?.id) {
-            return true;
-          }
-          return false;
+          // if (changeLog?.user?.id === currentUser?.id) { return true; }
+          return true;
         }
 
         return (
