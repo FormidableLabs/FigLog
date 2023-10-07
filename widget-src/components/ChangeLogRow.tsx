@@ -6,7 +6,7 @@ import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Input, Rectangle, Text, useEffect } = widget;
+const { AutoLayout, Input, Rectangle, Text } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;
@@ -69,9 +69,10 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
             </Text>
 
             <DateRange
-              editedTime={formatDate(props.changeLog.editedDate, 'datetime')}
-              time={formatDate(props.changeLog.createdDate, 'time')}
+              editedDate={formatDate(props.changeLog.editedDate, 'date')}
+              editedTime={formatDate(props.changeLog.editedDate, 'time')}
               date={formatDate(props.changeLog.createdDate, 'date')}
+              time={formatDate(props.changeLog.createdDate, 'time')}
               editCount={props.changeLog.editCount}
               edited={false}
             />

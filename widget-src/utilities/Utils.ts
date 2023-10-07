@@ -3,48 +3,60 @@
 // returns a random id, generally used as id for a changelog entry
 export const randomId = () => Math.random().toString(36).substring(2, 15);
 
-// accepts an epoch timestamp and a date, time, or datetime formatting type
-// date - returns the provided epoch timestamp in the format of MM/DD/YYYY
-// time - returns the provided epoch timestamp in the format of 00:00:00 AM/PM
-// datetime - returns the provided epoch timestamp in the format of MM/DD/YYYY @ 00:00:00 AM/PM
+// accepts an epoch timestamp and a format ('date', 'time', or 'datetime')
 export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') => {
+  const date: Date = new Date(epoch);
   let formattedDate: string = '';
+  let month: number | string = 0;
+  let year: number | string = 0;
+  let yearFull: number | string = 0;
+  let day: number | string = 0;
+  let hours: number | string = 0;
+  let minutes: number | string = 0;
+  let seconds: number | string = 0;
+  let ampm: string = '';
 
+  // if the format includes "date" get date data
+  if (format.includes('date')) {
+    month = date.getMonth() + 1;
+    yearFull = date.getFullYear();
+    year = yearFull.toString().slice(-2);
+    day = date.getDate();
+  }
+  // if the format includes "time" get time data
+  if (format.includes('time')) {
+    hours = date.getHours();
+    minutes = date.getMinutes();
+    seconds = date.getSeconds();
+    // 12 hour clock with am or pm
+    ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    // the hour '0' should be '12'
+    hours = hours ? hours : 12;
+    // include leading '0' when less than 10
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+  }
+  // based on format option, return the formatted date
   switch (format) {
     case 'date':
-      const dateDate = new Date(epoch);
-      const monthDate = dateDate.getMonth() + 1;
-      const yearDate = dateDate.getFullYear();
-      const dayDate = dateDate.getDate();
-      formattedDate = `${monthDate}|${dayDate}|${yearDate}`;
+      // MM/DD/YY
+      formattedDate = `${month}|${day}|${year}`;
       break;
 
     case 'time':
-      const dateTime = new Date(epoch);
-      formattedDate = dateTime.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      });
+      // 00:00 AM/PM
+      formattedDate = `${hours}:${minutes} ${ampm}`;
       break;
 
     case 'datetime':
-      const dateobj = new Date(epoch);
-      const monthDateTime = dateobj.getMonth() + 1;
-      const yearDateTime = dateobj.getFullYear();
-      const dayDateTime = dateobj.getDate();
-      const timeDateTime = dateobj.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: true,
-      });
-      formattedDate = `${monthDateTime}|${dayDateTime}|${yearDateTime} @ ${timeDateTime}`;
+      // MM/DD/YYYY @ 00:00:00 AM/PM
+      formattedDate = `${month}|${day}|${yearFull} @ ${hours}:${minutes}:${seconds} ${ampm}`;
       break;
 
     default:
-      formattedDate = '';
+      // returns error string
+      formattedDate = 'incorrect format';
       break;
   }
 

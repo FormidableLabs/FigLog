@@ -1,9 +1,10 @@
 import { COLOR, FONT, GAP } from '../../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Span, Text } = widget;
+const { AutoLayout, Text } = widget;
 
 interface DateRangeProps {
+  editedDate: string;
   editedTime: string;
   date: string;
   time: string;
@@ -25,21 +26,8 @@ export const DateRange = (props: DateRangeProps) => {
         textCase="upper"
         hidden={props.date === undefined}
       >
-        {props.date}
+        {`${props.date} @ ${props.time}`}
       </Text>
-      {/* <Text
-        name="Time"
-        fill={COLOR.greyDark}
-        lineHeight={FONT.lineHeight.sm}
-        fontFamily={FONT.family}
-        fontSize={FONT.size.sm}
-        letterSpacing={FONT.letterSpacing.sm}
-        fontWeight={FONT.weight.regular}
-        textCase="upper"
-        hidden={props.time === undefined}
-      >
-        {props.time}
-      </Text> */}
 
       {props.editCount >= 2 && (
         <Text
@@ -50,7 +38,7 @@ export const DateRange = (props: DateRangeProps) => {
           fontSize={FONT.size.xs}
           letterSpacing={FONT.letterSpacing.sm}
         >
-          {`(Edited ${props.editedTime})`}
+          {`EDITED ${props.editedDate} @ ${props.editedTime}`}
         </Text>
       )}
     </AutoLayout>
