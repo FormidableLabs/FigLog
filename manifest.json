@@ -1,6 +1,6 @@
 {
   "name": "FigLog",
-  "id": "1289299836030212230",
+  "id": "1293230657540297914",
   "api": "1.0.0",
   "main": "dist/code.js",
   "permissions": ["currentuser"],
