@@ -47,7 +47,7 @@ We hope FigLog becomes a useful tool for you as a way of documenting the evoluti
 
 ## Usage
 
-Please see the [FigLog Community Page](https://www.figma.com/community/widget/1289299836030212230/figlog).
+Please see the [FigLog Community Page](https://www.figma.com/community/widget/1293230657540297914).
 
 ## Contributing
 
