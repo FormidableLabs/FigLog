@@ -53,6 +53,8 @@ Please see the [FigLog Community Page](https://www.figma.com/community/widget/12
 
 Please see the [Contributing guide](CONTRIBUTING.md).
 
+[Icons](https://coreui.io/icons/) created by [CoreUI](https://coreui.io/).
+
 ## Maintenance Status
 
 **Active:** Formidable is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
