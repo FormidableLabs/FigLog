@@ -12,9 +12,15 @@ interface ChangeLogListProps {
   setUpdatedDate: (updatedDate: number) => void;
 }
 
-export const ChangeLogList = (props: ChangeLogListProps) => {
+export const ChangeLogList = ({
+  changeLogIds,
+  changeLogs,
+  // adminId,
+  deleteChange,
+  setUpdatedDate,
+}: ChangeLogListProps) => {
   useEffect(() => {
-    console.log('ChangeLogs', props.changeLogs.entries());
+    console.log('ChangeLogs', changeLogs.entries());
   });
 
   return (
@@ -28,12 +34,12 @@ export const ChangeLogList = (props: ChangeLogListProps) => {
         horizontal: PADDING.none,
       }}
     >
-      {props.changeLogIds.map((changeLogId, index) => {
-        const changeLog = props.changeLogs.get(changeLogId) as ChangeLog;
+      {changeLogIds.map((changeLogId, index) => {
+        const changeLog = changeLogs.get(changeLogId) as ChangeLog;
 
         function isEditable(): boolean {
           // if widget admin
-          // if (props.adminId === currentUser?.id) { return true; }
+          // if (adminId === currentUser?.id) { return true; }
           // if changeLog owner
           // if (changeLog?.user?.id === currentUser?.id) { return true; }
           return true;
@@ -44,10 +50,10 @@ export const ChangeLogList = (props: ChangeLogListProps) => {
             key={changeLogId}
             changeLogId={changeLogId}
             changeLog={changeLog}
-            isLastRow={index === props.changeLogIds.length - 1}
-            updateChange={changes => props.changeLogs.set(changeLogId, { ...changeLog, ...changes })}
-            deleteChange={() => props.deleteChange(changeLogId)}
-            setUpdatedDate={props.setUpdatedDate}
+            isLastRow={index === changeLogIds.length - 1}
+            updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
+            deleteChange={() => deleteChange(changeLogId)}
+            setUpdatedDate={setUpdatedDate}
             isEditable={isEditable()}
           />
         );

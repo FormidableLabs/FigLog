@@ -21,7 +21,19 @@ interface HeaderProps {
   addChange: (changeId: string) => void;
 }
 
-export const Header = (props: HeaderProps) => {
+export const Header = ({
+  name,
+  description,
+  status,
+  createdDate,
+  setCreatedDate,
+  updatedDate,
+  setUpdatedDate,
+  version,
+  showVersion,
+  setVersion,
+  addChange,
+}: HeaderProps) => {
   const [nameText, setNameText] = useSyncedState('nameText', '');
   const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
 
@@ -29,30 +41,29 @@ export const Header = (props: HeaderProps) => {
     <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.md} width="fill-parent">
       <AutoLayout name="Container" overflow="visible" direction="vertical" width="fill-parent">
         {/* STATUS */}
-        {props.status !== '0' && <Status status={props.status} />}
+        {status !== '0' && <Status status={status} />}
         {/* NAME */}
-        {props.name && (
-          <Name name={props.name} nameText={nameText} setNameText={setNameText} setUpdatedDate={props.setUpdatedDate} />
+        {name && (
+          <Name name={name} nameText={nameText} setNameText={setNameText} setUpdatedDate={setUpdatedDate} />
         )}
         {/* DESCRIPTION */}
-        {props.description && (
+        {description && (
           <Description
-            description={props.description}
+            description={description}
             descriptionText={descriptionText}
             setDescriptionText={setDescriptionText}
-            setUpdatedDate={props.setUpdatedDate}
+            setUpdatedDate={setUpdatedDate}
           />
         )}
         {/* META */}
         <Meta
-          createdDate={props.createdDate}
-          setCreatedDate={props.setCreatedDate}
-          updatedDate={props.updatedDate}
-          setUpdatedDate={props.setUpdatedDate}
-          version={props.version}
-          showVersion={props.showVersion}
-          setVersion={props.setVersion}
-          addChange={props.addChange}
+          createdDate={createdDate}
+          updatedDate={updatedDate}
+          setUpdatedDate={setUpdatedDate}
+          version={version}
+          showVersion={showVersion}
+          setVersion={setVersion}
+          addChange={addChange}
         />
       </AutoLayout>
       <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />

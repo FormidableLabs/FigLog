@@ -11,9 +11,13 @@ interface ButtonProps {
   action: () => void;
 }
 
-export const Button = (props: ButtonProps) => {
+export const Button = ({
+  label,
+  hideLabel,
+  action,
+}: ButtonProps) => {
   let svgSrc = '';
-  switch (props.label) {
+  switch (label) {
     case 'Edit':
       svgSrc = ActionEditIcon;
       break;
@@ -32,17 +36,16 @@ export const Button = (props: ButtonProps) => {
       overflow="visible"
       hoverStyle={{ fill: COLOR.grey }}
       onClick={() => {
-        props.action();
+        action();
       }}
       spacing={GAP.sm}
       padding={PADDING.xs}
       horizontalAlignItems="center"
       verticalAlignItems="center"
-      {...props}
     >
-      <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs} {...props}>
+      <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs}>
         <SVG
-          name={props.label}
+          name={label}
           x={{
             type: 'center',
             offset: PADDING.none,
@@ -66,9 +69,9 @@ export const Button = (props: ButtonProps) => {
         letterSpacing={FONT.letterSpacing.sm}
         fontWeight={FONT.weight.bold}
         textCase="upper"
-        hidden={props.hideLabel}
+        hidden={hideLabel}
       >
-        {props.label}
+        {label}
       </Text>
     </AutoLayout>
   );

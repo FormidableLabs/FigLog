@@ -7,7 +7,7 @@ interface WidgetContainerProps {
   children?: FigmaDeclarativeNode | FigmaDeclarativeNode[];
 }
 
-export const WidgetContainer = (props: WidgetContainerProps) => (
+export const WidgetContainer = ({ children }: WidgetContainerProps) => (
   <AutoLayout
     name="Widget"
     fill={COLOR.white}
@@ -21,6 +21,6 @@ export const WidgetContainer = (props: WidgetContainerProps) => (
     }}
     width={SPACE.xxl}
   >
-    {props.children}
+    {children}
   </AutoLayout>
 );

@@ -8,7 +8,7 @@ interface UserProps {
   userPhotoUrl: string | null | undefined;
 }
 
-export const User = (props: UserProps) => {
+export const User = ({ userName, userPhotoUrl }: UserProps) => {
   return (
     <AutoLayout
       name="User"
@@ -21,16 +21,15 @@ export const User = (props: UserProps) => {
       }}
       height="fill-parent"
       horizontalAlignItems="center"
-      {...props}
     >
-      <AutoLayout name="Avatar" overflow="visible" spacing={GAP.md} verticalAlignItems="center" {...props}>
-        {props.userPhotoUrl ? (
+      <AutoLayout name="Avatar" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
+        {userPhotoUrl ? (
           <Image
             name="UserImage"
             cornerRadius={RADIUS.lg}
             width={SPACE.sm}
             height={SPACE.sm}
-            src={props.userPhotoUrl}
+            src={userPhotoUrl}
           />
         ) : (
           <Rectangle name="Placeholder" fill={COLOR.grey} cornerRadius={RADIUS.lg} width={SPACE.sm} height={SPACE.sm} />
@@ -45,7 +44,7 @@ export const User = (props: UserProps) => {
           letterSpacing={FONT.letterSpacing.sm}
           textCase="upper"
         >
-          {props.userName || 'Unknown User'}
+          {userName || 'Unknown User'}
         </Text>
       </AutoLayout>
       <Rectangle

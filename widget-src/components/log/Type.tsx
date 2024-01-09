@@ -7,10 +7,10 @@ interface TypeProps {
   type: 'Added' | 'Breaking' | 'Changed' | 'Deprecated' | 'Fixed' | 'Other' | 'Removed';
 }
 
-export const Type = (props: TypeProps) => {
+export const Type = ({ type }: TypeProps) => {
   let txColor = COLOR.white;
   let bgColor = COLOR.black;
-  switch (props.type) {
+  switch (type) {
     case 'Added':
       bgColor = COLOR.green;
       break;
@@ -47,7 +47,6 @@ export const Type = (props: TypeProps) => {
       }}
       horizontalAlignItems="center"
       verticalAlignItems="center"
-      {...props}
     >
       <Text
         name="Type"
@@ -61,7 +60,7 @@ export const Type = (props: TypeProps) => {
         fontWeight={FONT.weight.bold}
         textCase="upper"
       >
-        {props.type}
+        {type}
       </Text>
     </AutoLayout>
   );
