@@ -10,7 +10,12 @@ interface DescriptionProps {
   setUpdatedDate: (updatedDate: number) => void;
 }
 
-export const Description = (props: DescriptionProps) => {
+export const Description = ({
+  description,
+  descriptionText,
+  setDescriptionText,
+  setUpdatedDate
+}: DescriptionProps) => {
   return (
     <AutoLayout
       name="DescriptionWrapper"
@@ -21,7 +26,7 @@ export const Description = (props: DescriptionProps) => {
         horizontal: PADDING.none,
       }}
       width="fill-parent"
-      hidden={!props.description}
+      hidden={!description}
     >
       <Input
         name="Description"
@@ -31,16 +36,16 @@ export const Description = (props: DescriptionProps) => {
           fill: COLOR.white,
         }}
         onTextEditEnd={e => {
-          props.setDescriptionText(e.characters);
-          props.setUpdatedDate(Date.now());
+          setDescriptionText(e.characters);
+          setUpdatedDate(Date.now());
         }}
         placeholder="Description..."
-        value={props.descriptionText}
+        value={descriptionText}
         width="fill-parent"
         lineHeight={FONT.lineHeight.xl}
         fontFamily="IBM Plex Sans"
         fontSize={FONT.size.lg}
-        hidden={!props.description}
+        hidden={!description}
       />
     </AutoLayout>
   );

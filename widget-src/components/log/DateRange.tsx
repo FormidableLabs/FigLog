@@ -9,12 +9,17 @@ interface DateRangeProps {
   date: string;
   time: string;
   editCount: number;
-  edited?: boolean;
 }
 
-export const DateRange = (props: DateRangeProps) => {
+export const DateRange = ({
+  editedDate,
+  editedTime,
+  date,
+  time,
+  editCount,
+}: DateRangeProps) => {
   return (
-    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center" {...props}>
+    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
       <Text
         name="Created"
         fill={COLOR.black}
@@ -24,12 +29,12 @@ export const DateRange = (props: DateRangeProps) => {
         letterSpacing={FONT.letterSpacing.sm}
         fontWeight={FONT.weight.bold}
         textCase="upper"
-        hidden={props.date === undefined}
+        hidden={date === undefined}
       >
-        {`${props.date} @ ${props.time}`}
+        {`${date} @ ${time}`}
       </Text>
 
-      {props.editCount >= 2 && (
+      {editCount >= 2 && (
         <Text
           name="Edited"
           fill={COLOR.greyDark}
@@ -38,7 +43,7 @@ export const DateRange = (props: DateRangeProps) => {
           fontSize={FONT.size.xs}
           letterSpacing={FONT.letterSpacing.sm}
         >
-          {`EDITED ${props.editedDate} @ ${props.editedTime}`}
+          {`EDITED ${editedDate} @ ${editedTime}`}
         </Text>
       )}
     </AutoLayout>

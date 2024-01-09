@@ -10,9 +10,14 @@ interface NameProps {
   setUpdatedDate: (updatedDate: number) => void;
 }
 
-export const Name = (props: NameProps) => {
+export const Name = ({
+  name,
+  nameText,
+  setNameText,
+  setUpdatedDate,
+}: NameProps) => {
   return (
-    <AutoLayout name="NameWrapper" overflow="visible" direction="vertical" width="fill-parent" hidden={!props.name}>
+    <AutoLayout name="NameWrapper" overflow="visible" direction="vertical" width="fill-parent" hidden={!name}>
       <Input
         name="Name"
         fill={COLOR.black}
@@ -25,12 +30,12 @@ export const Name = (props: NameProps) => {
           fill: COLOR.white,
         }}
         onTextEditEnd={e => {
-          props.setNameText(e.characters);
-          props.setUpdatedDate(Date.now());
+          setNameText(e.characters);
+          setUpdatedDate(Date.now());
         }}
         placeholder="Name..."
-        value={props.nameText}
-        hidden={!props.name}
+        value={nameText}
+        hidden={!name}
       />
     </AutoLayout>
   );
