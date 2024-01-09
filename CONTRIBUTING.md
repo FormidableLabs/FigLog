@@ -64,6 +64,10 @@ To see code changes live and to regenerate the JavaScript build file each time y
 $ bun run watch
 ```
 
+### Inserting the Local Widget into a Figma File
+
+While running Live Reload, go to `Menu > Widgets > Development > Import widget from manifest` within your test Figma file. Choose `manifest.json` from the local FigLog directory. The local widget should now show up in the Widgets panel of the file under `Development`.
+
 ### Tests
 
 To typecheck the widget run:
