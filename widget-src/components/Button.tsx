@@ -6,7 +6,7 @@ const { widget } = figma;
 const { AutoLayout, Frame, SVG, Text } = widget;
 
 interface ButtonProps {
-  label: string;
+  label: 'Edit' | 'Delete';
   hideLabel: boolean;
   action: () => void;
 }
@@ -15,10 +15,10 @@ export const Button = (props: ButtonProps) => {
   let svgSrc = '';
   switch (props.label) {
     case 'Edit':
-      svgSrc = ActionEditIcon;
+      svgSrc = <ActionEditIcon />;
       break;
     case 'Delete':
-      svgSrc = ActionDeleteIcon;
+      svgSrc = <ActionDeleteIcon />;
       break;
     default:
       break;
