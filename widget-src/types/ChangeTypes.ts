@@ -1,3 +1,3 @@
-const ChangeTypes = ['added', 'fixed', 'changed', 'depreciated', 'removed', 'breaking', 'other'] as const;
+export const ChangeTypes = ['added', 'fixed', 'changed', 'deprecated', 'removed', 'breaking', 'other'] as const;
 
-type ChangeType = (typeof ChangeTypes)[number];
+export type ChangeType = (typeof ChangeTypes)[number];

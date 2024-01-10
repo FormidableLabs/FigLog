@@ -1,39 +1,41 @@
-import { COLOR, FONT, RADIUS, PADDING } from '../../utilities/Styles';
+import { COLOR, FONT, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
+import { ChangeType } from '../../types/ChangeTypes'
+import { Check } from '../../svgs/Check';
 
 const { widget } = figma;
-const { AutoLayout, Text } = widget;
+const { AutoLayout, Text, SVG } = widget;
 
 interface TypeProps {
-  type: 'Added' | 'Breaking' | 'Changed' | 'Deprecated' | 'Fixed' | 'Other' | 'Removed';
+  type: ChangeType;
+  isActive?: boolean;
 }
 
-export const Type = ({ type }: TypeProps) => {
+export const Type = ({ type, isActive = false }: TypeProps) => {
   let txColor = COLOR.white;
   let bgColor = COLOR.black;
   switch (type) {
-    case 'Added':
+    case 'added':
       bgColor = COLOR.green;
       break;
-    case 'Breaking':
+    case 'breaking':
       bgColor = COLOR.red;
       break;
-    case 'Changed':
+    case 'changed':
       bgColor = COLOR.purple;
       break;
-    case 'Deprecated':
+    case 'deprecated':
       bgColor = COLOR.orange;
       break;
-    case 'Fixed':
+    case 'fixed':
       bgColor = COLOR.blue;
       break;
-    case 'Other':
-      txColor = COLOR.black;
-      bgColor = COLOR.grey;
-      break;
-    case 'Removed':
-      bgColor = COLOR.black;
+    case 'removed':
+      bgColor = COLOR.greyDark;
       break;
     default:
+      // other
+      txColor = COLOR.black;
+      bgColor = COLOR.grey;
       break;
   }
   return (
@@ -47,7 +49,11 @@ export const Type = ({ type }: TypeProps) => {
       }}
       horizontalAlignItems="center"
       verticalAlignItems="center"
+      spacing={SPACE.xxxs}
     >
+      {isActive && (
+        <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />
+      )}
       <Text
         name="Type"
         fill={txColor}

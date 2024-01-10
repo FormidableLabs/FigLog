@@ -1,9 +1,10 @@
 import { Button } from './Button';
 import { User } from './log/User';
 import { DateRange } from './log/DateRange';
-// import { Type } from './log/Type';
+import { Type } from './log/Type';
 import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
+import { TypeMenu } from './log/TypeMenu';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -27,6 +28,7 @@ export const ChangeLogRow = ({
   setUpdatedDate,
   isEditable,
 }: ChangeLogRowProps) => {
+
   return (
     <AutoLayout
       key={changeLogId}
@@ -62,7 +64,8 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            {/* <Type type="Added" /> */}
+            <TypeMenu currentType={changeLog.type} />
+            <Type type={changeLog.type} />
             <Text
               name="Date"
               fill={COLOR.black}

@@ -13,7 +13,7 @@ function Widget() {
   const [showDescription, setShowDescription] = useSyncedState('showDescription', true);
   const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
-  const [showBranding, setShowBranding] = useSyncedState('showBradning', true);
+  const [showBranding, setShowBranding] = useSyncedState('showBranding', true);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
   const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
