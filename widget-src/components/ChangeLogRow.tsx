@@ -1,3 +1,4 @@
+import { ChangeLog } from '../types/ChangeLog';
 import { Button } from './Button';
 import { User } from './log/User';
 import { DateRange } from './log/DateRange';
@@ -64,8 +65,30 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            <TypeMenu currentType={changeLog.type} />
-            <Type type={changeLog.type} />
+            {!!changeLog.showTypeMenu && (
+              <TypeMenu
+                currentType={changeLog.type}
+                selectType={(newType) => {
+                  if (newType !== changeLog.type) {
+                    updateChange({
+                      type: newType,
+                      editCount: changeLog.editCount + 1,
+                      editedDate: Date.now(),
+                      showTypeMenu: !changeLog.showTypeMenu,
+                    });
+                    setUpdatedDate(Date.now());
+                  }
+                }}
+              />
+            )}
+            <Type
+              type={changeLog.type} 
+              action={() => {
+                updateChange({
+                  showTypeMenu: !changeLog.showTypeMenu,
+                })
+              }}
+            />
             <Text
               name="Date"
               fill={COLOR.black}

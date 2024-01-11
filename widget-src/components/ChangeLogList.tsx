@@ -1,3 +1,4 @@
+import { ChangeLog } from '../types/ChangeLog';
 import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 

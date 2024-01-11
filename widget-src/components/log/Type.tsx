@@ -8,9 +8,10 @@ const { AutoLayout, Text, SVG } = widget;
 interface TypeProps {
   type: ChangeType;
   isActive?: boolean;
+  action: () => void;
 }
 
-export const Type = ({ type, isActive = false }: TypeProps) => {
+export const Type = ({ type, isActive = false, action }: TypeProps) => {
   let txColor = COLOR.white;
   let bgColor = COLOR.black;
   switch (type) {
@@ -50,6 +51,8 @@ export const Type = ({ type, isActive = false }: TypeProps) => {
       horizontalAlignItems="center"
       verticalAlignItems="center"
       spacing={SPACE.xxxs}
+      onClick={() => { action() }}
+      positioning='auto'
     >
       {isActive && (
         <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />

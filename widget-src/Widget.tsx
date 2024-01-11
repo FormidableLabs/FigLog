@@ -1,3 +1,4 @@
+import { ChangeLog } from './types/ChangeLog';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
@@ -31,6 +32,7 @@ function Widget() {
       editedDate: Date.now(),
       user: currentUser,
       editCount: 0,
+      showTypeMenu: false,
     });
     setChangeIds([changeToAdd, ...changeIds]);
     setUpdatedDate(Date.now());

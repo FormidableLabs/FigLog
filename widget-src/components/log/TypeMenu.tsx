@@ -1,4 +1,4 @@
-import { ChangeTypes } from '../../types/ChangeTypes';
+import { ChangeType, ChangeTypes } from '../../types/ChangeTypes';
 import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
 import { Type } from './Type';
 
@@ -7,9 +7,10 @@ const { AutoLayout, Input, Rectangle, Text } = widget;
 
 interface TypeMenuProps {
   currentType: string;
+  selectType: (newType: ChangeType) => void;
 }
 
-export const TypeMenu = ({ currentType }: TypeMenuProps) => {
+export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
 
   return (
     <AutoLayout
@@ -38,7 +39,12 @@ export const TypeMenu = ({ currentType }: TypeMenuProps) => {
     >
       {ChangeTypes.map((changeType) => {
         return (
-          <Type type={changeType} key={changeType} isActive={changeType === currentType}/>
+          <Type
+            type={changeType}
+            key={changeType}
+            isActive={changeType === currentType}
+            action={() => selectType(changeType)}
+          />
         )
       })}
     </AutoLayout>
