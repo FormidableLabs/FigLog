@@ -76,7 +76,7 @@ export const Meta = ({
             horizontalAlignItems="end"
             verticalAlignItems="center"
           >
-            <SVG name="Vector" height={SPACE.xs} width={SPACE.xs} src={ActionAddIcon} />
+            <SVG name="Vector" height={SPACE.xs} width={SPACE.xs} src={<ActionAddIcon />} />
           </AutoLayout>
         </AutoLayout>
       )}

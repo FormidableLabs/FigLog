@@ -46,19 +46,16 @@ function Widget() {
   usePropertyMenu(
     [
       {
-        itemType: 'action',
-        tooltip: showName ? 'Hide Name' : 'Show Name',
+        itemType: 'toggle',
+        tooltip: 'Name',
         propertyName: 'name',
-        icon: '',
+        isToggled: showName,
       },
       {
-        itemType: 'separator',
-      },
-      {
-        itemType: 'action',
-        tooltip: showDescription ? 'Hide Description' : 'Show Description',
+        itemType: 'toggle',
+        tooltip: 'Description',
         propertyName: 'description',
-        icon: '',
+        isToggled: showDescription,
       },
       {
         itemType: 'separator',
@@ -66,7 +63,7 @@ function Widget() {
       {
         itemType: 'dropdown',
         options: [
-          { option: '0', label: 'Set Status...' },
+          { option: '0', label: 'Status...' },
           { option: '1', label: 'Proposed' },
           { option: '2', label: 'Draft' },
           { option: '3', label: 'Beta' },
@@ -82,35 +79,39 @@ function Widget() {
         itemType: 'separator',
       },
       {
-        itemType: 'action',
-        tooltip: showVersion ? 'Hide Version' : 'Show Version',
+        itemType: 'toggle',
+        tooltip: 'Version',
         propertyName: 'version',
-        icon: '',
+        isToggled: showVersion,
       },
       {
-        itemType: 'action',
-        tooltip: showBranding ? 'Hide Branding' : 'Show Branding',
+        itemType: 'toggle',
+        tooltip: 'Branding',
         propertyName: 'branding',
-        icon: '',
+        isToggled: showBranding,
       },
     ],
     ({ propertyName, propertyValue }) => {
-      if (propertyName === 'status' && propertyValue) {
-        setShowStatus(propertyValue);
-        setUpdatedDate(Date.now());
-      } else if (propertyName === 'name') {
-        setShowName(!showName);
-        setUpdatedDate(Date.now());
-      } else if (propertyName === 'description') {
-        setShowDescription(!showDescription);
-        setUpdatedDate(Date.now());
-      } else if (propertyName === 'version') {
-        setShowVersion(!showVersion);
-        setUpdatedDate(Date.now());
-      } else if (propertyName === 'branding') {
-        setShowBranding(!showBranding);
-        setUpdatedDate(Date.now());
+      switch (propertyName) {
+        case 'status':
+          if (propertyValue) {
+            setShowStatus(propertyValue);
+          }
+          break;
+        case 'name':
+          setShowName(!showName);
+          break;
+        case 'description':
+          setShowDescription(!showDescription);
+          break;
+        case 'version':
+          setShowVersion(!showVersion);
+          break;
+        case 'branding':
+          setShowBranding(!showBranding);
+          break;
       }
+      setUpdatedDate(Date.now());
     }
   );
 
