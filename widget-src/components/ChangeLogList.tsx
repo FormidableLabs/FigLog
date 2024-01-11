@@ -11,6 +11,7 @@ interface ChangeLogListProps {
   adminId: string;
   deleteChange: (changeId: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
+  showTypes: boolean;
 }
 
 export const ChangeLogList = ({
@@ -19,6 +20,7 @@ export const ChangeLogList = ({
   // adminId,
   deleteChange,
   setUpdatedDate,
+  showTypes
 }: ChangeLogListProps) => {
   useEffect(() => {
     console.log('ChangeLogs', changeLogs.entries());
@@ -56,6 +58,7 @@ export const ChangeLogList = ({
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
             isEditable={isEditable()}
+            showTypes={showTypes}
           />
         );
       })}

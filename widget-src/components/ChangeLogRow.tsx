@@ -18,6 +18,7 @@ interface ChangeLogRowProps {
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   isEditable: boolean;
+  showTypes: boolean;
 }
 
 export const ChangeLogRow = ({
@@ -28,6 +29,7 @@ export const ChangeLogRow = ({
   deleteChange,
   setUpdatedDate,
   isEditable,
+  showTypes,
 }: ChangeLogRowProps) => {
 
   return (
@@ -81,14 +83,16 @@ export const ChangeLogRow = ({
                 }}
               />
             )}
-            <Type
-              type={changeLog.type} 
-              action={() => {
-                updateChange({
-                  showTypeMenu: !changeLog.showTypeMenu,
-                })
-              }}
-            />
+            {showTypes && (
+              <Type
+                type={changeLog.type} 
+                action={() => {
+                  updateChange({
+                    showTypeMenu: !changeLog.showTypeMenu,
+                  })
+                }}
+              />
+            )}
             <Text
               name="Date"
               fill={COLOR.black}

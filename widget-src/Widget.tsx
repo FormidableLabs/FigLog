@@ -15,6 +15,7 @@ function Widget() {
   const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
   const [showBranding, setShowBranding] = useSyncedState('showBranding', true);
+  const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', true);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
   const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
@@ -90,6 +91,12 @@ function Widget() {
         propertyName: 'branding',
         isToggled: showBranding,
       },
+      {
+        itemType: 'toggle',
+        tooltip: 'Log Types',
+        propertyName: 'logTypes',
+        isToggled: showLogTypes,
+      },
     ],
     ({ propertyName, propertyValue }) => {
       switch (propertyName) {
@@ -109,6 +116,9 @@ function Widget() {
           break;
         case 'branding':
           setShowBranding(!showBranding);
+          break;
+        case 'logTypes':
+          setShowLogTypes(!showLogTypes);
           break;
       }
       setUpdatedDate(Date.now());
@@ -155,6 +165,7 @@ function Widget() {
           adminId={adminId}
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
+          showTypes={showLogTypes}
         />
       )}
       <Footer showBranding={showBranding} />
