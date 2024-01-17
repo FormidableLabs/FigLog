@@ -6,6 +6,9 @@ import { Type } from './log/Type';
 import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 import { TypeMenu } from './log/TypeMenu';
+import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
+import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
+import { LinkForm } from './log/LinkForm';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -122,7 +125,7 @@ export const ChangeLogRow = ({
                 horizontalAlignItems="end"
                 verticalAlignItems="center"
               >
-                <Button label="Delete" hideLabel={true} action={deleteChange} />
+                <Button label="Delete" hideLabel={true} iconSrc={<ActionDeleteIcon />} action={deleteChange} />
               </AutoLayout>
             )}
           </AutoLayout>
@@ -163,7 +166,59 @@ export const ChangeLogRow = ({
               </Text>
             )}
           </AutoLayout>
-          {/* <Links name="Links" /> */}
+          <AutoLayout
+            width="fill-parent"
+            horizontalAlignItems="end"
+            direction="vertical"
+            spacing={GAP.sm}
+            >
+            {/* <Links name="Links" /> */}
+            <Rectangle
+              name="Divider"
+              stroke={COLOR.grey}
+              width="fill-parent"
+              height={SPACE.one}
+            />
+            <AutoLayout
+              width="fill-parent"
+              horizontalAlignItems="end"
+              verticalAlignItems="center"
+              padding={{
+                top: PADDING.xxs,
+                right: PADDING.none,
+                bottom: PADDING.none,
+                left: PADDING.none,
+              }}
+            >
+              {!!changeLog.tmpState?.showLinkForm && (
+                <LinkForm
+                  changeLog={changeLog}
+                  updateChange={updateChange}
+                  setUpdatedDate={setUpdatedDate}
+                />
+              )}
+              {!!!changeLog.tmpState?.showLinkForm && (
+                <AutoLayout
+                  width="fill-parent"
+                  horizontalAlignItems="end"
+                  verticalAlignItems="center"
+                >
+                  <Button
+                    label="Add Link"
+                    iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
+                    action={() => {
+                      updateChange({
+                        tmpState: {
+                          ...changeLog.tmpState,
+                          showLinkForm: true,
+                        }
+                      })
+                    }}
+                  />
+                </AutoLayout>
+              )}
+            </AutoLayout>
+          </AutoLayout>
         </AutoLayout>
       </AutoLayout>
       <Rectangle

@@ -1,4 +1,5 @@
 import { ChangeType } from "./ChangeTypes"
+import { Link } from "./LinkTypes";
 
 export interface ChangeLog {
   createdDate: number;
@@ -8,4 +9,9 @@ export interface ChangeLog {
   change: string;
   editCount: number;
   showTypeMenu?: boolean;
+  links?: Link[];
+  tmpState?: {
+    link?: Link,
+    showLinkForm?: boolean;
+  };
 }

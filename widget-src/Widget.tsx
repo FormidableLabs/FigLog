@@ -34,6 +34,10 @@ function Widget() {
       user: currentUser,
       editCount: 0,
       showTypeMenu: false,
+      tmpState: {
+        showLinkForm: false,
+      },
+      links: [],
     });
     setChangeIds([changeToAdd, ...changeIds]);
     setUpdatedDate(Date.now());
