@@ -1,7 +1,7 @@
 import { LogoFormidable } from '../svgs/LogoFormidable';
 import { COLOR, GAP, OPACITY, SPACE } from '../utilities/Styles';
 
-const { widget, showUI } = figma;
+const { widget, openExternal } = figma;
 const { AutoLayout, Rectangle, SVG } = widget;
 
 interface FooterProps {
@@ -19,9 +19,7 @@ export const Footer = ({ showBranding }: FooterProps) => (
         verticalAlignItems="center"
         opacity={OPACITY.semiOpaque}
         onClick={() => {
-          const url = 'https://formidable.com/open-source/';
-          const openLinkUIString = `<script>window.open('${url}','_blank');</script>`;
-          showUI(openLinkUIString, { visible: false });
+          openExternal("https://formidable.com/open-source/");
         }}
         hoverStyle={{
           opacity: OPACITY.opaque,
