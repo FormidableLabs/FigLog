@@ -33,8 +33,8 @@ function Widget() {
       editedDate: Date.now(),
       user: currentUser,
       editCount: 0,
-      showTypeMenu: false,
-      tmpState: {
+      state: {
+        showTypeMenu: false,
         showLinkForm: false,
       },
       links: [],

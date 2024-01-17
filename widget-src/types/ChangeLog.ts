@@ -8,9 +8,9 @@ export interface ChangeLog {
   user: User | null;
   change: string;
   editCount: number;
-  showTypeMenu?: boolean;
   links?: Link[];
-  tmpState?: {
+  state?: {
+    showTypeMenu?: boolean;
     link?: Link,
     showLinkForm?: boolean;
   };

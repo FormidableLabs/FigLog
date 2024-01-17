@@ -41,13 +41,13 @@ export const LinkForm = ({
         lineHeight={FONT.lineHeight.xs}
         fontSize={FONT.size.xs}
         fontFamily={FONT.family}
-        value={changeLog.tmpState?.link?.label || ''}
+        value={changeLog.state?.link?.label || ''}
         onTextEditEnd={(e) => {
-          if (e.characters !== changeLog.tmpState?.link?.label) {
+          if (e.characters !== changeLog.state?.link?.label) {
             updateChange({
-              tmpState: {
-                ...changeLog.tmpState,
-                link: {...changeLog.tmpState?.link, label: e.characters}}
+              state: {
+                ...changeLog.state,
+                link: {...changeLog.state?.link, label: e.characters}}
             })
           }
         }}
@@ -67,33 +67,33 @@ export const LinkForm = ({
         lineHeight={FONT.lineHeight.xs}
         fontSize={FONT.size.xs}
         fontFamily={FONT.family}
-        value={changeLog.tmpState?.link?.url || ''}
+        value={changeLog.state?.link?.url || ''}
         onTextEditEnd={(e) => {
-          if (e.characters !== changeLog.tmpState?.link?.url) {
+          if (e.characters !== changeLog.state?.link?.url) {
             updateChange({
-              tmpState: {
-                ...changeLog.tmpState,
-                link: {...changeLog.tmpState?.link, url: e.characters}}
+              state: {
+                ...changeLog.state,
+                link: {...changeLog.state?.link, url: e.characters}}
             })
           }
         }}
       />
       <Button label="Add" action={() => {
-        if (!!changeLog.tmpState?.link?.label && !!changeLog.tmpState?.link?.url) {
+        if (!!changeLog.state?.link?.label && !!changeLog.state?.link?.url) {
           const linkKey= `link-${randomId()}`;
 
           if (!!changeLog.links &&  changeLog.links?.length > 0) {
             updateChange({
-              links: [...changeLog.links, { ...changeLog.tmpState.link, key: linkKey }],
+              links: [...changeLog.links, { ...changeLog.state.link, key: linkKey }],
               editCount: changeLog.editCount + 1,
               editedDate: Date.now(),
             })
           } else {
             updateChange({
-              links: [{...changeLog.tmpState.link, key: linkKey }],
+              links: [{...changeLog.state.link, key: linkKey }],
               editCount: changeLog.editCount + 1,
               editedDate: Date.now(),
-              tmpState: { // hide form and clear tmp link data
+              state: { // hide form and clear tmp link data
                 showLinkForm: false,
                 link: {},
               }
@@ -110,7 +110,7 @@ export const LinkForm = ({
         iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}
         action={() => {
           updateChange({
-            tmpState: {
+            state: {
               showLinkForm: false,
               link: {},
             }

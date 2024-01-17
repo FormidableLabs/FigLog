@@ -70,7 +70,7 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            {!!changeLog.showTypeMenu && (
+            {!!changeLog.state?.showTypeMenu && (
               <TypeMenu
                 currentType={changeLog.type}
                 selectType={(newType) => {
@@ -79,7 +79,10 @@ export const ChangeLogRow = ({
                       type: newType,
                       editCount: changeLog.editCount + 1,
                       editedDate: Date.now(),
-                      showTypeMenu: !changeLog.showTypeMenu,
+                      state: {
+                        ...changeLog.state,
+                        showTypeMenu: !changeLog.state?.showTypeMenu,
+                      }
                     });
                     setUpdatedDate(Date.now());
                   }
@@ -91,7 +94,10 @@ export const ChangeLogRow = ({
                 type={changeLog.type} 
                 action={() => {
                   updateChange({
-                    showTypeMenu: !changeLog.showTypeMenu,
+                    state: {
+                      ...changeLog.state,
+                      showTypeMenu: !changeLog.state?.showTypeMenu,
+                    }
                   })
                 }}
               />
@@ -190,14 +196,14 @@ export const ChangeLogRow = ({
                 left: PADDING.none,
               }}
             >
-              {!!changeLog.tmpState?.showLinkForm && (
+              {!!changeLog.state?.showLinkForm && (
                 <LinkForm
                   changeLog={changeLog}
                   updateChange={updateChange}
                   setUpdatedDate={setUpdatedDate}
                 />
               )}
-              {!!!changeLog.tmpState?.showLinkForm && (
+              {!!!changeLog.state?.showLinkForm && (
                 <AutoLayout
                   width="fill-parent"
                   horizontalAlignItems="end"
@@ -208,8 +214,8 @@ export const ChangeLogRow = ({
                     iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
                     action={() => {
                       updateChange({
-                        tmpState: {
-                          ...changeLog.tmpState,
+                        state: {
+                          ...changeLog.state,
                           showLinkForm: true,
                         }
                       })
