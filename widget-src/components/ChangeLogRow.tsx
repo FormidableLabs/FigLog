@@ -9,6 +9,7 @@ import { TypeMenu } from './log/TypeMenu';
 import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
 import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
 import { LinkForm } from './log/LinkForm';
+import { LinkList } from './log/LinkList';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -176,53 +177,25 @@ export const ChangeLogRow = ({
             width="fill-parent"
             horizontalAlignItems="end"
             direction="vertical"
-            spacing={GAP.sm}
-            >
-            {/* <Links name="Links" /> */}
-            <Rectangle
-              name="Divider"
-              stroke={COLOR.grey}
-              width="fill-parent"
-              height={SPACE.one}
+          >
+            <LinkList
+              links={changeLog.links}
+              deleteLink={(linkToDelete) => {
+                updateChange({
+                  links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
+                })
+              }}
             />
             <AutoLayout
               width="fill-parent"
               horizontalAlignItems="end"
               verticalAlignItems="center"
-              padding={{
-                top: PADDING.xxs,
-                right: PADDING.none,
-                bottom: PADDING.none,
-                left: PADDING.none,
-              }}
             >
-              {!!changeLog.state?.showLinkForm && (
-                <LinkForm
-                  changeLog={changeLog}
-                  updateChange={updateChange}
-                  setUpdatedDate={setUpdatedDate}
-                />
-              )}
-              {!!!changeLog.state?.showLinkForm && (
-                <AutoLayout
-                  width="fill-parent"
-                  horizontalAlignItems="end"
-                  verticalAlignItems="center"
-                >
-                  <Button
-                    label="Add Link"
-                    iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
-                    action={() => {
-                      updateChange({
-                        state: {
-                          ...changeLog.state,
-                          showLinkForm: true,
-                        }
-                      })
-                    }}
-                  />
-                </AutoLayout>
-              )}
+              <LinkForm
+                changeLog={changeLog}
+                updateChange={updateChange}
+                setUpdatedDate={setUpdatedDate}
+              />
             </AutoLayout>
           </AutoLayout>
         </AutoLayout>
