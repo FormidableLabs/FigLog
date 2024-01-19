@@ -28,7 +28,7 @@ function Widget() {
   const addChange = (changeToAdd: string) => {
     changeLogs.set(changeToAdd, {
       change: '',
-      type: 'added',
+      type: 'none',
       createdDate: Date.now(),
       editedDate: Date.now(),
       user: currentUser,

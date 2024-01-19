@@ -1,4 +1,4 @@
-import { COLOR, FONT, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
+import { COLOR, FONT, RADIUS, PADDING, SPACE, GAP } from '../../utilities/Styles';
 import { ChangeType } from '../../types/ChangeTypes'
 import { Check } from '../../svgs/Check';
 
@@ -14,29 +14,44 @@ interface TypeProps {
 export const Type = ({ type, isActive = false, action }: TypeProps) => {
   let txColor = COLOR.white;
   let bgColor = COLOR.black;
+  let showStroke = false;
+  let displayName = '';
   switch (type) {
+    case 'none':
+      txColor = COLOR.greyDark;
+      bgColor = COLOR.white;
+      showStroke = true;
+      displayName = "Add Type";
+      break;
     case 'added':
       bgColor = COLOR.green;
+      displayName = "Added";
       break;
     case 'breaking':
       bgColor = COLOR.red;
+      displayName = "Breaking";
       break;
     case 'changed':
       bgColor = COLOR.purple;
+      displayName = "Changed";
       break;
     case 'deprecated':
       bgColor = COLOR.orange;
+      displayName = "Deprecated";
       break;
     case 'fixed':
       bgColor = COLOR.blue;
+      displayName = "Fixed";
       break;
     case 'removed':
       bgColor = COLOR.greyDark;
+      displayName = "Removed";
       break;
     default:
       // other
       txColor = COLOR.black;
       bgColor = COLOR.grey;
+      displayName = "Other";
       break;
   }
   return (
@@ -53,6 +68,8 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       spacing={SPACE.xxxs}
       onClick={() => { action() }}
       positioning='auto'
+      stroke={showStroke ? COLOR.grey : ''}
+      strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
     >
       {isActive && (
         <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />
@@ -69,7 +86,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
         fontWeight={FONT.weight.bold}
         textCase="upper"
       >
-        {type}
+        {displayName}
       </Text>
     </AutoLayout>
   );
