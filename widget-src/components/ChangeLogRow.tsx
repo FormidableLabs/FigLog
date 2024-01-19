@@ -78,7 +78,13 @@ export const ChangeLogRow = ({
                       editedDate: Date.now(),
                       showTypeMenu: !changeLog.showTypeMenu,
                     });
-                    setUpdatedDate(Date.now());
+                    if (changeLog.type !== 'none') {
+                      setUpdatedDate(Date.now());
+                    }
+                  } else {
+                    updateChange({
+                      showTypeMenu: !changeLog.showTypeMenu,
+                    })
                   }
                 }}
               />
