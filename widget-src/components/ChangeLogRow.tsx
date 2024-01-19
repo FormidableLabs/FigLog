@@ -71,7 +71,7 @@ export const ChangeLogRow = ({
           >
             {!!changeLog.showTypeMenu && (
               <TypeMenu
-                currentType={changeLog.type}
+                currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
                 selectType={(newType) => {
                   if (newType !== changeLog.type) {
                     updateChange({
