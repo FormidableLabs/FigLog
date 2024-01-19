@@ -18,18 +18,26 @@ interface ChangeLogRowProps {
   isEditable: boolean;
 }
 
-export const ChangeLogRow = (props: ChangeLogRowProps) => {
+export const ChangeLogRow = ({
+  changeLogId,
+  changeLog,
+  isLastRow,
+  updateChange,
+  deleteChange,
+  setUpdatedDate,
+  isEditable,
+}: ChangeLogRowProps) => {
   return (
     <AutoLayout
+      key={changeLogId}
       name="ChangeLogRow"
       fill={COLOR.white}
       overflow="visible"
       direction="vertical"
       width="fill-parent"
-      {...props}
     >
       <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
-        <User userName={props.changeLog.user?.name} userPhotoUrl={props.changeLog.user?.photoUrl} />
+        <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} />
         <AutoLayout
           name="Change Content"
           overflow="visible"
@@ -65,18 +73,17 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
               fontWeight={FONT.weight.bold}
               textCase="upper"
             >
-              {props.changeLog.user?.name || ''}
+              {changeLog.user?.name || ''}
             </Text>
 
             <DateRange
-              editedDate={formatDate(props.changeLog.editedDate, 'date')}
-              editedTime={formatDate(props.changeLog.editedDate, 'time')}
-              date={formatDate(props.changeLog.createdDate, 'date')}
-              time={formatDate(props.changeLog.createdDate, 'time')}
-              editCount={props.changeLog.editCount}
-              edited={false}
+              editedDate={formatDate(changeLog.editedDate, 'date')}
+              editedTime={formatDate(changeLog.editedDate, 'time')}
+              date={formatDate(changeLog.createdDate, 'date')}
+              time={formatDate(changeLog.createdDate, 'time')}
+              editCount={changeLog.editCount}
             />
-            {props.isEditable && (
+            {isEditable && (
               <AutoLayout
                 name="Actions"
                 overflow="visible"
@@ -85,12 +92,12 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
                 horizontalAlignItems="end"
                 verticalAlignItems="center"
               >
-                <Button label="Delete" hideLabel={true} action={props.deleteChange} />
+                <Button label="Delete" hideLabel={true} action={deleteChange} />
               </AutoLayout>
             )}
           </AutoLayout>
           <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-            {props.isEditable ? (
+            {isEditable ? (
               <Input
                 name="EditableChange"
                 fill={COLOR.black}
@@ -99,17 +106,17 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
                   fill: COLOR.white,
                 }}
                 onTextEditEnd={e => {
-                  if (e.characters !== props.changeLog.change) {
-                    props.updateChange({
+                  if (e.characters !== changeLog.change) {
+                    updateChange({
                       change: e.characters,
-                      editCount: props.changeLog.editCount + 1,
+                      editCount: changeLog.editCount + 1,
                       editedDate: Date.now(),
                     });
-                    props.setUpdatedDate(Date.now());
+                    setUpdatedDate(Date.now());
                   }
                 }}
                 placeholder="Your update..."
-                value={props.changeLog.change}
+                value={changeLog.change}
                 width="fill-parent"
                 lineHeight={FONT.lineHeight.lg}
                 fontFamily={FONT.family}
@@ -122,7 +129,7 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
                 fontFamily={FONT.family}
                 width={'fill-parent'}
               >
-                {props.changeLog.change || '...'}
+                {changeLog.change || '...'}
               </Text>
             )}
           </AutoLayout>
@@ -131,7 +138,7 @@ export const ChangeLogRow = (props: ChangeLogRowProps) => {
       </AutoLayout>
       <Rectangle
         name="Divider"
-        hidden={props.isLastRow}
+        hidden={isLastRow}
         stroke={COLOR.grey}
         width="fill-parent"
         height={SPACE.one}

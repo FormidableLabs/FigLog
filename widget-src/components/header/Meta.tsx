@@ -8,7 +8,6 @@ const { AutoLayout, SVG } = widget;
 
 interface MetaProps {
   createdDate: number;
-  setCreatedDate: (updatedDate: number) => void;
   updatedDate: number;
   setUpdatedDate: (updatedDate: number) => void;
   version: string;
@@ -17,7 +16,15 @@ interface MetaProps {
   addChange: (changeId: string) => void;
 }
 
-export const Meta = (props: MetaProps) => {
+export const Meta = ({
+  createdDate,
+  updatedDate,
+  setUpdatedDate,
+  version,
+  showVersion,
+  setVersion,
+  addChange
+}: MetaProps) => {
   return (
     <AutoLayout
       name="MetaWrapper"
@@ -33,16 +40,16 @@ export const Meta = (props: MetaProps) => {
       verticalAlignItems="center"
     >
       {/* LOGGING SINCE */}
-      <MetaValue label="Created" value={formatDate(props.createdDate, 'datetime')} />
+      <MetaValue label="Created" value={formatDate(createdDate, 'datetime')} />
       {/* LAST UPDATED */}
-      <MetaValue label="Updated" value={formatDate(props.updatedDate, 'datetime')} />
+      <MetaValue label="Updated" value={formatDate(updatedDate, 'datetime')} />
       {/* VERSION */}
-      {props.showVersion && (
+      {showVersion && (
         <MetaValue
           label="Version"
-          value={props.version}
-          setValue={props.setVersion}
-          setUpdatedDate={props.setUpdatedDate}
+          value={version}
+          setValue={setVersion}
+          setUpdatedDate={setUpdatedDate}
         />
       )}
       {/* NEW */}
@@ -61,7 +68,7 @@ export const Meta = (props: MetaProps) => {
             hoverStyle={{ fill: COLOR.grey }}
             onClick={() => {
               const changeId = randomId();
-              props.addChange(changeId);
+              addChange(changeId);
             }}
             overflow="visible"
             spacing={GAP.md}

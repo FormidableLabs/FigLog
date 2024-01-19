@@ -10,7 +10,12 @@ interface MetaValueProps {
   setUpdatedDate?: (updatedDate: number) => void;
 }
 
-export const MetaValue = (props: MetaValueProps) => {
+export const MetaValue = ({
+  label,
+  value,
+  setValue,
+  setUpdatedDate,
+}: MetaValueProps) => {
   return (
     <AutoLayout
       name="MetaValue"
@@ -32,9 +37,9 @@ export const MetaValue = (props: MetaValueProps) => {
         fontWeight={FONT.weight.bold}
         textCase="upper"
       >
-        {props.label}
+        {label}
       </Text>
-      {props.setValue && props.setUpdatedDate ? (
+      {setValue && setUpdatedDate ? (
         <Input
           name="EditableMetaValueValue"
           fill={COLOR.greyDark}
@@ -45,11 +50,11 @@ export const MetaValue = (props: MetaValueProps) => {
             fill: COLOR.white,
           }}
           onTextEditEnd={e => {
-            props.setValue ? props.setValue(e.characters) : null;
-            props.setUpdatedDate ? props.setUpdatedDate(Date.now()) : null;
+            setValue ? setValue(e.characters) : null;
+            setUpdatedDate ? setUpdatedDate(Date.now()) : null;
           }}
           placeholder="0.0.0"
-          value={props.value}
+          value={value}
           width={SPACE.md}
           inputBehavior="truncate"
           truncate={0}
@@ -64,7 +69,7 @@ export const MetaValue = (props: MetaValueProps) => {
           letterSpacing={FONT.letterSpacing.sm}
           width={'hug-contents'}
         >
-          {props.value}
+          {value}
         </Text>
       )}
     </AutoLayout>

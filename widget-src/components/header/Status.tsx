@@ -7,10 +7,10 @@ interface StatusProps {
   status: string;
 }
 
-export const Status = (props: StatusProps) => {
+export const Status = ({ status }: StatusProps) => {
   let statusEmoji = '';
   let statusLabel = '';
-  switch (props.status) {
+  switch (status) {
     case '1':
       statusEmoji = '🙋‍♀️';
       statusLabel = 'Proposed';
