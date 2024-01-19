@@ -14,7 +14,8 @@ interface ChangeLogRowProps {
   changeLogId: string;
   changeLog: ChangeLog;
   isLastRow: boolean;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
+  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   isEditable: boolean;
@@ -26,6 +27,7 @@ export const ChangeLogRow = ({
   changeLog,
   isLastRow,
   updateChange,
+  updateOthers,
   deleteChange,
   setUpdatedDate,
   isEditable,
@@ -93,8 +95,13 @@ export const ChangeLogRow = ({
               <Type
                 type={changeLog.type} 
                 action={() => {
+                  // toggle log type menu
                   updateChange({
                     showTypeMenu: !changeLog.showTypeMenu,
+                  })
+                  // hide all other log type menues
+                  updateOthers({
+                    showTypeMenu: false,
                   })
                 }}
               />

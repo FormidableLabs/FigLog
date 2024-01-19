@@ -55,6 +55,14 @@ export const ChangeLogList = ({
             changeLog={changeLog}
             isLastRow={index === changeLogIds.length - 1}
             updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
+            updateOthers={changes => {
+              changeLogIds.map((id) => {
+                if (id !== changeLogId) {
+                  const otherLog = changeLogs.get(id) as ChangeLog;
+                  changeLogs.set(id, { ...otherLog, ...changes })
+                }
+              })
+            }}
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
             isEditable={isEditable()}
