@@ -47,21 +47,6 @@ function Widget() {
   usePropertyMenu(
     [
       {
-        itemType: 'toggle',
-        tooltip: 'Name',
-        propertyName: 'name',
-        isToggled: showName,
-      },
-      {
-        itemType: 'toggle',
-        tooltip: 'Description',
-        propertyName: 'description',
-        isToggled: showDescription,
-      },
-      {
-        itemType: 'separator',
-      },
-      {
         itemType: 'dropdown',
         options: [
           { option: '0', label: 'Status...' },
@@ -81,21 +66,33 @@ function Widget() {
       },
       {
         itemType: 'toggle',
+        tooltip: 'Name',
+        propertyName: 'name',
+        isToggled: showName,
+      },
+      {
+        itemType: 'toggle',
+        tooltip: 'Description',
+        propertyName: 'description',
+        isToggled: showDescription,
+      },
+      {
+        itemType: 'toggle',
         tooltip: 'Version',
         propertyName: 'version',
         isToggled: showVersion,
       },
       {
         itemType: 'toggle',
-        tooltip: 'Branding',
-        propertyName: 'branding',
-        isToggled: showBranding,
-      },
-      {
-        itemType: 'toggle',
         tooltip: 'Log Types',
         propertyName: 'logTypes',
         isToggled: showLogTypes,
+      },
+      {
+        itemType: 'toggle',
+        tooltip: 'Branding',
+        propertyName: 'branding',
+        isToggled: showBranding,
       },
     ],
     ({ propertyName, propertyValue }) => {
