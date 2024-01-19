@@ -1,3 +1,7 @@
-export const ActionAddIcon: string = `<svg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'>
-<path d='M16 7.30435H8.69565V0H7.30435V7.30435H0V8.69565H7.30435V16H8.69565V8.69565H16V7.30435Z' fill='#2F2D2E'/>
-</svg>`;
+import { COLOR } from "../utilities/Styles";
+
+export const ActionAddIcon = ( {color = COLOR.black} ) => (
+  `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" fill="${color}" d="M8 0C8.55228 0 9 0.447715 9 1V7H15C15.5523 7 16 7.44772 16 8C16 8.55228 15.5523 9 15 9H9V15C9 15.5523 8.55228 16 8 16C7.44772 16 7 15.5523 7 15V9H1C0.447715 9 0 8.55228 0 8C0 7.44772 0.447715 7 1 7H7V1C7 0.447715 7.44772 0 8 0Z"/>
+  </svg>`
+);
