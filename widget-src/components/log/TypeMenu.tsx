@@ -38,14 +38,16 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       }}
     >
       {ChangeTypes.map((changeType) => {
-        return (
-          <Type
-            type={changeType}
-            key={changeType}
-            isActive={changeType === currentType}
-            action={() => selectType(changeType)}
-          />
-        )
+        if (changeType !== 'added') {
+          return (
+            <Type
+              type={changeType}
+              key={changeType}
+              isActive={changeType === currentType}
+              action={() => selectType(changeType)}
+            />
+          )
+        }
       })}
     </AutoLayout>
   )

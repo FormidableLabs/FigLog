@@ -18,12 +18,13 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
   let displayName = '';
   switch (type) {
     case 'none':
+    case 'added': // catch legacy logs with "added" as default type
       txColor = COLOR.greyDark;
       bgColor = COLOR.white;
       showStroke = true;
       displayName = "Add Type";
       break;
-    case 'added':
+    case 'newAdd':
       bgColor = COLOR.green;
       displayName = "Added";
       break;
