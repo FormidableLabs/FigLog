@@ -73,16 +73,17 @@ export const ChangeLogRow = ({
               <TypeMenu
                 currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
                 selectType={(newType) => {
+
+                  const addEdit = changeLog.type !== 'none' && changeLog.type !== 'added';
+
                   if (newType !== changeLog.type) {
-                    updateChange({
-                      type: newType,
-                      editCount: changeLog.editCount + 1,
-                      editedDate: Date.now(),
-                      showTypeMenu: !changeLog.showTypeMenu,
-                    });
-                    if (changeLog.type !== 'none') {
+                      updateChange({
+                        type: newType,
+                        editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
+                        editedDate: addEdit ? Date.now() : changeLog.editedDate,
+                        showTypeMenu: !changeLog.showTypeMenu,
+                      });
                       setUpdatedDate(Date.now());
-                    }
                   } else {
                     updateChange({
                       showTypeMenu: !changeLog.showTypeMenu,
