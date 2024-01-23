@@ -22,7 +22,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       txColor = COLOR.greyDark;
       bgColor = COLOR.white;
       showStroke = true;
-      displayName = "Add Type";
+      displayName = "Change Type";
       break;
     case 'newAdd':
       bgColor = COLOR.green;
@@ -72,7 +72,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       stroke={showStroke ? COLOR.grey : ''}
       strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
     >
-      {isActive && (
+      {isActive && type !== 'none' && (
         <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />
       )}
       <Text
