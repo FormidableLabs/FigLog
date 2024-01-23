@@ -1,3 +1,4 @@
+import { ChangeLog } from './types/ChangeLog';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
@@ -13,7 +14,8 @@ function Widget() {
   const [showDescription, setShowDescription] = useSyncedState('showDescription', true);
   const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
-  const [showBranding, setShowBranding] = useSyncedState('showBradning', true);
+  const [showBranding, setShowBranding] = useSyncedState('showBranding', true);
+  const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', false);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
   const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
@@ -26,11 +28,12 @@ function Widget() {
   const addChange = (changeToAdd: string) => {
     changeLogs.set(changeToAdd, {
       change: '',
-      type: 'added',
+      type: 'none',
       createdDate: Date.now(),
       editedDate: Date.now(),
       user: currentUser,
       editCount: 0,
+      showTypeMenu: false,
     });
     setChangeIds([changeToAdd, ...changeIds]);
     setUpdatedDate(Date.now());
@@ -43,21 +46,6 @@ function Widget() {
 
   usePropertyMenu(
     [
-      {
-        itemType: 'toggle',
-        tooltip: 'Name',
-        propertyName: 'name',
-        isToggled: showName,
-      },
-      {
-        itemType: 'toggle',
-        tooltip: 'Description',
-        propertyName: 'description',
-        isToggled: showDescription,
-      },
-      {
-        itemType: 'separator',
-      },
       {
         itemType: 'dropdown',
         options: [
@@ -78,9 +66,27 @@ function Widget() {
       },
       {
         itemType: 'toggle',
+        tooltip: 'Name',
+        propertyName: 'name',
+        isToggled: showName,
+      },
+      {
+        itemType: 'toggle',
+        tooltip: 'Description',
+        propertyName: 'description',
+        isToggled: showDescription,
+      },
+      {
+        itemType: 'toggle',
         tooltip: 'Version',
         propertyName: 'version',
         isToggled: showVersion,
+      },
+      {
+        itemType: 'toggle',
+        tooltip: 'Log Types',
+        propertyName: 'logTypes',
+        isToggled: showLogTypes,
       },
       {
         itemType: 'toggle',
@@ -107,6 +113,9 @@ function Widget() {
           break;
         case 'branding':
           setShowBranding(!showBranding);
+          break;
+        case 'logTypes':
+          setShowLogTypes(!showLogTypes);
           break;
       }
       setUpdatedDate(Date.now());
@@ -153,6 +162,7 @@ function Widget() {
           adminId={adminId}
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
+          showTypes={showLogTypes}
         />
       )}
       <Footer showBranding={showBranding} />

@@ -1,3 +1,4 @@
+import { ChangeLog } from '../types/ChangeLog';
 import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
@@ -10,6 +11,7 @@ interface ChangeLogListProps {
   adminId: string;
   deleteChange: (changeId: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
+  showTypes: boolean;
 }
 
 export const ChangeLogList = ({
@@ -18,6 +20,7 @@ export const ChangeLogList = ({
   // adminId,
   deleteChange,
   setUpdatedDate,
+  showTypes
 }: ChangeLogListProps) => {
   useEffect(() => {
     console.log('ChangeLogs', changeLogs.entries());
@@ -52,9 +55,18 @@ export const ChangeLogList = ({
             changeLog={changeLog}
             isLastRow={index === changeLogIds.length - 1}
             updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
+            updateOthers={changes => {
+              changeLogIds.map((id) => {
+                if (id !== changeLogId) {
+                  const otherLog = changeLogs.get(id) as ChangeLog;
+                  changeLogs.set(id, { ...otherLog, ...changes })
+                }
+              })
+            }}
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
             isEditable={isEditable()}
+            showTypes={showTypes}
           />
         );
       })}

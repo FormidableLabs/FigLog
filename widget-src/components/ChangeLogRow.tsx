@@ -1,9 +1,11 @@
+import { ChangeLog } from '../types/ChangeLog';
 import { Button } from './Button';
 import { User } from './log/User';
 import { DateRange } from './log/DateRange';
-// import { Type } from './log/Type';
+import { Type } from './log/Type';
 import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
+import { TypeMenu } from './log/TypeMenu';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -12,10 +14,12 @@ interface ChangeLogRowProps {
   changeLogId: string;
   changeLog: ChangeLog;
   isLastRow: boolean;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
+  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   isEditable: boolean;
+  showTypes: boolean;
 }
 
 export const ChangeLogRow = ({
@@ -23,10 +27,13 @@ export const ChangeLogRow = ({
   changeLog,
   isLastRow,
   updateChange,
+  updateOthers,
   deleteChange,
   setUpdatedDate,
   isEditable,
+  showTypes,
 }: ChangeLogRowProps) => {
+
   return (
     <AutoLayout
       key={changeLogId}
@@ -62,7 +69,44 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            {/* <Type type="Added" /> */}
+            {!!changeLog.showTypeMenu && (
+              <TypeMenu
+                currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
+                selectType={(newType) => {
+
+                  const addEdit = changeLog.type !== 'none' && changeLog.type !== 'added';
+
+                  if (newType !== changeLog.type) {
+                      updateChange({
+                        type: newType,
+                        editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
+                        editedDate: addEdit ? Date.now() : changeLog.editedDate,
+                        showTypeMenu: !changeLog.showTypeMenu,
+                      });
+                      setUpdatedDate(Date.now());
+                  } else {
+                    updateChange({
+                      showTypeMenu: !changeLog.showTypeMenu,
+                    })
+                  }
+                }}
+              />
+            )}
+            {showTypes && (
+              <Type
+                type={changeLog.type} 
+                action={() => {
+                  // toggle log type menu
+                  updateChange({
+                    showTypeMenu: !changeLog.showTypeMenu,
+                  })
+                  // hide all other log type menues
+                  updateOthers({
+                    showTypeMenu: false,
+                  })
+                }}
+              />
+            )}
             <Text
               name="Date"
               fill={COLOR.black}
