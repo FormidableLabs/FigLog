@@ -1,6 +1,7 @@
 import { COLOR, FONT, RADIUS, PADDING, SPACE, GAP } from '../../utilities/Styles';
 import { ChangeType } from '../../types/ChangeTypes'
 import { Check } from '../../svgs/Check';
+import { ActionAddIcon } from '../../svgs/ActionAddIcon';
 
 const { widget } = figma;
 const { AutoLayout, Text, SVG } = widget;
@@ -22,7 +23,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       txColor = COLOR.greyDark;
       bgColor = COLOR.white;
       showStroke = true;
-      displayName = "Change Type";
+      displayName = "Log Type";
       break;
     case 'newAdd':
       bgColor = COLOR.green;
@@ -55,6 +56,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       displayName = "Other";
       break;
   }
+  
   return (
     <AutoLayout
       name="Log Type"
@@ -72,8 +74,11 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       stroke={showStroke ? COLOR.grey : ''}
       strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
     >
-      {isActive && type !== 'none' && (
+      {isActive && (
         <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />
+      )}
+      {type === ('none' || 'added') && (
+        <SVG name="Add" height={PADDING.sm} width={PADDING.sm}  src={<ActionAddIcon color={txColor}/>} />
       )}
       <Text
         name="Type"

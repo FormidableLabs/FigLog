@@ -39,7 +39,7 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       }}
     >
       {ChangeTypes.map((changeType) => {
-        if (changeType !== 'added') {
+        if (changeType !== 'added' || 'none') {
           return (
             <Type
               type={changeType}
