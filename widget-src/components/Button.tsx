@@ -1,5 +1,3 @@
-import { ActionEditIcon } from '../svgs/ActionEditIcon';
-import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;

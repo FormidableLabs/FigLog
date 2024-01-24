@@ -18,7 +18,8 @@ interface ChangeLogRowProps {
   changeLogId: string;
   changeLog: ChangeLog;
   isLastRow: boolean;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
+  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   isEditable: boolean;
@@ -30,6 +31,7 @@ export const ChangeLogRow = ({
   changeLog,
   isLastRow,
   updateChange,
+  updateOthers,
   deleteChange,
   setUpdatedDate,
   isEditable,
@@ -73,19 +75,29 @@ export const ChangeLogRow = ({
           >
             {!!changeLog.state?.showTypeMenu && (
               <TypeMenu
-                currentType={changeLog.type}
+                currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
                 selectType={(newType) => {
+
+                  const addEdit = changeLog.type !== 'none' && changeLog.type !== 'added';
+
                   if (newType !== changeLog.type) {
+                      updateChange({
+                        type: newType,
+                        editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
+                        editedDate: addEdit ? Date.now() : changeLog.editedDate,
+                        state: {
+                          ...changeLog.state,
+                          showTypeMenu: !changeLog.state?.showTypeMenu,
+                        },
+                      });
+                      setUpdatedDate(Date.now());
+                  } else {
                     updateChange({
-                      type: newType,
-                      editCount: changeLog.editCount + 1,
-                      editedDate: Date.now(),
                       state: {
                         ...changeLog.state,
                         showTypeMenu: !changeLog.state?.showTypeMenu,
-                      }
-                    });
-                    setUpdatedDate(Date.now());
+                      },
+                    })
                   }
                 }}
               />
@@ -94,10 +106,18 @@ export const ChangeLogRow = ({
               <Type
                 type={changeLog.type} 
                 action={() => {
+                  // toggle log type menu
                   updateChange({
                     state: {
                       ...changeLog.state,
                       showTypeMenu: !changeLog.state?.showTypeMenu,
+                    }
+                  })
+                  // hide all other log type menues
+                  updateOthers({
+                    state: {
+                      ...changeLog.state,
+                      showTypeMenu: false,
                     }
                   })
                 }}

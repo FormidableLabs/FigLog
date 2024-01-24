@@ -19,6 +19,7 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       y={{ type: 'bottom', offset: FONT.lineHeight.xs + PADDING.xs*2 + PADDING.xxs }}
       fill={COLOR.white}
       stroke={COLOR.grey}
+      strokeDashPattern={[]}
       padding={{
         vertical: PADDING.sm,
         horizontal: PADDING.sm,
@@ -38,14 +39,16 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       }}
     >
       {ChangeTypes.map((changeType) => {
-        return (
-          <Type
-            type={changeType}
-            key={changeType}
-            isActive={changeType === currentType}
-            action={() => selectType(changeType)}
-          />
-        )
+        if (changeType !== 'added' && changeType !== 'none') {
+          return (
+            <Type
+              type={changeType}
+              key={changeType}
+              isActive={changeType === currentType}
+              action={() => selectType(changeType)}
+            />
+          )
+        }
       })}
     </AutoLayout>
   )

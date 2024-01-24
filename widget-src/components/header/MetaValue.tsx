@@ -50,8 +50,11 @@ export const MetaValue = ({
             fill: COLOR.white,
           }}
           onTextEditEnd={e => {
-            setValue ? setValue(e.characters) : null;
-            setUpdatedDate ? setUpdatedDate(Date.now()) : null;
+            // only update if something changed
+            if (e.characters !== value) {
+              setValue ? setValue(e.characters) : null;
+              setUpdatedDate ? setUpdatedDate(Date.now()) : null;
+            }
           }}
           placeholder="0.0.0"
           value={value}
