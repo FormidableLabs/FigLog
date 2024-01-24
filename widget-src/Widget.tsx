@@ -36,6 +36,7 @@ function Widget() {
       state: {
         showTypeMenu: false,
         showLinkForm: false,
+        linkFormError: { label: false, url: false }
       },
       links: [],
     });

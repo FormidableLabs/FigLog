@@ -20,33 +20,54 @@ export const LinkForm = ({
   setUpdatedDate,
 }: LinkFormProps) => {
 
+  const validUrl = (address: string) => {
+    const urlRegex = new RegExp(/^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/gi)
+    return urlRegex.test(address);
+  }
+
+  const errorMsg = (labelError: boolean, urlError: boolean) => {
+    if (labelError && urlError) {
+      return "A link label and valid url - including 'https://' are required.";
+    } else if (labelError) {
+      return "A link label is required."
+    } else if (urlError) {
+      return "A valid url - including 'https://' is required."
+    }
+  }
+
   if (!!changeLog.state?.showLinkForm) {
     // LINK FORM
     return (
       <AutoLayout
         width="fill-parent"
+        direction="vertical"
+        spacing={GAP.sm}
         horizontalAlignItems="end"
         verticalAlignItems="center"
-        spacing={GAP.md}
       >
-        <Input 
-          name="LinkLabel"
-          fill={COLOR.black}
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
-          }}
-          placeholder="Link Label"
-          width={SPACE.lg}
-          lineHeight={FONT.lineHeight.xs}
-          fontSize={FONT.size.xs}
-          fontFamily={FONT.family}
-          value={changeLog.state?.link?.label || ''}
-          onTextEditEnd={(e) => {
-            if (e.characters !== changeLog.state?.link?.label) {
+        <AutoLayout
+          width="fill-parent"
+          horizontalAlignItems="end"
+          verticalAlignItems="center"
+          spacing={GAP.md}
+        >
+          <Input 
+            name="LinkLabel"
+            fill={COLOR.black}
+            inputFrameProps={{
+              fill: COLOR.white,
+              stroke: !!changeLog.state?.linkFormError?.label ? COLOR.red : COLOR.grey,
+              strokeWidth: SPACE.one,
+              cornerRadius: RADIUS.xs,
+              padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
+            }}
+            placeholder="Link Label"
+            width={SPACE.lg}
+            lineHeight={FONT.lineHeight.xs}
+            fontSize={FONT.size.xs}
+            fontFamily={FONT.family}
+            value={changeLog.state?.link?.label || ''}
+            onTextEditEnd={(e) => {
               updateChange({
                 state: {
                   ...changeLog.state,
@@ -55,29 +76,32 @@ export const LinkForm = ({
                     label: e.characters,
                     url: changeLog.state?.link?.url || '',
                     key: changeLog.state?.link?.key || '',
-                  }},
+                  },
+                  linkFormError: {
+                    label: e.characters === '',
+                    url: !!changeLog.state?.linkFormError?.url,
+                  }
+                },
               })
-            }
-          }}
-        />
-        <Input 
-          name="LinkUrl"
-          fill={COLOR.black}
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
-          }}
-          width="fill-parent"
-          placeholder="Link URL"
-          lineHeight={FONT.lineHeight.xs}
-          fontSize={FONT.size.xs}
-          fontFamily={FONT.family}
-          value={changeLog.state?.link?.url || ''}
-          onTextEditEnd={(e) => {
-            if (e.characters !== changeLog.state?.link?.url) {
+            }}
+          />
+          <Input 
+            name="LinkUrl"
+            fill={COLOR.black}
+            inputFrameProps={{
+              fill: COLOR.white,
+              stroke: !!changeLog.state?.linkFormError?.url ? COLOR.red : COLOR.grey,
+              strokeWidth: SPACE.one,
+              cornerRadius: RADIUS.xs,
+              padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
+            }}
+            width="fill-parent"
+            placeholder="https://figma.com"
+            lineHeight={FONT.lineHeight.xs}
+            fontSize={FONT.size.xs}
+            fontFamily={FONT.family}
+            value={changeLog.state?.link?.url || ''}
+            onTextEditEnd={(e) => {
               updateChange({
                 state: {
                   ...changeLog.state,
@@ -86,54 +110,69 @@ export const LinkForm = ({
                     label: changeLog.state?.link?.label || '',
                     url: e.characters,
                     key: changeLog.state?.link?.key || '',
-                  }},
+                  },
+                  linkFormError: {
+                    label: !!changeLog.state?.linkFormError?.label,
+                    url: e.characters === '' || !validUrl(e.characters),
+                  }
+                },
               })
-            }
-          }}
-        />
-        <Button label="Add" action={() => {
-          if (!!changeLog.state?.link?.label && !!changeLog.state?.link?.url) {
+            }}
+          />
+          <Button label="Add" action={() => {
+            const labelExists = !!changeLog.state?.link?.label;
+            const urlValid = !!changeLog.state?.link?.url && validUrl(changeLog.state?.link?.url);
             const linkKey= `link-${randomId()}`;
 
-            if (!!changeLog.links &&  changeLog.links?.length > 0) {
+            if (labelExists && urlValid) {
               updateChange({
-                links: [...changeLog.links, { ...changeLog.state.link, key: linkKey }],
+                links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.link, key: linkKey }] : [{...changeLog.state?.link, key: linkKey }],
                 editCount: changeLog.editCount + 1,
                 editedDate: Date.now(),
-                state: { // hide form and clear tmp link data
+                state: {
                   showLinkForm: false,
                   link: { label: '', url: '', key: '' },
+                  linkFormError: {
+                    label: false,
+                    url: false,
+                  }
                 }
               })
+              setUpdatedDate(Date.now());
             } else {
               updateChange({
-                links: [{...changeLog.state.link, key: linkKey }],
-                editCount: changeLog.editCount + 1,
-                editedDate: Date.now(),
-                state: { // hide form and clear tmp link data
-                  showLinkForm: false,
-                  link: { label: '', url: '', key: '' },
+                state: {
+                  ...changeLog.state,
+                  linkFormError: {
+                    label: !labelExists,
+                    url: !urlValid
+                  }
                 }
               })
             }
-            setUpdatedDate(Date.now());
-          } else {
-            console.log('add an error message!')
-          }
-        }} />
-        <Button
-          label="Cancel"
-          hideLabel={true}
-          iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}
-          action={() => {
-            updateChange({
-              state: {
-                showLinkForm: false,
-                link: { label: '', url: '', key: '' },
-              }
-            })
-          }}
-        />
+          }} />
+          <Button
+            label="Cancel"
+            hideLabel={true}
+            iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}
+            action={() => {
+              updateChange({
+                state: {
+                  showLinkForm: false,
+                  link: { label: '', url: '', key: '' },
+                  linkFormError: { label: false, url: false, }
+                }
+              })
+            }}
+          />
+        </AutoLayout>
+        <Text
+          fill={COLOR.red}
+          fontSize={FONT.size.xs}
+          fontFamily={FONT.family}
+        >
+          {errorMsg(!!changeLog.state?.linkFormError?.label, !!changeLog.state?.linkFormError?.url)}
+        </Text>
       </AutoLayout>
     )
   } else {
@@ -144,7 +183,18 @@ export const LinkForm = ({
         horizontalAlignItems="end"
         verticalAlignItems="center"
       >
-        {changeLog.links && changeLog.links.length < 8 ? (
+        {changeLog.links && changeLog.links.length > 7 ? (
+          <Text
+            fill={COLOR.greyDark}
+            lineHeight={FONT.lineHeight.xs}
+            fontFamily={FONT.family}
+            fontSize={FONT.size.xs}
+            letterSpacing={FONT.letterSpacing.sm}
+            fontWeight={FONT.weight.regular}
+          >
+            Link maximum (8) reached.
+          </Text>
+        ) : (
           <Button
             label="Add Link"
             iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
@@ -157,17 +207,6 @@ export const LinkForm = ({
               })
             }}
           />
-        ) : (
-          <Text
-            fill={COLOR.greyDark}
-            lineHeight={FONT.lineHeight.xs}
-            fontFamily={FONT.family}
-            fontSize={FONT.size.xs}
-            letterSpacing={FONT.letterSpacing.sm}
-            fontWeight={FONT.weight.regular}
-          >
-            Link maximum (8) reached.
-          </Text>
         )}
       </AutoLayout>
     )

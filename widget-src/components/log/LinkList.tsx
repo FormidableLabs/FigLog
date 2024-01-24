@@ -2,8 +2,8 @@ import { LinkType } from "../../types/LinkTypes";
 import { PADDING, COLOR, GAP } from "../../utilities/Styles";
 import { Link } from "./Link";
 
-const { widget, currentUser, openExternal } = figma;
-const { AutoLayout, useEffect } = widget;
+const { widget} = figma;
+const { AutoLayout  } = widget;
 
 interface LinkListProps {
   links?: Array<LinkType>;
@@ -25,7 +25,6 @@ export const LinkList = ({
         wrap
         padding={{
           vertical: PADDING.sm,
-          horizontal: PADDING.sm
         }}
         spacing={GAP.md}
       >

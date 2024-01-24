@@ -13,5 +13,6 @@ export interface ChangeLog {
     showTypeMenu?: boolean;
     link?: LinkType,
     showLinkForm?: boolean;
+    linkFormError?: { label: boolean, url: boolean };
   };
 }
