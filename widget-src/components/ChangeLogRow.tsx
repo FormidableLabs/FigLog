@@ -10,6 +10,7 @@ import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
 import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
 import { LinkForm } from './log/LinkForm';
 import { LinkList } from './log/LinkList';
+import { AddLink } from './log/AddLink';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -211,11 +212,18 @@ export const ChangeLogRow = ({
               horizontalAlignItems="end"
               verticalAlignItems="center"
             >
-              <LinkForm
-                changeLog={changeLog}
-                updateChange={updateChange}
-                setUpdatedDate={setUpdatedDate}
-              />
+              {!!changeLog.state?.showLinkForm ? (
+                <LinkForm
+                  changeLog={changeLog}
+                  updateChange={updateChange}
+                  setUpdatedDate={setUpdatedDate}
+                  />
+              ) : (
+                <AddLink
+                  changeLog={changeLog}
+                  updateChange={updateChange}  
+                />
+              )} 
             </AutoLayout>
           </AutoLayout>
         </AutoLayout>
