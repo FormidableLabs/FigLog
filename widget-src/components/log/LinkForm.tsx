@@ -2,7 +2,20 @@ import { ChangeLog } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { randomId } from '../../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
+import { rxUrl, rxAsana, rxBitbucket, rxFigma, rxFigmaProto, rxFigmaVersion, rxGithub, rxGitlab, rxGoogle, rxJira, rxNotion, rxStorybook, rxTrello } from '../../utilities/Regexes';
+import { BrandFigmaIcon } from '../../svgs/BrandFigmaIcon';
+import { BrandAsanaIcon } from '../../svgs/BrandAsanaIcon';
+import { BrandBitbucketIcon } from '../../svgs/BrandBitbucketIcon';
+import { BrandGithubIcon } from '../../svgs/BrandGithubIcon';
+import { BrandGitlabIcon } from '../../svgs/BrandGitlabIcon';
+import { BrandJiraIcon } from '../../svgs/BrandJiraIcon';
+import { BrandNotionIcon } from '../../svgs/BrandNotionIcon';
+import { BrandStorybookIcon } from '../../svgs/BrandStorybookIcon';
 import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
+import { ActionLinkIcon } from '../../svgs/ActionLinkIcon';
+import { FileHistory } from '../../svgs/FileHistory';
+import { BrandGoogleIcon } from '../../svgs/BrandGoogleIcon';
+import { BrandTrelloIcon } from '../../svgs/BrandTrelloIcon';
 
 const { widget } = figma;
 const { AutoLayout, Input, Text } = widget;
@@ -20,8 +33,37 @@ export const LinkForm = ({
 }: LinkFormProps) => {
 
   const validUrl = (address: string) => {
-    const urlRegex = new RegExp(/^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/gi)
-    return urlRegex.test(address);
+    return rxUrl.test(address);
+  }
+
+  const assignIcon = (url: string) => {
+    switch (true) {
+      case rxFigmaVersion.test(url):
+        return <FileHistory color={COLOR.greyDark} />;
+      case rxFigma.test(url):
+      case rxFigmaProto.test(url):
+        return <BrandFigmaIcon color={COLOR.greyDark} />;
+      case rxAsana.test(url):
+        return <BrandAsanaIcon color={COLOR.greyDark} />;
+      case rxBitbucket.test(url):
+        return <BrandBitbucketIcon color={COLOR.greyDark} />;
+      case rxGithub.test(url):
+        return <BrandGithubIcon color={COLOR.greyDark} />;
+      case rxGitlab.test(url):
+        return <BrandGitlabIcon color={COLOR.greyDark} />;
+      case rxGoogle.test(url):
+        return <BrandGoogleIcon color={COLOR.greyDark} />;
+      case rxJira.test(url):
+        return <BrandJiraIcon color={COLOR.greyDark} />;
+      case rxNotion.test(url):
+        return <BrandNotionIcon color={COLOR.greyDark} />;
+      case rxStorybook.test(url):
+        return <BrandStorybookIcon color={COLOR.greyDark} />;
+      case rxTrello.test(url):
+        return <BrandTrelloIcon color={COLOR.greyDark} />;
+      default:
+        return <ActionLinkIcon color={COLOR.greyDark} />;
+    }
   }
 
   const errorMsg = (labelError: boolean, urlError: boolean) => {
@@ -106,6 +148,7 @@ export const LinkForm = ({
                   ...changeLog.state?.link,
                   label: changeLog.state?.link?.label || '',
                   url: e.characters,
+                  icon: assignIcon(e.characters),
                   key: changeLog.state?.link?.key || '',
                 },
                 linkFormError: {
@@ -128,7 +171,7 @@ export const LinkForm = ({
               editedDate: Date.now(),
               state: {
                 showLinkForm: false,
-                link: { label: '', url: '', key: '' },
+                link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: {
                   label: false,
                   url: false,
@@ -156,7 +199,7 @@ export const LinkForm = ({
             updateChange({
               state: {
                 showLinkForm: false,
-                link: { label: '', url: '', key: '' },
+                link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: { label: false, url: false, }
               }
             })

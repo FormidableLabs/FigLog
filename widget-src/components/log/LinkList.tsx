@@ -1,3 +1,4 @@
+import { ActionLinkIcon } from "../../svgs/ActionLinkIcon";
 import { LinkType } from "../../types/LinkTypes";
 import { PADDING, COLOR, GAP } from "../../utilities/Styles";
 import { Link } from "./Link";
@@ -33,6 +34,7 @@ export const LinkList = ({
             label={!!link.label ? link.label : "Link"}
             url={!!link.url ? link.url : ""}
             key={link.key}
+            icon={link.icon ? link.icon : <ActionLinkIcon color={COLOR.greyDark} />}
             deleteLink={() => deleteLink(link.key)}
           />
         ))}
