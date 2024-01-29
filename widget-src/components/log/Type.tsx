@@ -75,10 +75,10 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
     >
       {isActive && (
-        <SVG name="Active" height={PADDING.sm} width={PADDING.md} src={<Check color={txColor}/>} />
+        <SVG name="Active" height={PADDING.md} width={PADDING.md} src={<Check color={txColor}/>} />
       )}
       {type === ('none' || 'added') && (
-        <SVG name="Add" height={PADDING.sm} width={PADDING.sm}  src={<ActionAddIcon color={txColor}/>} />
+        <SVG name="Add" height={PADDING.md} width={PADDING.md}  src={<ActionAddIcon color={txColor}/>} />
       )}
       <Text
         name="Type"

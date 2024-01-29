@@ -44,8 +44,8 @@ export const Button = ({
               type: 'center',
               offset: PADDING.none,
             }}
-            height={SPACE.xxs}
-            width={SPACE.xxs}
+            height={SPACE.xs}
+            width={SPACE.xs}
             src={iconSrc}
           />
         </Frame>
