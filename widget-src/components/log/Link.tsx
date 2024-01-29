@@ -95,8 +95,8 @@ export const Link = ({
       >
         <SVG
           name="delete"
-          height={PADDING.xs}
-          width={PADDING.xs}
+          height={SPACE.xxs}
+          width={SPACE.xxs}
           src={<ActionDeleteIcon color={COLOR.greyDark} />}
         />
       </AutoLayout>
