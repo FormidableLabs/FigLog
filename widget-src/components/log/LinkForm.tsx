@@ -32,8 +32,18 @@ export const LinkForm = ({
   setUpdatedDate,
 }: LinkFormProps) => {
 
-  const validUrl = (address: string) => {
-    return rxUrl.test(address);
+  const validUrl = (address: string | undefined) => {
+    if (address === undefined) {
+      return false;
+    }
+    return address !== '' && rxUrl.test(address);
+  }
+
+  const validLabel = (label: string | undefined) => {
+    if (label === undefined) {
+      return false;
+    }
+    return label !== '' && label.length <= 40;
   }
 
   const assignIcon = (url: string) => {
@@ -67,12 +77,15 @@ export const LinkForm = ({
   }
 
   const errorMsg = (labelError: boolean, urlError: boolean) => {
-    if (labelError && urlError) {
-      return "A link label and valid url - including 'https://' are required.";
-    } else if (labelError) {
-      return "A link label is required."
-    } else if (urlError) {
-      return "A valid url - including 'https://' is required."
+    switch (true) {
+      case (labelError && urlError):
+        return "A link label (40 character maximum) and valid url (including 'https://') are required.";
+      case (labelError):
+        return "A link label (40 character maximum) is required.";
+      case (urlError):
+        return "A valid url (including 'https://') is required.";
+      default:
+        return "";
     }
   }
 
@@ -107,17 +120,18 @@ export const LinkForm = ({
           fontFamily={FONT.family}
           value={changeLog.state?.link?.label || ''}
           onTextEditEnd={(e) => {
+            const trimmedLabel = e.characters.trim()
             updateChange({
               state: {
                 ...changeLog.state,
                 link: {
                   ...changeLog.state?.link,
-                  label: e.characters,
+                  label: trimmedLabel,
                   url: changeLog.state?.link?.url || '',
                   key: changeLog.state?.link?.key || '',
                 },
                 linkFormError: {
-                  label: e.characters === '',
+                  label: !validLabel(trimmedLabel),
                   url: !!changeLog.state?.linkFormError?.url,
                 }
               },
@@ -141,30 +155,31 @@ export const LinkForm = ({
           fontFamily={FONT.family}
           value={changeLog.state?.link?.url || ''}
           onTextEditEnd={(e) => {
+            const trimmedUrl = e.characters.trim();
             updateChange({
               state: {
                 ...changeLog.state,
                 link: {
                   ...changeLog.state?.link,
                   label: changeLog.state?.link?.label || '',
-                  url: e.characters,
-                  icon: assignIcon(e.characters),
+                  url: trimmedUrl,
+                  icon: assignIcon(trimmedUrl),
                   key: changeLog.state?.link?.key || '',
                 },
                 linkFormError: {
                   label: !!changeLog.state?.linkFormError?.label,
-                  url: e.characters === '' || !validUrl(e.characters),
+                  url: !validUrl(trimmedUrl),
                 }
               },
             })
           }}
         />
         <Button label="Add" action={() => {
-          const labelExists = !!changeLog.state?.link?.label;
-          const urlValid = !!changeLog.state?.link?.url && validUrl(changeLog.state?.link?.url);
+          const labelValid = validLabel(changeLog.state?.link?.label);
+          const urlValid = validUrl(changeLog.state?.link?.url);
           const linkKey= `link-${randomId()}`;
 
-          if (labelExists && urlValid) {
+          if (labelValid && urlValid) {
             updateChange({
               links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.link, key: linkKey }] : [{...changeLog.state?.link, key: linkKey }],
               editCount: changeLog.editCount + 1,
@@ -184,7 +199,7 @@ export const LinkForm = ({
               state: {
                 ...changeLog.state,
                 linkFormError: {
-                  label: !labelExists,
+                  label: !labelValid,
                   url: !urlValid
                 }
               }
