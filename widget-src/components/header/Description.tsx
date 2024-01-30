@@ -43,7 +43,7 @@ export const Description = ({
         value={descriptionText}
         width="fill-parent"
         lineHeight={FONT.lineHeight.xl}
-        fontFamily="IBM Plex Sans"
+        fontFamily={FONT.family}
         fontSize={FONT.size.lg}
         hidden={!description}
       />
