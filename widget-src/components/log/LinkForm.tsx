@@ -2,7 +2,25 @@ import { ChangeLog } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { randomId } from '../../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
-import { rxUrl, rxAsana, rxBitbucket, rxFigma, rxFigmaProto, rxFigmaVersion, rxGithub, rxGitlab, rxGoogle, rxJira, rxNotion, rxStorybook, rxTrello } from '../../utilities/Regexes';
+import {
+  rxUrl,
+  rxAsana,
+  rxBitbucket,
+  rxFigma,
+  rxFigmaProto,
+  rxFigmaVersion,
+  rxGithub,
+  rxGitlab,
+  rxGoogle,
+  rxJira,
+  rxNotion,
+  rxStorybook,
+  rxTrello,
+  rxCodePen,
+  rxCodeSandbox,
+  rxFramer,
+  rxSlack
+} from '../../utilities/Regexes';
 import { BrandFigmaIcon } from '../../svgs/BrandFigmaIcon';
 import { BrandAsanaIcon } from '../../svgs/BrandAsanaIcon';
 import { BrandBitbucketIcon } from '../../svgs/BrandBitbucketIcon';
@@ -16,6 +34,11 @@ import { ActionLinkIcon } from '../../svgs/ActionLinkIcon';
 import { FileHistory } from '../../svgs/FileHistory';
 import { BrandGoogleIcon } from '../../svgs/BrandGoogleIcon';
 import { BrandTrelloIcon } from '../../svgs/BrandTrelloIcon';
+import { Prototype } from '../../svgs/Prototype';
+import { BrandCodePenIcon } from '../../svgs/BrandCodePen';
+import { BrandCodeSandboxIcon } from '../../svgs/BrandCodeSandbox';
+import { BrandFramerIcon } from '../../svgs/BrandFramer';
+import { BrandSlackIcon } from '../../svgs/BrandSlack';
 
 const { widget } = figma;
 const { AutoLayout, Input, Text } = widget;
@@ -50,13 +73,20 @@ export const LinkForm = ({
     switch (true) {
       case rxFigmaVersion.test(url):
         return <FileHistory color={COLOR.greyDark} />;
-      case rxFigma.test(url):
       case rxFigmaProto.test(url):
+        return <Prototype color={COLOR.greyDark} />;
+      case rxFigma.test(url):
         return <BrandFigmaIcon color={COLOR.greyDark} />;
       case rxAsana.test(url):
         return <BrandAsanaIcon color={COLOR.greyDark} />;
       case rxBitbucket.test(url):
         return <BrandBitbucketIcon color={COLOR.greyDark} />;
+      case rxCodePen.test(url):
+        return <BrandCodePenIcon color={COLOR.greyDark} />;
+      case rxCodeSandbox.test(url):
+        return <BrandCodeSandboxIcon color={COLOR.greyDark} />;
+      case rxFramer.test(url):
+        return <BrandFramerIcon color={COLOR.greyDark} />;
       case rxGithub.test(url):
         return <BrandGithubIcon color={COLOR.greyDark} />;
       case rxGitlab.test(url):
@@ -67,6 +97,8 @@ export const LinkForm = ({
         return <BrandJiraIcon color={COLOR.greyDark} />;
       case rxNotion.test(url):
         return <BrandNotionIcon color={COLOR.greyDark} />;
+      case rxSlack.test(url):
+        return <BrandSlackIcon color={COLOR.greyDark} />;
       case rxStorybook.test(url):
         return <BrandStorybookIcon color={COLOR.greyDark} />;
       case rxTrello.test(url):
