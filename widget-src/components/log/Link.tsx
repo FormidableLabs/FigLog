@@ -1,6 +1,22 @@
 
+import { BrandFigmaIcon } from '../../svgs/BrandFigmaIcon';
+import { BrandAsanaIcon } from '../../svgs/BrandAsanaIcon';
+import { BrandBitbucketIcon } from '../../svgs/BrandBitbucketIcon';
+import { BrandGithubIcon } from '../../svgs/BrandGithubIcon';
+import { BrandGitlabIcon } from '../../svgs/BrandGitlabIcon';
+import { BrandJiraIcon } from '../../svgs/BrandJiraIcon';
+import { BrandNotionIcon } from '../../svgs/BrandNotionIcon';
+import { BrandStorybookIcon } from '../../svgs/BrandStorybookIcon';
 import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
 import { ActionLinkIcon } from '../../svgs/ActionLinkIcon';
+import { FileHistory } from '../../svgs/FileHistory';
+import { BrandGoogleIcon } from '../../svgs/BrandGoogleIcon';
+import { BrandTrelloIcon } from '../../svgs/BrandTrelloIcon';
+import { Prototype } from '../../svgs/Prototype';
+import { BrandCodePenIcon } from '../../svgs/BrandCodePen';
+import { BrandCodeSandboxIcon } from '../../svgs/BrandCodeSandbox';
+import { BrandFramerIcon } from '../../svgs/BrandFramer';
+import { BrandSlackIcon } from '../../svgs/BrandSlack';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
 
 const { widget, openExternal } = figma;
@@ -21,6 +37,46 @@ export const Link = ({
   key,
   deleteLink,
 }: LinkProps) => {
+
+  const assignSvg = (iconString: string) => {
+    switch (iconString) {
+      case "figmaVersion":
+        return <FileHistory color={COLOR.greyDark} />;
+      case "figmaPrototype":
+        return <Prototype color={COLOR.greyDark} />;
+      case "figma":
+        return <BrandFigmaIcon color={COLOR.greyDark} />;
+      case "asana":
+        return <BrandAsanaIcon color={COLOR.greyDark} />;
+      case "bitbucket":
+        return <BrandBitbucketIcon color={COLOR.greyDark} />;
+      case "codepen":
+        return <BrandCodePenIcon color={COLOR.greyDark} />;
+      case "codesandbox":
+        return <BrandCodeSandboxIcon color={COLOR.greyDark} />;
+      case "framer":
+        return <BrandFramerIcon color={COLOR.greyDark} />;
+      case "github":
+        return <BrandGithubIcon color={COLOR.greyDark} />;
+      case "gitlab":
+        return <BrandGitlabIcon color={COLOR.greyDark} />;
+      case "google":
+        return <BrandGoogleIcon color={COLOR.greyDark} />;
+      case "jira":
+        return <BrandJiraIcon color={COLOR.greyDark} />;
+      case "notion":
+        return <BrandNotionIcon color={COLOR.greyDark} />;
+      case "slack":
+        return <BrandSlackIcon color={COLOR.greyDark} />;
+      case "storybook":
+        return <BrandStorybookIcon color={COLOR.greyDark} />;
+      case "trello":
+        return <BrandTrelloIcon color={COLOR.greyDark} />;
+      case "link":
+      default:
+        return <ActionLinkIcon color={COLOR.greyDark} />;
+    }
+  }
 
   return (
     <AutoLayout
@@ -58,7 +114,7 @@ export const Link = ({
             }}
             height={SPACE.xs}
             width={SPACE.xs}
-            src={icon}
+            src={assignSvg(icon)}
           />
         </Frame>
         <Text
