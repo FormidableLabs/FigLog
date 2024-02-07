@@ -12,14 +12,23 @@ import {
   rxGithub,
   rxGitlab,
   rxGoogle,
-  rxJira,
+  rxAtlassian,
   rxNotion,
   rxStorybook,
   rxTrello,
   rxCodePen,
   rxCodeSandbox,
   rxFramer,
-  rxSlack
+  rxSlack,
+  rxBasecamp,
+  rxChatGpt,
+  rxClickUp,
+  rxMiro,
+  rxMonday,
+  rxMural,
+  rxSmartsheet,
+  rxTeams,
+  rxMicrosoft
 } from '../../utilities/Regexes';
 import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
 
@@ -63,8 +72,16 @@ export const LinkForm = ({
         return "figma";
       case rxAsana.test(url):
         return "asana";
+      case rxAtlassian.test(url):
+        return "atlassian";
+      case rxBasecamp.test(url):
+        return "basecamp";
       case rxBitbucket.test(url):
         return "bitbucket";
+      case rxChatGpt.test(url):
+        return "chatgpt";
+      case rxClickUp.test(url):
+        return "clickup";
       case rxCodePen.test(url):
         return "codepen";
       case rxCodeSandbox.test(url):
@@ -77,14 +94,24 @@ export const LinkForm = ({
         return "gitlab";
       case rxGoogle.test(url):
         return "google";
-      case rxJira.test(url):
-        return "jira";
+      case rxMiro.test(url):
+        return "miro";
+      case rxMonday.test(url):
+        return "monday";
+      case rxMural.test(url):
+        return "mural";
       case rxNotion.test(url):
         return "notion";
       case rxSlack.test(url):
         return "slack";
+      case rxSmartsheet.test(url):
+        return "smartsheet";
       case rxStorybook.test(url):
         return "storybook";
+      case rxTeams.test(url):
+        return "teams";
+      case rxMicrosoft.test(url):
+        return "microsoft";
       case rxTrello.test(url):
         return "trello";
       default:

@@ -4,7 +4,7 @@ import { BrandAsanaIcon } from '../../svgs/BrandAsanaIcon';
 import { BrandBitbucketIcon } from '../../svgs/BrandBitbucketIcon';
 import { BrandGithubIcon } from '../../svgs/BrandGithubIcon';
 import { BrandGitlabIcon } from '../../svgs/BrandGitlabIcon';
-import { BrandJiraIcon } from '../../svgs/BrandJiraIcon';
+import { BrandAtlassianIcon } from '../../svgs/BrandAtlassianIcon';
 import { BrandNotionIcon } from '../../svgs/BrandNotionIcon';
 import { BrandStorybookIcon } from '../../svgs/BrandStorybookIcon';
 import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
@@ -17,6 +17,15 @@ import { BrandCodePenIcon } from '../../svgs/BrandCodePen';
 import { BrandCodeSandboxIcon } from '../../svgs/BrandCodeSandbox';
 import { BrandFramerIcon } from '../../svgs/BrandFramer';
 import { BrandSlackIcon } from '../../svgs/BrandSlack';
+import { BrandBasecampIcon } from '../../svgs/BrandBasecampIcon';
+import { BrandChatGptIcon } from '../../svgs/BrandChatGptIcon';
+import { BrandClickUpIcon } from '../../svgs/BrandClickUpIcon';
+import { BrandMiroIcon } from '../../svgs/BrandMiroIcon';
+import { BrandMondayIcon } from '../../svgs/BrandMondayIcon';
+import { BrandMuralIcon } from '../../svgs/BrandMuralIcon';
+import { BrandSmartsheetIcon } from '../../svgs/BrandSmartsheetIcon';
+import { BrandTeamsIcon } from '../../svgs/BrandTeamsIcon';
+import { BrandMicrosoftIcon } from '../../svgs/BrandMicrosoftIcon';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
 
 const { widget, openExternal } = figma;
@@ -48,8 +57,16 @@ export const Link = ({
         return <BrandFigmaIcon color={COLOR.greyDark} />;
       case "asana":
         return <BrandAsanaIcon color={COLOR.greyDark} />;
+      case "atlassian":
+        return <BrandAtlassianIcon color={COLOR.greyDark} />;
+      case "basecamp":
+        return <BrandBasecampIcon color={COLOR.greyDark} />;
       case "bitbucket":
         return <BrandBitbucketIcon color={COLOR.greyDark} />;
+      case "chatgpt":
+        return <BrandChatGptIcon color={COLOR.greyDark} />;
+      case "clickup":
+        return <BrandClickUpIcon color={COLOR.greyDark} />;
       case "codepen":
         return <BrandCodePenIcon color={COLOR.greyDark} />;
       case "codesandbox":
@@ -62,14 +79,24 @@ export const Link = ({
         return <BrandGitlabIcon color={COLOR.greyDark} />;
       case "google":
         return <BrandGoogleIcon color={COLOR.greyDark} />;
-      case "jira":
-        return <BrandJiraIcon color={COLOR.greyDark} />;
+      case "miro":
+        return <BrandMiroIcon color={COLOR.greyDark} />;
+      case "monday":
+        return <BrandMondayIcon color={COLOR.greyDark} />;
+      case "mural":
+        return <BrandMuralIcon color={COLOR.greyDark} />;
       case "notion":
         return <BrandNotionIcon color={COLOR.greyDark} />;
       case "slack":
         return <BrandSlackIcon color={COLOR.greyDark} />;
+      case "smartsheet":
+        return <BrandSmartsheetIcon color={COLOR.greyDark} />;
       case "storybook":
         return <BrandStorybookIcon color={COLOR.greyDark} />;
+      case "teams":
+        return <BrandTeamsIcon color={COLOR.greyDark} />;
+      case "microsoft":
+        return <BrandMicrosoftIcon color={COLOR.greyDark} />;
       case "trello":
         return <BrandTrelloIcon color={COLOR.greyDark} />;
       case "link":
