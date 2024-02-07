@@ -20,7 +20,7 @@ export const rxFigmaVersion = new RegExp(/(figma\.com\/file\/).+(version-id)/);
 
 export const rxFigmaProto = new RegExp(/figma\.com\/proto\//);
 
-export const rxFramer= new RegExp(/framer\.com/);
+export const rxFramer= new RegExp(/framer\./);
 
 export const rxGithub = new RegExp(/github\.com/);
 
