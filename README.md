@@ -1,6 +1,6 @@
 <div align="center">  
-  <a href="https://formidable.com/open-source/" target="_blank">
-    <img alt="FigLog — Formidable, We build the modern web" src="./example.png" />
+  <a href="https://commerce.nearform.com/open-source/" target="_blank">
+    <img alt="FigLog Evolution Tracker by Formidable now Nearform - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
   </a>
 
   <h3>
@@ -38,12 +38,12 @@ We hope FigLog becomes a useful tool for you as a way of documenting the evoluti
 
 ## Features
 
-- Optional component status, name, description, version, log types, and branding 🕹️
-- Multiplayer collaboration with user name and avatar 👫
-- Automatic date handling (including log edits) 🗓️
-- 6 status types 💅
-- 7 changelog types 🐙 **(New!)**
-- 17 link types 🔗 **(New!)**
+- 🕹️ Optional component status, name, description, version, log types, and branding
+- 👫 Multiplayer collaboration with user name and avatar
+- 🗓️ Automatic date handling (including log edits)
+- 💅 6 status types
+- 🐙 7 changelog types **(New!)**
+- 🔗 26 link types **(New!)**
 
 ## Usage
 
@@ -57,4 +57,4 @@ Please see the [Contributing guide](CONTRIBUTING.md).
 
 ## Maintenance Status
 
-**Active:** Formidable is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
+**Active:** Formidable now Nearform is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
