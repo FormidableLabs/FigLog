@@ -14,7 +14,7 @@ function Widget() {
   const [showDescription, setShowDescription] = useSyncedState('showDescription', true);
   const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
-  const [showBranding, setShowBranding] = useSyncedState('showBranding', true);
+  const [showBranding, setShowBranding] = useSyncedState('showBradning', true); // fixing the typo messes with branding state on existing widgets
   const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', false);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
