@@ -1,5 +1,5 @@
 import { LogoFigLog } from '../svgs/LogoFigLog';
-import { COLOR, GAP, FONT, SPACE } from '../utilities/Styles';
+import { COLOR, GAP, FONT, SPACE, PADDING } from '../utilities/Styles';
 
 const { widget, openExternal } = figma;
 const { AutoLayout, Rectangle, SVG, Text } = widget;
@@ -21,25 +21,30 @@ export const Footer = ({ showBranding }: FooterProps) => (
           openExternal("https://formidable.com/open-source/");
         }}
       >
-        <SVG name="Formidable Logo" height={SPACE.sm + SPACE.xs} width={SPACE.sm + SPACE.xs} src={LogoFigLog} />
-        <Text
-          fontFamily={FONT.family}
-          fill={COLOR.black}
-          lineHeight={FONT.lineHeight.xl}
-          fontSize={FONT.size.xl}
-          fontWeight={FONT.weight.bold}
+        <SVG name="FigLog Logo" height={PADDING.xxl} width={PADDING.xxl} src={LogoFigLog} />
+        <AutoLayout
+          name="Logo Text"
+          spacing={GAP.sm}
         >
-          FigLog
-        </Text>
-        <Text
-          fontFamily={FONT.family}
-          fill={COLOR.black}
-          lineHeight={FONT.lineHeight.xl}
-          fontSize={FONT.size.xl}
-          fontWeight={FONT.weight.light}
-        >
-          | Evolution Tracker
-        </Text>
+          <Text
+            fontFamily={FONT.family}
+            fill={COLOR.black}
+            lineHeight={FONT.lineHeight.xl}
+            fontSize={FONT.size.lg}
+            fontWeight={FONT.weight.bold}
+          >
+            FigLog
+          </Text>
+          <Text
+            fontFamily={FONT.family}
+            fill={COLOR.black}
+            lineHeight={FONT.lineHeight.xl}
+            fontSize={FONT.size.lg}
+            fontWeight={FONT.weight.light}
+          >
+            | Evolution Tracker
+          </Text>
+        </AutoLayout>
       </AutoLayout>
     )}
   </AutoLayout>
