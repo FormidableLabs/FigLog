@@ -9,7 +9,7 @@ interface FooterProps {
 }
 
 export const Footer = ({ showBranding }: FooterProps) => (
-  <AutoLayout name="Footer" overflow="visible" direction="vertical" spacing={GAP.lg} width="fill-parent">
+  <AutoLayout name="Footer" overflow="visible" direction="vertical" spacing={PADDING.xl} width="fill-parent">
     <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />
     {showBranding && (
       <AutoLayout
