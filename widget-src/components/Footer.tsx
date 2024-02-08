@@ -1,7 +1,7 @@
 import { LogoFigLog } from '../svgs/LogoFigLog';
 import { COLOR, GAP, FONT, SPACE } from '../utilities/Styles';
 
-const { widget, showUI } = figma;
+const { widget, openExternal } = figma;
 const { AutoLayout, Rectangle, SVG, Text } = widget;
 
 interface FooterProps {
@@ -18,9 +18,7 @@ export const Footer = ({ showBranding }: FooterProps) => (
         spacing={GAP.md}
         verticalAlignItems="center"
         onClick={() => {
-          const url = 'https://formidable.com/open-source/';
-          const openLinkUIString = `<script>window.open('${url}','_blank');</script>`;
-          showUI(openLinkUIString, { visible: false });
+          openExternal("https://formidable.com/open-source/");
         }}
       >
         <SVG name="Formidable Logo" height={SPACE.sm + SPACE.xs} width={SPACE.sm + SPACE.xs} src={LogoFigLog} />

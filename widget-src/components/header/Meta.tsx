@@ -72,11 +72,11 @@ export const Meta = ({
             }}
             overflow="visible"
             spacing={GAP.md}
-            padding={PADDING.sm}
+            padding={PADDING.xs}
             horizontalAlignItems="end"
             verticalAlignItems="center"
           >
-            <SVG name="Vector" height={SPACE.xs} width={SPACE.xs} src={<ActionAddIcon />} />
+            <SVG name="Vector" height={SPACE.sm} width={SPACE.sm} src={<ActionAddIcon />} />
           </AutoLayout>
         </AutoLayout>
       )}
