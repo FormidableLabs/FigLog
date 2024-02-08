@@ -1,10 +1,10 @@
 <div align="center">  
   <a href="https://commerce.nearform.com/open-source/" target="_blank">
-    <img alt="FigLog Evolution Tracker by Formidable now Nearform - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
+    <img alt="FigLog Evolution Tracker Widget for Figma by Formidable now Nearform - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
   </a>
 
   <h3>
-    Design Evolution Widget for Figma
+    FigLog Evolution Tracker Widget for Figma
   </h3>
 
   <a href="https://github.com/FormidableLabs/figma-changelog#maintenance-status">
@@ -42,7 +42,7 @@ We hope FigLog becomes a useful tool for you as a way of documenting the evoluti
 - 👫 Multiplayer collaboration with user name and avatar
 - 🗓️ Automatic date handling (including log edits)
 - 💅 6 status types
-- 🐙 7 changelog types **(New!)**
+- 🏷️ 7 log types **(New!)**
 - 🔗 26 link types **(New!)**
 
 ## Usage
