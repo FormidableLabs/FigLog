@@ -6,6 +6,11 @@ import { Type } from './log/Type';
 import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 import { TypeMenu } from './log/TypeMenu';
+import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
+import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
+import { LinkForm } from './log/LinkForm';
+import { LinkList } from './log/LinkList';
+import { AddLink } from './log/AddLink';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -69,7 +74,7 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            {!!changeLog.showTypeMenu && (
+            {!!changeLog.state?.showTypeMenu && (
               <TypeMenu
                 currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
                 selectType={(newType) => {
@@ -81,12 +86,18 @@ export const ChangeLogRow = ({
                         type: newType,
                         editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
                         editedDate: addEdit ? Date.now() : changeLog.editedDate,
-                        showTypeMenu: !changeLog.showTypeMenu,
+                        state: {
+                          ...changeLog.state,
+                          showTypeMenu: !changeLog.state?.showTypeMenu,
+                        },
                       });
                       setUpdatedDate(Date.now());
                   } else {
                     updateChange({
-                      showTypeMenu: !changeLog.showTypeMenu,
+                      state: {
+                        ...changeLog.state,
+                        showTypeMenu: !changeLog.state?.showTypeMenu,
+                      },
                     })
                   }
                 }}
@@ -98,11 +109,17 @@ export const ChangeLogRow = ({
                 action={() => {
                   // toggle log type menu
                   updateChange({
-                    showTypeMenu: !changeLog.showTypeMenu,
+                    state: {
+                      ...changeLog.state,
+                      showTypeMenu: !changeLog.state?.showTypeMenu,
+                    }
                   })
                   // hide all other log type menues
                   updateOthers({
-                    showTypeMenu: false,
+                    state: {
+                      ...changeLog.state,
+                      showTypeMenu: false,
+                    }
                   })
                 }}
               />
@@ -136,7 +153,7 @@ export const ChangeLogRow = ({
                 horizontalAlignItems="end"
                 verticalAlignItems="center"
               >
-                <Button label="Delete" hideLabel={true} action={deleteChange} />
+                <Button label="Delete" hideLabel={true} iconSrc={<ActionDeleteIcon />} action={deleteChange} />
               </AutoLayout>
             )}
           </AutoLayout>
@@ -177,7 +194,38 @@ export const ChangeLogRow = ({
               </Text>
             )}
           </AutoLayout>
-          {/* <Links name="Links" /> */}
+          <AutoLayout
+            width="fill-parent"
+            horizontalAlignItems="end"
+            direction="vertical"
+          >
+            <LinkList
+              links={changeLog.links}
+              deleteLink={(linkToDelete) => {
+                updateChange({
+                  links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
+                })
+              }}
+            />
+            <AutoLayout
+              width="fill-parent"
+              horizontalAlignItems="end"
+              verticalAlignItems="center"
+            >
+              {!!changeLog.state?.showLinkForm ? (
+                <LinkForm
+                  changeLog={changeLog}
+                  updateChange={updateChange}
+                  setUpdatedDate={setUpdatedDate}
+                  />
+              ) : (
+                <AddLink
+                  changeLog={changeLog}
+                  updateChange={updateChange}  
+                />
+              )} 
+            </AutoLayout>
+          </AutoLayout>
         </AutoLayout>
       </AutoLayout>
       <Rectangle

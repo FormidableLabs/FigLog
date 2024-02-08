@@ -1,36 +1,25 @@
-import { ActionEditIcon } from '../svgs/ActionEditIcon';
-import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
 const { AutoLayout, Frame, SVG, Text } = widget;
 
 interface ButtonProps {
-  label: 'Edit' | 'Delete';
-  hideLabel: boolean;
+  label: string;
+  hideLabel?: boolean;
   action: () => void;
+  iconSrc?: string;
 }
 
 export const Button = ({
   label,
-  hideLabel,
+  hideLabel = false,
   action,
+  iconSrc
 }: ButtonProps) => {
-  let svgSrc = '';
-  switch (label) {
-    case 'Edit':
-      svgSrc = <ActionEditIcon />;
-      break;
-    case 'Delete':
-      svgSrc = <ActionDeleteIcon />;
-      break;
-    default:
-      break;
-  }
 
   return (
     <AutoLayout
-      name="Button"
+      name={`button-${label}`}
       fill={COLOR.white}
       cornerRadius={RADIUS.sm}
       overflow="visible"
@@ -43,22 +32,24 @@ export const Button = ({
       horizontalAlignItems="center"
       verticalAlignItems="center"
     >
-      <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs}>
-        <SVG
-          name={label}
-          x={{
-            type: 'center',
-            offset: PADDING.none,
-          }}
-          y={{
-            type: 'center',
-            offset: PADDING.none,
-          }}
-          height={SPACE.xxs}
-          width={SPACE.xxs}
-          src={svgSrc}
-        />
-      </Frame>
+      {iconSrc && (
+        <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs}>
+          <SVG
+            name={label}
+            x={{
+              type: 'center',
+              offset: PADDING.none,
+            }}
+            y={{
+              type: 'center',
+              offset: PADDING.none,
+            }}
+            height={SPACE.xs}
+            width={SPACE.xs}
+            src={iconSrc}
+          />
+        </Frame>
+      )}
       <Text
         name="Label"
         fill={COLOR.greyDark}
