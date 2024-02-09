@@ -18,14 +18,11 @@ export const Footer = ({ showBranding }: FooterProps) => (
         spacing={GAP.md}
         verticalAlignItems="center"
         onClick={() => {
-          openExternal("https://formidable.com/open-source/");
+          openExternal('https://commerce.nearform.com/open-source/');
         }}
       >
         <SVG name="FigLog Logo" height={PADDING.xxl} width={PADDING.xxl} src={LogoFigLog} />
-        <AutoLayout
-          name="Logo Text"
-          spacing={GAP.sm}
-        >
+        <AutoLayout name="Logo Text" spacing={GAP.sm}>
           <Text
             fontFamily={FONT.family}
             fill={COLOR.black}

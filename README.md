@@ -1,6 +1,6 @@
 <div align="center">  
   <a href="https://commerce.nearform.com/open-source/" target="_blank">
-    <img alt="FigLog Evolution Tracker Widget for Figma by Formidable now Nearform - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
+    <img alt="FigLog Evolution Tracker Widget for Figma by Nearform_Commerce - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
   </a>
 
   <h3>
@@ -57,4 +57,4 @@ Please see the [Contributing guide](CONTRIBUTING.md).
 
 ## Maintenance Status
 
-**Active:** Formidable now Nearform is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
+**Active:** Nearform_Commerce is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
