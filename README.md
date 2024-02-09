@@ -1,10 +1,10 @@
 <div align="center">  
-  <a href="https://formidable.com/open-source/" target="_blank">
-    <img alt="FigLog — Formidable, We build the modern web" src="./example.png" />
+  <a href="https://commerce.nearform.com/open-source/" target="_blank">
+    <img alt="FigLog Evolution Tracker Widget for Figma by Formidable now Nearform - We build beautifully designed, solidly engineered, performant digital experiences for humans, just like you." src="./example.png" />
   </a>
 
   <h3>
-    Design Evolution Widget for Figma
+    FigLog Evolution Tracker Widget for Figma
   </h3>
 
   <a href="https://github.com/FormidableLabs/figma-changelog#maintenance-status">
@@ -32,18 +32,18 @@
 
 ## Overview
 
-The FigLog widget works with both Figma and FigJam files and can be used solo or with a team. Simply drag a new FigLog widget to the canvas and get started customizing and adding your updates. New changelogs can be added by any user that has edit access to the file the widget is used in. Changelogs can be edited and deleted only by the original user who created them.
+The FigLog widget works with both Figma and FigJam files and can be used solo or with a team. Simply drag a new FigLog widget to the canvas and get started customizing and adding your updates. New changelogs can be added by any user that has edit access to the file the widget is used in.
 
 We hope FigLog becomes a useful tool for you as a way of documenting the evolution of your work and the decisions and context around those updates.
 
 ## Features
 
-- Optional name, description, version, and branding 🕹️
-- Multiplayer collaboration with user name and avatar 👫
-- Automatic date handling 🗓️
-- 5 status types 💅
-- 7 changelog types 🐙 _(coming soon)_
-- 9 link types 🔗 _(coming soon)_
+- 🕹️ Optional component status, name, description, version, log types, and branding
+- 👫 Multiplayer collaboration with user name and avatar
+- 🗓️ Automatic date handling (including log edits)
+- 💅 6 status types
+- 🏷️ 7 log types **(New!)**
+- 🔗 26 link types **(New!)**
 
 ## Usage
 
@@ -53,8 +53,8 @@ Please see the [FigLog Community Page](https://www.figma.com/community/widget/12
 
 Please see the [Contributing guide](CONTRIBUTING.md).
 
-[Icons](https://coreui.io/icons/) created by [CoreUI](https://coreui.io/).
+[Icons](https://lucide.dev/icons/) from [Lucide](https://lucide.dev/).
 
 ## Maintenance Status
 
-**Active:** Formidable is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
+**Active:** Formidable now Nearform is actively supporting this open source project, and we expect to continue collaborating on it for the foreseeable future. Bug reports, feature requests and pull requests are greatly appreciated and welcome.
