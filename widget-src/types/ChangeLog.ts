@@ -10,6 +10,7 @@ export interface ChangeLog {
   editCount: number;
   links?: LinkType[];
   state?: {
+    editing?: boolean;
     showTypeMenu?: boolean;
     link?: LinkType,
     showLinkForm?: boolean;

@@ -2,15 +2,13 @@ import { ChangeLog } from '../types/ChangeLog';
 import { Button } from './Button';
 import { User } from './log/User';
 import { DateRange } from './log/DateRange';
-import { Type } from './log/Type';
 import { formatDate } from '../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
-import { TypeMenu } from './log/TypeMenu';
 import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
-import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
 import { LinkForm } from './log/LinkForm';
 import { LinkList } from './log/LinkList';
 import { AddLink } from './log/AddLink';
+import { TypeDisplay } from './log/TypeDisplay';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -74,54 +72,11 @@ export const ChangeLogRow = ({
             width="fill-parent"
             verticalAlignItems="center"
           >
-            {!!changeLog.state?.showTypeMenu && (
-              <TypeMenu
-                currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
-                selectType={(newType) => {
-
-                  const addEdit = changeLog.type !== 'none' && changeLog.type !== 'added';
-
-                  if (newType !== changeLog.type) {
-                      updateChange({
-                        type: newType,
-                        editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
-                        editedDate: addEdit ? Date.now() : changeLog.editedDate,
-                        state: {
-                          ...changeLog.state,
-                          showTypeMenu: !changeLog.state?.showTypeMenu,
-                        },
-                      });
-                      setUpdatedDate(Date.now());
-                  } else {
-                    updateChange({
-                      state: {
-                        ...changeLog.state,
-                        showTypeMenu: !changeLog.state?.showTypeMenu,
-                      },
-                    })
-                  }
-                }}
-              />
-            )}
             {showTypes && (
-              <Type
-                type={changeLog.type} 
-                action={() => {
-                  // toggle log type menu
-                  updateChange({
-                    state: {
-                      ...changeLog.state,
-                      showTypeMenu: !changeLog.state?.showTypeMenu,
-                    }
-                  })
-                  // hide all other log type menues
-                  updateOthers({
-                    state: {
-                      ...changeLog.state,
-                      showTypeMenu: false,
-                    }
-                  })
-                }}
+              <TypeDisplay
+                changeLog={changeLog}
+                updateChange={updateChange}
+                updateOthers={updateOthers}
               />
             )}
             <Text

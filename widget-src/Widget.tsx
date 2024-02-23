@@ -34,6 +34,7 @@ function Widget() {
       user: currentUser,
       editCount: 0,
       state: {
+        editing: false,
         showTypeMenu: false,
         showLinkForm: false,
         linkFormError: { label: false, url: false }

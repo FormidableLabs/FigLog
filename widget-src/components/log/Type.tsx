@@ -9,7 +9,7 @@ const { AutoLayout, Text, SVG } = widget;
 interface TypeProps {
   type: ChangeType;
   isActive?: boolean;
-  action: () => void;
+  action?: () => void;
 }
 
 export const Type = ({ type, isActive = false, action }: TypeProps) => {
@@ -69,7 +69,7 @@ export const Type = ({ type, isActive = false, action }: TypeProps) => {
       horizontalAlignItems="center"
       verticalAlignItems="center"
       spacing={SPACE.xxxs}
-      onClick={() => { action() }}
+      onClick={() => { if (!!action) action() }}
       positioning='auto'
       stroke={showStroke ? COLOR.grey : ''}
       strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
