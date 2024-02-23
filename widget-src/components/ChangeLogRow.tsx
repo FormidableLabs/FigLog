@@ -125,7 +125,7 @@ export const ChangeLogRow = ({
               />
             )}
             <Text
-              name="Date"
+              name="Name"
               fill={COLOR.black}
               lineHeight={FONT.lineHeight.sm}
               fontFamily={FONT.family}
