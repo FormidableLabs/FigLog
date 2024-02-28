@@ -3,12 +3,13 @@ import { Button } from './Button';
 import { User } from './log/User';
 import { DateRange } from './log/DateRange';
 import { formatDate } from '../utilities/Utils';
-import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../utilities/Styles';
 import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
 import { LinkForm } from './log/LinkForm';
 import { LinkList } from './log/LinkList';
 import { AddLink } from './log/AddLink';
 import { TypeDisplay } from './log/TypeDisplay';
+import { ActionEditIcon } from '../svgs/ActionEditIcon';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -21,7 +22,6 @@ interface ChangeLogRowProps {
   updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
-  isEditable: boolean;
   showTypes: boolean;
 }
 
@@ -33,7 +33,6 @@ export const ChangeLogRow = ({
   updateOthers,
   deleteChange,
   setUpdatedDate,
-  isEditable,
   showTypes,
 }: ChangeLogRowProps) => {
 
@@ -99,27 +98,72 @@ export const ChangeLogRow = ({
               time={formatDate(changeLog.createdDate, 'time')}
               editCount={changeLog.editCount}
             />
-            {isEditable && (
-              <AutoLayout
-                name="Actions"
-                overflow="visible"
-                spacing={GAP.md}
-                width="fill-parent"
-                horizontalAlignItems="end"
-                verticalAlignItems="center"
-              >
-                <Button label="Delete" hideLabel={true} iconSrc={<ActionDeleteIcon />} action={deleteChange} />
-              </AutoLayout>
-            )}
+            <AutoLayout
+              name="Actions"
+              overflow="visible"
+              spacing={GAP.md}
+              width="fill-parent"
+              horizontalAlignItems="end"
+              verticalAlignItems="center"
+            >
+              {!!changeLog.state?.editing ? (
+                <AutoLayout
+                  spacing={GAP.lg}
+                >
+                  <Button
+                    label="Cancel"
+                    action={() => {
+                      updateChange({
+                        state: {
+                          ...changeLog.state,
+                          editing: false,
+                        }
+                      })
+                    }}
+                  />
+                  <Button
+                    label="Save Changelog"
+                    action={() => {
+                      console.log('todo: validate and save stuff');
+                      updateChange({
+                        state: {
+                          ...changeLog.state,
+                          editing: false,
+                        }
+                      })
+                    }}
+                  />
+
+                </AutoLayout>
+              ) : (
+                <Button
+                  label="Edit"
+                  hideLabel={true}
+                  iconSrc={<ActionEditIcon />}
+                  action={() => {
+                    updateChange({
+                      state: {
+                        ...changeLog.state,
+                        editing: true,
+                      }
+                    })
+                  }}
+                />
+              )}
+            </AutoLayout>
           </AutoLayout>
           <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-            {isEditable ? (
+            {!!changeLog.state?.editing ? (
               <Input
                 name="EditableChange"
                 fill={COLOR.black}
                 inputBehavior="multiline"
                 inputFrameProps={{
                   fill: COLOR.white,
+                  stroke: COLOR.grey,
+                  strokeWidth: SPACE.one,
+                  cornerRadius: RADIUS.xs,
+                  padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
                 }}
                 onTextEditEnd={e => {
                   if (e.characters !== changeLog.change) {
@@ -145,7 +189,7 @@ export const ChangeLogRow = ({
                 fontFamily={FONT.family}
                 width={'fill-parent'}
               >
-                {changeLog.change || '...'}
+                {changeLog.change || ''}
               </Text>
             )}
           </AutoLayout>

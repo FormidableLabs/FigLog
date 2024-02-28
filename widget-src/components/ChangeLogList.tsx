@@ -17,7 +17,7 @@ interface ChangeLogListProps {
 export const ChangeLogList = ({
   changeLogIds,
   changeLogs,
-  // adminId,
+  adminId,
   deleteChange,
   setUpdatedDate,
   showTypes
@@ -40,14 +40,6 @@ export const ChangeLogList = ({
       {changeLogIds.map((changeLogId, index) => {
         const changeLog = changeLogs.get(changeLogId) as ChangeLog;
 
-        function isEditable(): boolean {
-          // if widget admin
-          // if (adminId === currentUser?.id) { return true; }
-          // if changeLog owner
-          // if (changeLog?.user?.id === currentUser?.id) { return true; }
-          return true;
-        }
-
         return (
           <ChangeLogRow
             key={changeLogId}
@@ -65,7 +57,6 @@ export const ChangeLogList = ({
             }}
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
-            isEditable={isEditable()}
             showTypes={showTypes}
           />
         );
