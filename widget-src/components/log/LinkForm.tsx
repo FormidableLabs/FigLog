@@ -228,6 +228,7 @@ export const LinkForm = ({
               editCount: changeLog.editCount + 1,
               editedDate: Date.now(),
               state: {
+                ...changeLog.state,
                 showLinkForm: false,
                 link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: {
@@ -256,6 +257,7 @@ export const LinkForm = ({
           action={() => {
             updateChange({
               state: {
+                ...changeLog.state,
                 showLinkForm: false,
                 link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: { label: false, url: false, }
