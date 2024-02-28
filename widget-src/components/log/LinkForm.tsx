@@ -30,7 +30,7 @@ import {
   rxTeams,
   rxMicrosoft
 } from '../../utilities/Regexes';
-import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
+import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 
 
 const { widget } = figma;
@@ -253,7 +253,7 @@ export const LinkForm = ({
         <Button
           label="Cancel"
           hideLabel={true}
-          iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}
+          iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
           action={() => {
             updateChange({
               state: {
