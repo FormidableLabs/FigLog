@@ -206,24 +206,39 @@ export const ChangeLogRow = ({
                 })
               }}
             />
-            <AutoLayout
-              width="fill-parent"
-              horizontalAlignItems="end"
-              verticalAlignItems="center"
-            >
-              {!!changeLog.state?.showLinkForm ? (
-                <LinkForm
-                  changeLog={changeLog}
-                  updateChange={updateChange}
-                  setUpdatedDate={setUpdatedDate}
+            {!!changeLog.state?.editing && (
+              <>
+                <AutoLayout
+                  width="fill-parent"
+                  horizontalAlignItems="end"
+                  verticalAlignItems="center"
+                >
+                  {!!changeLog.state?.showLinkForm ? (
+                    <LinkForm
+                      changeLog={changeLog}
+                      updateChange={updateChange}
+                      setUpdatedDate={setUpdatedDate}
+                      />
+                  ) : (
+                    <AddLink
+                      changeLog={changeLog}
+                      updateChange={updateChange}  
+                    />
+                  )} 
+                </AutoLayout>
+                <AutoLayout
+                  width="fill-parent"
+                  horizontalAlignItems="start"
+                  verticalAlignItems="center"
+                >
+                  <Button
+                    label="Delete ChangeLog"
+                    iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
+                    action={deleteChange}
                   />
-              ) : (
-                <AddLink
-                  changeLog={changeLog}
-                  updateChange={updateChange}  
-                />
-              )} 
-            </AutoLayout>
+                </AutoLayout>
+              </>
+            )}
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
