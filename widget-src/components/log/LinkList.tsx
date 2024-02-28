@@ -23,6 +23,7 @@ export const LinkList = ({
         name="Log Links"
         overflow="visible"
         width="fill-parent"
+        height="hug-contents"
         direction="horizontal"
         wrap
         padding={{

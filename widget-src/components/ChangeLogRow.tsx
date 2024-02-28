@@ -194,7 +194,9 @@ export const ChangeLogRow = ({
             )}
           </AutoLayout>
           <AutoLayout
+            name="Links"
             width="fill-parent"
+            height="hug-contents"
             horizontalAlignItems="end"
             direction="vertical"
           >
