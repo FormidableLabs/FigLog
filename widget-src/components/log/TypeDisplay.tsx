@@ -63,12 +63,12 @@ export const TypeDisplay = ({
                 }
               })
               // hide all other log type menues - FIX: probably not needed with editing state....
-              updateOthers({
-                state: {
-                  ...changeLog.state,
-                  showTypeMenu: false,
-                }
-              })
+              // updateOthers({
+              //   state: {
+              //     ...changeLog.state,
+              //     showTypeMenu: false,
+              //   }
+              // })
             }}
           />
         </>

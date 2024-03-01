@@ -193,56 +193,61 @@ export const ChangeLogRow = ({
               </Text>
             )}
           </AutoLayout>
-          <AutoLayout
-            name="Links"
-            width="fill-parent"
-            height="hug-contents"
-            horizontalAlignItems="end"
-            direction="vertical"
-          >
-            <LinkList
-              links={changeLog.links}
-              editing={!!changeLog.state?.editing}
-              deleteLink={(linkToDelete) => {
-                updateChange({
-                  links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
-                })
-              }}
-            />
-            {!!changeLog.state?.editing && (
-              <>
-                <AutoLayout
-                  width="fill-parent"
-                  horizontalAlignItems="end"
-                  verticalAlignItems="center"
-                >
-                  {!!changeLog.state?.showLinkForm ? (
-                    <LinkForm
-                      changeLog={changeLog}
-                      updateChange={updateChange}
-                      setUpdatedDate={setUpdatedDate}
-                      />
-                  ) : (
-                    <AddLink
-                      changeLog={changeLog}
-                      updateChange={updateChange}  
+          {!!changeLog.links && changeLog.links.length > 0 && (
+            <AutoLayout
+              name="Links"
+              width="fill-parent"
+              horizontalAlignItems="end"
+              direction="vertical"
+            >
+              <LinkList
+                links={changeLog.links}
+                editing={!!changeLog.state?.editing}
+                deleteLink={(linkToDelete) => {
+                  updateChange({
+                    links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
+                  })
+                }}
+              />
+            </AutoLayout> 
+          )}
+          {!!changeLog.state?.editing && (
+            <AutoLayout
+              width="fill-parent"
+              direction="vertical"
+            >
+              <AutoLayout
+                width="fill-parent"
+                horizontalAlignItems="end"
+                verticalAlignItems="center"
+              >
+                {!!changeLog.state?.showLinkForm ? (
+                  <LinkForm
+                    changeLog={changeLog}
+                    updateChange={updateChange}
+                    setUpdatedDate={setUpdatedDate}
                     />
-                  )} 
-                </AutoLayout>
-                <AutoLayout
-                  width="fill-parent"
-                  horizontalAlignItems="start"
-                  verticalAlignItems="center"
-                >
-                  <Button
-                    label="Delete ChangeLog"
-                    iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
-                    action={deleteChange}
+                ) : (
+                  <AddLink
+                    changeLog={changeLog}
+                    updateChange={updateChange}  
                   />
-                </AutoLayout>
-              </>
-            )}
-          </AutoLayout>
+                )} 
+              </AutoLayout>
+              <AutoLayout
+                width="fill-parent"
+                horizontalAlignItems="start"
+                verticalAlignItems="center"
+              >
+                <Button
+                  label="Delete ChangeLog"
+                  iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
+                  action={deleteChange}
+                />
+              </AutoLayout>
+            </AutoLayout>
+          )}
+
         </AutoLayout>
       </AutoLayout>
       <Rectangle
