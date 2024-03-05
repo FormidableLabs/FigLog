@@ -12,8 +12,14 @@ export interface ChangeLog {
   state?: {
     editing?: boolean;
     showTypeMenu?: boolean;
-    link?: LinkType,
     showLinkForm?: boolean;
-    linkFormError?: { label: boolean, url: boolean };
+    updates?: {
+      createdDate?: number;
+      links?: LinkType[];
+      link?: LinkType;
+      linkFormError?: { label: boolean, url: boolean };
+      type?: string;
+      change?: string;
+    }
   };
 }

@@ -112,7 +112,6 @@ export const ChangeLogDisplay = ({
         >
           <LinkList
             links={changeLog.links}
-            editing={!!changeLog.state?.editing}
             deleteLink={(linkToDelete) => {
               updateChange({
                 links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []

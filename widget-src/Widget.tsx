@@ -32,14 +32,20 @@ function Widget() {
       createdDate: Date.now(),
       editedDate: Date.now(),
       user: currentUser,
+      links: [],
       editCount: 0,
       state: {
         editing: true,
         showTypeMenu: false,
         showLinkForm: false,
-        linkFormError: { label: false, url: false }
+        updates: {
+          change: '',
+          type: 'none',
+          createdDate: Date.now(),
+          linkFormError: { label: false, url: false }
+        }
       },
-      links: [],
+      
     });
     setChangeIds([changeToAdd, ...changeIds]);
     setUpdatedDate(Date.now());

@@ -180,8 +180,8 @@ export const ChangeLogEditing = ({
           direction="vertical"
         >
           <LinkList
-            links={changeLog.links}
-            editing={!!changeLog.state?.editing}
+            links={!!changeLog.state?.updates?.links ? [...changeLog.links, ...changeLog.state?.updates?.links] : changeLog.links} // todo: figure out deletion
+            editing={true}
             deleteLink={(linkToDelete) => {
               updateChange({
                 links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
