@@ -1,4 +1,4 @@
-import { ChangeLog } from '../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
@@ -8,7 +8,7 @@ const { AutoLayout, useEffect } = widget;
 interface ChangeLogListProps {
   changeLogIds: string[];
   changeLogs: SyncedMap<ChangeLog>;
-  adminId: string;
+  updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   deleteChange: (changeId: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
@@ -17,7 +17,7 @@ interface ChangeLogListProps {
 export const ChangeLogList = ({
   changeLogIds,
   changeLogs,
-  adminId,
+  updateOtherStates,
   deleteChange,
   setUpdatedDate,
   showTypes
@@ -48,14 +48,7 @@ export const ChangeLogList = ({
             isLastRow={index === changeLogIds.length - 1}
             updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
             updateChangeState={changes => changeLogs.set(changeLogId, { ...changeLog, state: { ... changes }})}
-            updateOtherStates={changes => {
-              changeLogIds.map((id) => {
-                if (id !== changeLogId) {
-                  const otherLog = changeLogs.get(id) as ChangeLog;
-                  changeLogs.set(id, { ...otherLog, state: {...changes }})
-                }
-              })
-            }}
+            updateOtherStates={updateOtherStates}
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
             showTypes={showTypes}

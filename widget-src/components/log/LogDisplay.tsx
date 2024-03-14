@@ -11,13 +11,15 @@ const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
 interface ChangeLogDisplayProps {
+  changeLogId: string,
   changeLog: ChangeLog;
   updateChangeState: (changes: Partial<ChangeLogState>) => void;
-  updateOtherStates: (changes: Partial<ChangeLogState>) => void;
+  updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   showTypes: boolean;
 }
 
 export const ChangeLogDisplay = ({
+  changeLogId,
   changeLog,
   updateChangeState,
   updateOtherStates,
@@ -96,9 +98,7 @@ export const ChangeLogDisplay = ({
                   linkFormError: { label: false, url: false },
                 }
               })
-              updateOtherStates({
-                editing: false,
-              })
+              updateOtherStates(changeLogId, { editing: false })
             }}
           />
         </AutoLayout>

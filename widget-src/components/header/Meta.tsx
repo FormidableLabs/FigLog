@@ -42,7 +42,9 @@ export const Meta = ({
       {/* LOGGING SINCE */}
       <MetaValue label="Created" value={formatDate(createdDate, 'datetime')} />
       {/* LAST UPDATED */}
-      <MetaValue label="Updated" value={formatDate(updatedDate, 'datetime')} />
+      {updatedDate !== createdDate && (
+        <MetaValue label="Updated" value={formatDate(updatedDate, 'datetime')} />
+      )}
       {/* VERSION */}
       {showVersion && (
         <MetaValue

@@ -1,4 +1,4 @@
-import { ChangeLog } from './types/ChangeLog';
+import { ChangeLog, ChangeLogState } from './types/ChangeLog';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
@@ -25,6 +25,15 @@ function Widget() {
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
   const changeLogs = useSyncedMap<ChangeLog>('changes');
 
+  const updateOtherStates = (currentChangeId: string, changes: Partial<ChangeLogState>) => {
+    changeIds.map((id: string) => {
+      if (id !== currentChangeId) {
+        const otherLog = changeLogs.get(id) as ChangeLog;
+        changeLogs.set(id, { ...otherLog, state: { ...otherLog.state, ...changes }})
+      }
+    })
+  }
+
   const addChange = (changeToAdd: string) => {
     changeLogs.set(changeToAdd, {
       change: '',
@@ -45,9 +54,9 @@ function Widget() {
           linkFormError: { label: false, url: false }
         }
       },
-      
     });
     setChangeIds([changeToAdd, ...changeIds]);
+    updateOtherStates(changeToAdd, { editing: false })
     setUpdatedDate(Date.now());
   };
   const deleteChange = (changeToDelete: string) => {
@@ -171,7 +180,7 @@ function Widget() {
         <ChangeLogList
           changeLogs={changeLogs}
           changeLogIds={changeIds}
-          adminId={adminId}
+          updateOtherStates={updateOtherStates}
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
           showTypes={showLogTypes}

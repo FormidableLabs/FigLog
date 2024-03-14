@@ -13,7 +13,7 @@ interface ChangeLogRowProps {
   isLastRow: boolean;
   updateChange: (changes: Partial<ChangeLog>) => void;
   updateChangeState: (changes: Partial<ChangeLogState>) => void;
-  updateOtherStates: (changes: Partial<ChangeLogState>) => void;
+  updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
@@ -53,6 +53,7 @@ export const ChangeLogRow = ({
           />
         ): (
           <ChangeLogDisplay
+            changeLogId={changeLogId}
             changeLog={changeLog}
             updateChangeState={updateChangeState}
             updateOtherStates={updateOtherStates}
