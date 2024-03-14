@@ -9,17 +9,19 @@ export interface ChangeLog {
   change: string;
   editCount: number;
   links?: LinkType[];
-  state?: {
-    editing?: boolean;
-    showTypeMenu?: boolean;
-    showLinkForm?: boolean;
-    updates?: {
-      createdDate?: number;
-      links?: LinkType[];
-      link?: LinkType;
-      linkFormError?: { label: boolean, url: boolean };
-      type?: string;
-      change?: string;
-    }
-  };
+  state?: ChangeLogState;
+}
+
+export interface ChangeLogState {
+  editing?: boolean;
+  showTypeMenu?: boolean;
+  showLinkForm?: boolean;
+  updates?: {
+    createdDate?: number;
+    links?: LinkType[];
+    link?: LinkType;
+    linkFormError?: { label: boolean, url: boolean };
+    type?: ChangeType;
+    change?: string;
+  }
 }

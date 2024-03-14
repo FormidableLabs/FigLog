@@ -8,7 +8,7 @@ const { AutoLayout  } = widget;
 interface LinkListProps {
   links?: Array<LinkType>;
   editing?: boolean;
-  deleteLink: (linkKey: string) => void;
+  deleteLink?: (linkKey: string) => void;
 }
 
 export const LinkList = ({
@@ -38,7 +38,7 @@ export const LinkList = ({
             key={link.key}
             icon={link.icon ? link.icon : "link"}
             editing={editing}
-            deleteLink={() => deleteLink(link.key)}
+            deleteLink={() => !!deleteLink ? deleteLink(link.key) : null}
           />
         ))}
       </AutoLayout>

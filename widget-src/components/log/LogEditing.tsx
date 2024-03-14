@@ -1,4 +1,4 @@
-import { ChangeLog } from '../../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
 import { DateRange } from './DateRange';
 import { formatDate } from '../../utilities/Utils';
@@ -11,12 +11,12 @@ import { LinkForm } from './LinkForm';
 import { AddLink } from './AddLink';
 
 const { widget } = figma;
-const { AutoLayout, Text, Input } = widget;
+const { AutoLayout, Text, Input, useEffect } = widget;
 
 interface ChangeLogEditingProps {
   changeLog: ChangeLog;
-  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
-  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
+  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
@@ -25,11 +25,16 @@ interface ChangeLogEditingProps {
 export const ChangeLogEditing = ({
   changeLog,
   updateChange,
-  updateOthers,
+  updateChangeState,
   deleteChange,
   setUpdatedDate,
   showTypes,
 }: ChangeLogEditingProps) => {
+
+  useEffect(() => {
+    console.log('state: ', changeLog.state);
+  })
+
   return (
     <AutoLayout
       name="ChangeLog Content"
@@ -55,36 +60,38 @@ export const ChangeLogEditing = ({
         width="fill-parent"
         verticalAlignItems="center"
       >
-        {!!changeLog.state?.showTypeMenu && (
-          <TypeMenu
-            currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
-            selectType={(newType) => {
-              updateChange({
-                type: newType !== changeLog.type ? newType : changeLog.type,
-                state: {
-                  ...changeLog.state,
-                  showTypeMenu: !changeLog.state?.showTypeMenu,
-                },
-              });
-            }}
-          />
-        )}
         {showTypes && (
-          <AutoLayout
-            name="Action Wrapper"
-            onClick={() => {
-              updateChange({
-                state: {
+          <>
+            {!!changeLog.state?.showTypeMenu && (
+              <TypeMenu
+                currentType={!!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type}
+                selectType={(newType) => {
+                  updateChangeState({
+                    ...changeLog.state,
+                    showTypeMenu: !changeLog.state?.showTypeMenu,
+                    updates: {
+                      ...changeLog.state?.updates,
+                      type: newType !== changeLog.type ? newType : changeLog.type,
+                    }
+                    
+                  });
+                }}
+              />
+            )}
+            <AutoLayout
+              name="Action Wrapper"
+              onClick={() => {
+                updateChangeState({
                   ...changeLog.state,
                   showTypeMenu: !changeLog.state?.showTypeMenu,
-                }
-              })
-            }}
-            width="hug-contents"
-            positioning='auto'
-          >
-            <Type type={changeLog.type} />
-          </AutoLayout>
+                })
+              }}
+              width="hug-contents"
+              positioning='auto'
+            >
+              <Type type={!!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type} />
+            </AutoLayout>
+          </>
         )}
         <Text
           name="Name"
@@ -120,24 +127,34 @@ export const ChangeLogEditing = ({
             <Button
               label="Cancel"
               action={() => {
-                updateChange({
-                  state: {
-                    ...changeLog.state,
-                    editing: false,
-                  }
+                updateChangeState({
+                  ...changeLog.state,
+                  editing: false,
                 })
               }}
             />
             <Button
               label="Save Changelog"
               action={() => {
-                console.log('todo: validate and save stuff');
+                console.log('todo: validate');
+                const saveCreatedDate = !!changeLog.state?.updates?.createdDate ? changeLog.state?.updates.createdDate : changeLog.createdDate;
+                const saveType = !!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type; 
+                const saveChange = !!changeLog.state?.updates?.change ? changeLog.state?.updates?.change : changeLog.change;
+                const saveLinks = !!changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links;
+
                 updateChange({
+                  createdDate: saveCreatedDate,
+                  editedDate: Date.now(),
+                  type: saveType,
+                  change: saveChange,
+                  links: saveLinks,
+                  editCount: changeLog.editCount + 1,
                   state: {
                     ...changeLog.state,
                     editing: false,
                   }
                 })
+                setUpdatedDate(Date.now());
               }}
             />
           </AutoLayout>
@@ -157,12 +174,13 @@ export const ChangeLogEditing = ({
           }}
           onTextEditEnd={e => {
             if (e.characters !== changeLog.change) {
-              updateChange({
-                change: e.characters,
-                editCount: changeLog.editCount + 1,
-                editedDate: Date.now(),
+              updateChangeState({
+                updates: {
+                  ...changeLog.state?.updates,
+                  change: e.characters,
+                }
               });
-              setUpdatedDate(Date.now());
+              
             }
           }}
           placeholder="Your update..."
@@ -180,11 +198,15 @@ export const ChangeLogEditing = ({
           direction="vertical"
         >
           <LinkList
-            links={!!changeLog.state?.updates?.links ? [...changeLog.links, ...changeLog.state?.updates?.links] : changeLog.links} // todo: figure out deletion
+            links={!!changeLog.state?.updates?.links ? changeLog.state?.updates?.links : []}
             editing={true}
             deleteLink={(linkToDelete) => {
-              updateChange({
-                links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
+              updateChangeState({
+                ...changeLog.state,
+                updates: {
+                  ...changeLog.state?.updates,
+                  links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links.filter(link => link.key !== linkToDelete) : []
+                }
               })
             }}
           />
@@ -202,13 +224,13 @@ export const ChangeLogEditing = ({
           {!!changeLog.state?.showLinkForm ? (
             <LinkForm
               changeLog={changeLog}
-              updateChange={updateChange}
+              updateChangeState={updateChangeState}
               setUpdatedDate={setUpdatedDate}
               />
           ) : (
             <AddLink
               changeLog={changeLog}
-              updateChange={updateChange}  
+              updateChangeState={updateChangeState}  
             />
           )} 
         </AutoLayout>

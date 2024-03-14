@@ -1,4 +1,4 @@
-import { ChangeLog } from '../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { User } from './log/User';
 import { COLOR, GAP, SPACE } from '../utilities/Styles';
 import { ChangeLogEditing } from './log/LogEditing';
@@ -11,8 +11,9 @@ interface ChangeLogRowProps {
   changeLogId: string;
   changeLog: ChangeLog;
   isLastRow: boolean;
-  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
-  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
+  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
+  updateOtherStates: (changes: Partial<ChangeLogState>) => void;
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
@@ -23,7 +24,8 @@ export const ChangeLogRow = ({
   changeLog,
   isLastRow,
   updateChange,
-  updateOthers,
+  updateChangeState,
+  updateOtherStates,
   deleteChange,
   setUpdatedDate,
   showTypes,
@@ -44,7 +46,7 @@ export const ChangeLogRow = ({
           <ChangeLogEditing
             changeLog={changeLog}
             updateChange={updateChange}
-            updateOthers={updateOthers}
+            updateChangeState={updateChangeState}
             deleteChange={deleteChange}
             setUpdatedDate={setUpdatedDate}
             showTypes={showTypes}
@@ -52,7 +54,8 @@ export const ChangeLogRow = ({
         ): (
           <ChangeLogDisplay
             changeLog={changeLog}
-            updateChange={updateChange}
+            updateChangeState={updateChangeState}
+            updateOtherStates={updateOtherStates}
             showTypes={showTypes}
           />
         )}

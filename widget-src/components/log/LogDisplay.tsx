@@ -1,4 +1,4 @@
-import { ChangeLog } from '../../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { COLOR, FONT, GAP, PADDING } from '../../utilities/Styles';
 import { Type } from './Type';
 import { DateRange } from './DateRange';
@@ -12,13 +12,15 @@ const { AutoLayout, Text } = widget;
 
 interface ChangeLogDisplayProps {
   changeLog: ChangeLog;
-  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
+  updateOtherStates: (changes: Partial<ChangeLogState>) => void;
   showTypes: boolean;
 }
 
 export const ChangeLogDisplay = ({
   changeLog,
-  updateChange,
+  updateChangeState,
+  updateOtherStates,
   showTypes,
 }: ChangeLogDisplayProps) => {
   return (
@@ -82,11 +84,20 @@ export const ChangeLogDisplay = ({
             hideLabel={true}
             iconSrc={<ActionEditIcon />}
             action={() => {
-              updateChange({
-                state: {
-                  ...changeLog.state,
-                  editing: true,
+              updateChangeState({
+                ...changeLog.state,
+                editing: true,
+                updates: {
+                  createdDate: changeLog.createdDate,
+                  links: changeLog.links,
+                  link: { label: '', url: '', icon: '', key: ''},
+                  type: changeLog.type,
+                  change: changeLog.change,
+                  linkFormError: { label: false, url: false },
                 }
+              })
+              updateOtherStates({
+                editing: false,
               })
             }}
           />
@@ -112,11 +123,6 @@ export const ChangeLogDisplay = ({
         >
           <LinkList
             links={changeLog.links}
-            deleteLink={(linkToDelete) => {
-              updateChange({
-                links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
-              })
-            }}
           />
         </AutoLayout> 
       )}

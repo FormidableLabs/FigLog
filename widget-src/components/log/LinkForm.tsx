@@ -1,4 +1,4 @@
-import { ChangeLog } from '../../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { randomId } from '../../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
@@ -38,13 +38,13 @@ const { AutoLayout, Input, Text } = widget;
 
 interface LinkFormProps {
   changeLog: ChangeLog;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
   setUpdatedDate: (updatedDate: number) => void;
 }
 
 export const LinkForm = ({
   changeLog,
-  updateChange,
+  updateChangeState,
   setUpdatedDate,
 }: LinkFormProps) => {
 
@@ -164,22 +164,21 @@ export const LinkForm = ({
           value={changeLog.state?.updates?.link?.label || ''}
           onTextEditEnd={(e) => {
             const trimmedLabel = e.characters.trim()
-            updateChange({
-              state: {
-                ...changeLog.state,
-                updates: {
-                  link: {
-                    ...changeLog.state?.updates?.link,
-                    label: trimmedLabel,
-                    url: changeLog.state?.updates?.link?.url || '',
-                    key: changeLog.state?.updates?.link?.key || '',
-                  },
-                  linkFormError: {
-                    label: !validLabel(trimmedLabel),
-                    url: !!changeLog.state?.updates?.linkFormError?.url,
-                  }
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
+                link: {
+                  ...changeLog.state?.updates?.link,
+                  label: trimmedLabel,
+                  url: changeLog.state?.updates?.link?.url || '',
+                  key: changeLog.state?.updates?.link?.key || '',
+                },
+                linkFormError: {
+                  label: !validLabel(trimmedLabel),
+                  url: !!changeLog.state?.updates?.linkFormError?.url,
                 }
-              },
+              }
             })
           }}
         />
@@ -201,23 +200,22 @@ export const LinkForm = ({
           value={changeLog.state?.updates?.link?.url || ''}
           onTextEditEnd={(e) => {
             const trimmedUrl = e.characters.trim();
-            updateChange({
-              state: {
-                ...changeLog.state,
-                updates: {
-                  link: {
-                    ...changeLog.state?.updates?.link,
-                    label: changeLog.state?.updates?.link?.label || '',
-                    url: trimmedUrl,
-                    icon: assignIcon(trimmedUrl),
-                    key: changeLog.state?.updates?.link?.key || '',
-                  },
-                  linkFormError: {
-                    label: !!changeLog.state?.updates?.linkFormError?.label,
-                    url: !validUrl(trimmedUrl),
-                  }
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
+                link: {
+                  ...changeLog.state?.updates?.link,
+                  label: changeLog.state?.updates?.link?.label || '',
+                  url: trimmedUrl,
+                  icon: assignIcon(trimmedUrl),
+                  key: changeLog.state?.updates?.link?.key || '',
+                },
+                linkFormError: {
+                  label: !!changeLog.state?.updates?.linkFormError?.label,
+                  url: !validUrl(trimmedUrl),
                 }
-              },
+              }
             })
           }}
         />
@@ -227,33 +225,28 @@ export const LinkForm = ({
           const linkKey= `link-${randomId()}`;
 
           if (labelValid && urlValid) {
-            updateChange({
-              links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }] : [{...changeLog.state?.updates?.link, key: linkKey }],
-              editCount: changeLog.editCount + 1,
-              editedDate: Date.now(),
-              state: {
-                ...changeLog.state,
-                showLinkForm: false,
-                updates: {
-                  link: { label: '', url: '', key: '', icon: '' },
-                  linkFormError: {
-                    label: false,
-                    url: false,
-                  }
+            updateChangeState({
+              ...changeLog.state,
+              showLinkForm: false,
+              updates: {
+                ...changeLog.state?.updates,
+                links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }] : [{...changeLog.state?.updates?.link, key: linkKey }],
+                link: { label: '', url: '', key: '', icon: '' },
+                linkFormError: {
+                  label: false,
+                  url: false,
                 }
               }
             })
             setUpdatedDate(Date.now());
           } else {
-            updateChange({
-              state: {
-                ...changeLog.state,
-                updates: {
-                  ...changeLog.state?.updates,
-                  linkFormError: {
-                    label: !labelValid,
-                    url: !urlValid
-                  }
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
+                linkFormError: {
+                  label: !labelValid,
+                  url: !urlValid
                 }
               }
             })
@@ -264,15 +257,13 @@ export const LinkForm = ({
           hideLabel={true}
           iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
           action={() => {
-            updateChange({
-              state: {
-                ...changeLog.state,
-                showLinkForm: false,
-                updates: {
-                  ...changeLog.state?.updates,
-                  link: { label: '', url: '', key: '', icon: '' },
-                  linkFormError: { label: false, url: false, }
-                }
+            updateChangeState({
+              ...changeLog.state,
+              showLinkForm: false,
+              updates: {
+                ...changeLog.state?.updates,
+                link: { label: '', url: '', key: '', icon: '' },
+                linkFormError: { label: false, url: false, }
               }
             })
           }}

@@ -47,11 +47,12 @@ export const ChangeLogList = ({
             changeLog={changeLog}
             isLastRow={index === changeLogIds.length - 1}
             updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
-            updateOthers={changes => {
+            updateChangeState={changes => changeLogs.set(changeLogId, { ...changeLog, state: { ... changes }})}
+            updateOtherStates={changes => {
               changeLogIds.map((id) => {
                 if (id !== changeLogId) {
                   const otherLog = changeLogs.get(id) as ChangeLog;
-                  changeLogs.set(id, { ...otherLog, ...changes })
+                  changeLogs.set(id, { ...otherLog, state: {...changes }})
                 }
               })
             }}

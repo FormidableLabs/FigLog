@@ -6,7 +6,7 @@ const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
 
 interface TypeMenuProps {
-  currentType: string;
+  currentType: ChangeType;
   selectType: (newType: ChangeType) => void;
 }
 
