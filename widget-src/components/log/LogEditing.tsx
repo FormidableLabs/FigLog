@@ -148,7 +148,7 @@ export const ChangeLogEditing = ({
                   type: saveType,
                   change: saveChange,
                   links: saveLinks,
-                  editCount: changeLog.editCount + 1,
+                  editCount: ++changeLog.editCount,
                   state: {
                     ...changeLog.state,
                     editing: false,
@@ -175,6 +175,7 @@ export const ChangeLogEditing = ({
           onTextEditEnd={e => {
             if (e.characters !== changeLog.change) {
               updateChangeState({
+                ...changeLog.state,
                 updates: {
                   ...changeLog.state?.updates,
                   change: e.characters,
@@ -184,13 +185,13 @@ export const ChangeLogEditing = ({
             }
           }}
           placeholder="Your update..."
-          value={changeLog.change}
+          value={changeLog.state?.updates?.change || changeLog.change}
           width="fill-parent"
           lineHeight={FONT.lineHeight.lg}
           fontFamily={FONT.family}
         />
       </AutoLayout>
-      {!!changeLog.links && changeLog.links.length > 0 && (
+      {!!changeLog.state?.updates?.links && changeLog.state?.updates?.links.length > 0 && (
         <AutoLayout
           name="Links"
           width="fill-parent"
