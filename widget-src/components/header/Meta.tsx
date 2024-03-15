@@ -1,6 +1,6 @@
 import { ActionAddIcon } from '../../svgs/ActionAddIcon';
 import { COLOR, GAP, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
-import { randomId, formatDate } from '../../utilities/Utils';
+import { randomId, displayDate } from '../../utilities/Utils';
 import { MetaValue } from './MetaValue';
 
 const { currentUser, widget } = figma;
@@ -40,10 +40,10 @@ export const Meta = ({
       verticalAlignItems="center"
     >
       {/* LOGGING SINCE */}
-      <MetaValue label="Created" value={formatDate(createdDate, 'datetime')} />
+      <MetaValue label="Created" value={displayDate(createdDate, 'datetime')} />
       {/* LAST UPDATED */}
       {updatedDate !== createdDate && (
-        <MetaValue label="Updated" value={formatDate(updatedDate, 'datetime')} />
+        <MetaValue label="Updated" value={displayDate(updatedDate, 'datetime')} />
       )}
       {/* VERSION */}
       {showVersion && (

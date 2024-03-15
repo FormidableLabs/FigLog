@@ -2,7 +2,6 @@ import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { COLOR, FONT, GAP, PADDING } from '../../utilities/Styles';
 import { Type } from './Type';
 import { DateRange } from './DateRange';
-import { formatDate } from '../../utilities/Utils';
 import { Button } from '../Button';
 import { ActionEditIcon } from '../../svgs/ActionEditIcon';
 import { LinkList } from './LinkList';
@@ -67,10 +66,9 @@ export const ChangeLogDisplay = ({
         </Text>
 
         <DateRange
-          editedDate={formatDate(changeLog.editedDate, 'date')}
-          editedTime={formatDate(changeLog.editedDate, 'time')}
-          date={formatDate(changeLog.createdDate, 'date')}
-          time={formatDate(changeLog.createdDate, 'time')}
+          changeLog={changeLog}
+          timestamp={changeLog.createdDate}
+          editedTimestamp={changeLog.editedDate}
           editCount={changeLog.editCount}
         />
         <AutoLayout

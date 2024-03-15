@@ -4,7 +4,7 @@
 export const randomId = () => Math.random().toString(36).substring(2, 15);
 
 // accepts an epoch timestamp and a format ('date', 'time', or 'datetime')
-export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') => {
+export const displayDate = (epoch: number, format: 'date' | 'time' | 'datetime') => {
   const date: Date = new Date(epoch);
   let formattedDate: string = '';
   let month: number | string = 0;
@@ -41,7 +41,7 @@ export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') 
   switch (format) {
     case 'date':
       // MM/DD/YY
-      formattedDate = `${month}|${day}|${year}`;
+      formattedDate = `${month}/${day}/${year}`;
       break;
 
     case 'time':
@@ -51,7 +51,7 @@ export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') 
 
     case 'datetime':
       // MM/DD/YYYY @ 00:00:00 AM/PM
-      formattedDate = `${month}|${day}|${yearFull} @ ${hours}:${minutes}:${seconds} ${ampm}`;
+      formattedDate = `${month}/${day}/${yearFull} @ ${hours}:${minutes}:${seconds} ${ampm}`;
       break;
 
     default:
@@ -62,3 +62,22 @@ export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') 
 
   return formattedDate;
 };
+
+const twelveToTwentyFour = (timeStr: string, ampm: string) => {
+  const HHmmss = timeStr.split(':');
+  let mmss = HHmmss.slice(-2);
+  let hour = parseInt(HHmmss[0]);
+  if (ampm.toUpperCase() === 'PM' && hour !== 12) {
+    hour = hour + 12;
+  }
+  const time = [hour.toString(), ...mmss].join(':');
+  return time;
+}
+
+export const createTimestamp = (chars: string) => {
+  let dateTime = chars.split(' ');
+  let mmDdYyyy = dateTime[0].split('/');
+  const time = twelveToTwentyFour(dateTime[2], dateTime[3]);
+  let date = `${mmDdYyyy[2]}-${mmDdYyyy[0]}-${mmDdYyyy[1]}T${time}`
+  return Date.parse(date);
+}

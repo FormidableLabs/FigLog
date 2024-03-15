@@ -1,38 +1,81 @@
-import { COLOR, FONT, GAP } from '../../utilities/Styles';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
+import {
+  COLOR,
+  FONT,
+  GAP,
+  SPACE,
+  RADIUS,
+  PADDING
+} from '../../utilities/Styles';
+import { displayDate, createTimestamp } from '../../utilities/Utils';
 
 const { widget } = figma;
-const { AutoLayout, Text } = widget;
+const { AutoLayout, Text, Input } = widget;
 
 interface DateRangeProps {
-  editedDate: string;
-  editedTime: string;
-  date: string;
-  time: string;
+  changeLog: ChangeLog
+  timestamp: number,
+  editedTimestamp: number,
   editCount: number;
+  editing?: boolean;
+  updateChangeState?: (changes: Partial<ChangeLogState>) => void;
 }
 
 export const DateRange = ({
-  editedDate,
-  editedTime,
-  date,
-  time,
+  changeLog,
+  timestamp,
+  editedTimestamp,
   editCount,
+  editing = false,
+  updateChangeState
 }: DateRangeProps) => {
   return (
     <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
-      <Text
-        name="Created"
-        fill={COLOR.black}
-        lineHeight={FONT.lineHeight.sm}
-        fontFamily={FONT.family}
-        fontSize={FONT.size.sm}
-        letterSpacing={FONT.letterSpacing.sm}
-        fontWeight={FONT.weight.bold}
-        textCase="upper"
-        hidden={date === undefined}
-      >
-        {`${date} @ ${time}`}
-      </Text>
+      {editing ? (
+        <Input
+          name="Editable Date"
+          fill={COLOR.black}
+          inputBehavior="truncate"
+          inputFrameProps={{
+            fill: COLOR.white,
+            stroke: COLOR.grey,
+            strokeWidth: SPACE.one,
+            cornerRadius: RADIUS.xs,
+            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
+          }}
+          placeholder={displayDate(timestamp, 'datetime')}
+          value={displayDate(timestamp, 'datetime')}
+          lineHeight={FONT.lineHeight.sm}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.sm}
+          letterSpacing={FONT.letterSpacing.sm}
+          fontWeight={FONT.weight.bold}
+          textCase="upper"
+          width={SPACE.lg + SPACE.xxxs}
+          onTextEditEnd={e => {
+            const newCreated = createTimestamp(e.characters);
+            if (newCreated !== timestamp) {
+              if (!!updateChangeState) {
+                updateChangeState({...changeLog.state, updates: { ...changeLog.state?.updates, createdDate: newCreated }})
+              }
+            }
+          }}
+        />
+      ) : (
+        <Text
+          name="Created"
+          fill={COLOR.black}
+          lineHeight={FONT.lineHeight.sm}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.sm}
+          letterSpacing={FONT.letterSpacing.sm}
+          fontWeight={FONT.weight.bold}
+          textCase="upper"
+          hidden={timestamp === undefined}
+        >
+          {displayDate(timestamp, 'datetime')}
+        </Text>
+      )}
 
       {editCount >= 2 && (
         <Text
@@ -43,7 +86,7 @@ export const DateRange = ({
           fontSize={FONT.size.xs}
           letterSpacing={FONT.letterSpacing.sm}
         >
-          {`EDITED ${editedDate} @ ${editedTime}`}
+          {`EDITED ${displayDate(editedTimestamp, 'datetime')}`}
         </Text>
       )}
     </AutoLayout>
