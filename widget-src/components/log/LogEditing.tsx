@@ -160,7 +160,12 @@ export const ChangeLogEditing = ({
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout name="Changes" overflow="visible" width="fill-parent">
+      <AutoLayout
+        name="Changes"
+        overflow="visible"
+        width="fill-parent"
+        padding={{ top: PADDING.xs }}
+      >
         <Input
           name="EditableChange"
           fill={COLOR.black}
