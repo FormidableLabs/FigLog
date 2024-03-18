@@ -136,11 +136,10 @@ export const ChangeLogEditing = ({
             <Button
               label="Save Changelog"
               action={() => {
-                console.log('todo: validate');
-                const saveCreatedDate = !!changeLog.state?.updates?.createdDate ? changeLog.state?.updates.createdDate : changeLog.createdDate;
-                const saveType = !!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type; 
-                const saveChange = !!changeLog.state?.updates?.change ? changeLog.state?.updates?.change : changeLog.change;
-                const saveLinks = !!changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links;
+                const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
+                const saveType = changeLog.state?.updates?.type || changeLog.type; 
+                const saveChange = changeLog.state?.updates?.change || changeLog.change;
+                const saveLinks = changeLog.state?.updates?.links || changeLog.links;
 
                 updateChange({
                   createdDate: saveCreatedDate,
