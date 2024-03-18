@@ -37,8 +37,9 @@ export const ChangeLogList = ({
         horizontal: PADDING.none,
       }}
     >
-      {changeLogIds.map((changeLogId, index) => {
-        const changeLog = changeLogs.get(changeLogId) as ChangeLog;
+      {changeLogs.entries().sort((a, b) => b[1].createdDate - a[1].createdDate ).map((changeLogArr, index) => {
+        const changeLogId = changeLogArr[0];
+        const changeLog = changeLogArr[1];
 
         return (
           <ChangeLogRow
