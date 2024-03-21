@@ -136,24 +136,28 @@ export const ChangeLogEditing = ({
             <Button
               label="Save Changelog"
               action={() => {
-                const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
-                const saveType = changeLog.state?.updates?.type || changeLog.type; 
-                const saveChange = changeLog.state?.updates?.change || changeLog.change;
-                const saveLinks = changeLog.state?.updates?.links || changeLog.links;
-
-                updateChange({
-                  createdDate: saveCreatedDate,
-                  editedDate: Date.now(),
-                  type: saveType,
-                  change: saveChange,
-                  links: saveLinks,
-                  editCount: ++changeLog.editCount,
-                  state: {
-                    ...changeLog.state,
-                    editing: false,
-                  }
-                })
-                setUpdatedDate(Date.now());
+                const dateError = !!changeLog.state?.updates?.createdDateTmp?.date.er;
+                const timeError = !!changeLog.state?.updates?.createdDateTmp?.time.er;
+                if ( !dateError || !timeError ) {
+                  const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
+                  const saveType = changeLog.state?.updates?.type || changeLog.type; 
+                  const saveChange = changeLog.state?.updates?.change || changeLog.change;
+                  const saveLinks = changeLog.state?.updates?.links || changeLog.links;
+  
+                  updateChange({
+                    createdDate: saveCreatedDate,
+                    editedDate: Date.now(),
+                    type: saveType,
+                    change: saveChange,
+                    links: saveLinks,
+                    editCount: ++changeLog.editCount,
+                    state: {
+                      ...changeLog.state,
+                      editing: false,
+                    }
+                  })
+                  setUpdatedDate(Date.now());
+                }
               }}
             />
           </AutoLayout>

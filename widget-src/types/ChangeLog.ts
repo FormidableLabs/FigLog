@@ -18,7 +18,10 @@ export interface ChangeLogState {
   showLinkForm?: boolean;
   updates?: {
     createdDate?: number;
-    createdDateError?: { er: boolean, tmp: string | undefined };
+    createdDateTmp?: {
+      date: { val?: string, er?: boolean },
+      time: { val?: string, er?: boolean }
+    };
     links?: LinkType[];
     link?: LinkType;
     linkFormError?: { label: boolean, url: boolean };

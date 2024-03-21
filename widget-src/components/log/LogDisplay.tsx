@@ -5,6 +5,7 @@ import { DateRange } from './DateRange';
 import { Button } from '../Button';
 import { ActionEditIcon } from '../../svgs/ActionEditIcon';
 import { LinkList } from './LinkList';
+import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
 const { AutoLayout, Text } = widget;
@@ -89,6 +90,10 @@ export const ChangeLogDisplay = ({
                 editing: true,
                 updates: {
                   createdDate: changeLog.createdDate,
+                  createdDateTmp: {
+                    date: { val: displayDate(changeLog.createdDate, "date"), er: false },
+                    time: { val: displayDate(changeLog.createdDate, "time"), er: false }
+                  },
                   links: changeLog.links,
                   link: { label: '', url: '', icon: '', key: ''},
                   type: changeLog.type,
