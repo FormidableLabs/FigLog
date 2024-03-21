@@ -24,13 +24,14 @@ export const Name = ({
         <Text
           name="Name"
           width="fill-parent"
+          fill={!!nameText ? COLOR.black : COLOR.grey}
           lineHeight={FONT.lineHeight.xxl}
           fontFamily={FONT.family}
           fontSize={FONT.size.xxl}
           fontWeight={FONT.weight.bold}
           hidden={!name}
         >
-          {nameText}
+          {nameText || "Name..."}
         </Text>
       ) : (
         <Input

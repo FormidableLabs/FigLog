@@ -33,14 +33,14 @@ export const Description = ({
       {locked ? (
         <Text
           name="Description"
-          fill={COLOR.black}
+          fill={!!descriptionText ? COLOR.black : COLOR.grey}
           width="fill-parent"
           lineHeight={FONT.lineHeight.xl}
           fontFamily={FONT.family}
           fontSize={FONT.size.lg}
           hidden={!description}
         >
-          {descriptionText}
+          {descriptionText || "Description..."}
         </Text>
       ) : (
         <Input
