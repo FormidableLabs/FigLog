@@ -1,6 +1,6 @@
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
-import { DateRange } from './DateRange';
+import { DateRangeForm } from './DateRangeForm';
 import { Button } from '../Button';
 import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
 import { LinkList } from './LinkList';
@@ -105,12 +105,9 @@ export const ChangeLogEditing = ({
           {changeLog.user?.name || ''}
         </Text>
 
-        <DateRange
+        <DateRangeForm
           changeLog={changeLog}
           timestamp={changeLog.state?.updates?.createdDate || changeLog.createdDate}
-          editedTimestamp={changeLog.editedDate}
-          editCount={changeLog.editCount}
-          editing
           updateChangeState={updateChangeState}
         />
         <AutoLayout
@@ -138,7 +135,7 @@ export const ChangeLogEditing = ({
               action={() => {
                 const dateError = !!changeLog.state?.updates?.createdDateTmp?.date.er;
                 const timeError = !!changeLog.state?.updates?.createdDateTmp?.time.er;
-                if ( !dateError || !timeError ) {
+                if ( !dateError && !timeError ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type; 
                   const saveChange = changeLog.state?.updates?.change || changeLog.change;
