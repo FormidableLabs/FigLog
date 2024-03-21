@@ -1,4 +1,5 @@
 import { ActionAddIcon } from '../../svgs/ActionAddIcon';
+import { ActionLockIcon } from '../../svgs/ActionLockIcon';
 import { COLOR, GAP, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
 import { randomId, displayDate } from '../../utilities/Utils';
 import { MetaValue } from './MetaValue';
@@ -14,6 +15,7 @@ interface MetaProps {
   showVersion: boolean;
   setVersion: (updatedVersion: string) => void;
   addChange: (changeId: string) => void;
+  locked: boolean;
 }
 
 export const Meta = ({
@@ -23,7 +25,8 @@ export const Meta = ({
   version,
   showVersion,
   setVersion,
-  addChange
+  addChange,
+  locked,
 }: MetaProps) => {
   return (
     <AutoLayout
@@ -40,10 +43,10 @@ export const Meta = ({
       verticalAlignItems="center"
     >
       {/* LOGGING SINCE */}
-      <MetaValue label="Created" value={displayDate(createdDate, 'datetime')} />
+      <MetaValue label="Created" value={displayDate(createdDate, 'datetime')} locked={locked} />
       {/* LAST UPDATED */}
       {updatedDate !== createdDate && (
-        <MetaValue label="Updated" value={displayDate(updatedDate, 'datetime')} />
+        <MetaValue label="Updated" value={displayDate(updatedDate, 'datetime')} locked={locked} />
       )}
       {/* VERSION */}
       {showVersion && (
@@ -52,6 +55,7 @@ export const Meta = ({
           value={version}
           setValue={setVersion}
           setUpdatedDate={setUpdatedDate}
+          locked={locked}
         />
       )}
       {/* NEW */}
@@ -63,23 +67,39 @@ export const Meta = ({
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <AutoLayout
-            name="NewLog"
-            cornerRadius={RADIUS.sm}
-            fill={COLOR.white}
-            hoverStyle={{ fill: COLOR.grey }}
-            onClick={() => {
-              const changeId = randomId();
-              addChange(changeId);
-            }}
-            overflow="visible"
-            spacing={GAP.md}
-            padding={PADDING.xs}
-            horizontalAlignItems="end"
-            verticalAlignItems="center"
-          >
-            <SVG name="Vector" height={SPACE.sm} width={SPACE.sm} src={<ActionAddIcon />} />
-          </AutoLayout>
+          {locked ? (
+            <AutoLayout
+              name="Locked Widget"
+              cornerRadius={RADIUS.sm}
+              fill={COLOR.white}
+              overflow="visible"
+              spacing={GAP.md}
+              padding={PADDING.xs}
+              horizontalAlignItems="end"
+              verticalAlignItems="center"
+            >
+              <SVG name="Lock" height={SPACE.sm} width={SPACE.sm} src={<ActionLockIcon color={COLOR.greyDark} />} />
+            </AutoLayout>
+          ) : (
+            <AutoLayout
+              name="NewLog"
+              cornerRadius={RADIUS.sm}
+              fill={COLOR.white}
+              hoverStyle={{ fill: COLOR.grey }}
+              onClick={() => {
+                const changeId = randomId();
+                addChange(changeId);
+              }}
+              overflow="visible"
+              spacing={GAP.md}
+              padding={PADDING.xs}
+              horizontalAlignItems="end"
+              verticalAlignItems="center"
+            >
+              <SVG name="Add" height={SPACE.sm} width={SPACE.sm} src={<ActionAddIcon />} />
+            </AutoLayout>
+
+          )}
         </AutoLayout>
       )}
     </AutoLayout>

@@ -4,6 +4,9 @@ import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
+import { ActionLockIcon } from './svgs/ActionLockIcon';
+import { ActionUnlockIcon } from './svgs/ActionUnlockIcon';
+import { COLOR } from './utilities/Styles';
 
 const { currentUser, widget } = figma;
 const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
@@ -16,6 +19,7 @@ function Widget() {
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
   const [showBranding, setShowBranding] = useSyncedState('showBradning', true); // fixing the typo messes with branding state on existing widgets
   const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', true);
+  const [isLocked, setIsLocked] = useSyncedState('isLocked', false);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
   const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
@@ -115,6 +119,13 @@ function Widget() {
         propertyName: 'branding',
         isToggled: showBranding,
       },
+      {
+        itemType: 'toggle',
+        tooltip: 'Lock Widget',
+        propertyName: 'isLocked',
+        isToggled: isLocked,
+        icon: isLocked ? <ActionLockIcon color={COLOR.greyLight}/> : <ActionUnlockIcon color={COLOR.greyLight}/>
+      },
     ],
     ({ propertyName, propertyValue }) => {
       switch (propertyName) {
@@ -137,6 +148,9 @@ function Widget() {
           break;
         case 'logTypes':
           setShowLogTypes(!showLogTypes);
+          break;
+        case 'isLocked':
+          setIsLocked(!isLocked);
           break;
       }
       setUpdatedDate(Date.now());
@@ -173,6 +187,7 @@ function Widget() {
         setVersion={setVersion}
         showVersion={showVersion}
         addChange={addChange}
+        isLocked={isLocked}
       />
       {changeIds.length === 0 ? (
         <ChangeLogEmpty />
@@ -184,6 +199,7 @@ function Widget() {
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
           showTypes={showLogTypes}
+          isLocked={isLocked}
         />
       )}
       <Footer showBranding={showBranding} />

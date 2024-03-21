@@ -1,20 +1,22 @@
 import { COLOR, FONT, PADDING } from '../../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Input } = widget;
+const { AutoLayout, Input, Text } = widget;
 
 interface DescriptionProps {
   description: boolean;
   descriptionText: string;
   setDescriptionText: (description: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
+  locked: boolean;
 }
 
 export const Description = ({
   description,
   descriptionText,
   setDescriptionText,
-  setUpdatedDate
+  setUpdatedDate,
+  locked,
 }: DescriptionProps) => {
   return (
     <AutoLayout
@@ -28,25 +30,40 @@ export const Description = ({
       width="fill-parent"
       hidden={!description}
     >
-      <Input
-        name="Description"
-        fill={COLOR.black}
-        inputBehavior="multiline"
-        inputFrameProps={{
-          fill: COLOR.white,
-        }}
-        onTextEditEnd={e => {
-          setDescriptionText(e.characters);
-          setUpdatedDate(Date.now());
-        }}
-        placeholder="Description..."
-        value={descriptionText}
-        width="fill-parent"
-        lineHeight={FONT.lineHeight.xl}
-        fontFamily={FONT.family}
-        fontSize={FONT.size.lg}
-        hidden={!description}
-      />
+      {locked ? (
+        <Text
+          name="Description"
+          fill={COLOR.black}
+          width="fill-parent"
+          lineHeight={FONT.lineHeight.xl}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.lg}
+          hidden={!description}
+        >
+          {descriptionText}
+        </Text>
+      ) : (
+        <Input
+          name="Description"
+          fill={COLOR.black}
+          inputBehavior="multiline"
+          inputFrameProps={{
+            fill: COLOR.white,
+          }}
+          onTextEditEnd={e => {
+            setDescriptionText(e.characters);
+            setUpdatedDate(Date.now());
+          }}
+          placeholder="Description..."
+          value={descriptionText}
+          width="fill-parent"
+          lineHeight={FONT.lineHeight.xl}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.lg}
+          hidden={!description}
+        />
+
+      )}
     </AutoLayout>
   );
 };
