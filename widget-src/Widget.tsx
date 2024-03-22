@@ -1,9 +1,12 @@
-import { ChangeLog } from './types/ChangeLog';
+import { ChangeLog, ChangeLogState } from './types/ChangeLog';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
+import { ActionLockIcon } from './svgs/ActionLockIcon';
+import { ActionUnlockIcon } from './svgs/ActionUnlockIcon';
+import { COLOR } from './utilities/Styles';
 
 const { currentUser, widget } = figma;
 const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
@@ -15,7 +18,8 @@ function Widget() {
   const [showStatus, setShowStatus] = useSyncedState('showStatus', '0');
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
   const [showBranding, setShowBranding] = useSyncedState('showBradning', true); // fixing the typo messes with branding state on existing widgets
-  const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', false);
+  const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', true);
+  const [isLocked, setIsLocked] = useSyncedState('isLocked', false);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
   const [updatedDate, setUpdatedDate] = useSyncedState('updatedDate', 0);
@@ -25,6 +29,15 @@ function Widget() {
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
   const changeLogs = useSyncedMap<ChangeLog>('changes');
 
+  const updateOtherStates = (currentChangeId: string, changes: Partial<ChangeLogState>) => {
+    changeIds.map((id: string) => {
+      if (id !== currentChangeId) {
+        const otherLog = changeLogs.get(id) as ChangeLog;
+        changeLogs.set(id, { ...otherLog, state: { ...otherLog.state, ...changes }})
+      }
+    })
+  }
+
   const addChange = (changeToAdd: string) => {
     changeLogs.set(changeToAdd, {
       change: '',
@@ -32,15 +45,22 @@ function Widget() {
       createdDate: Date.now(),
       editedDate: Date.now(),
       user: currentUser,
+      links: [],
       editCount: 0,
       state: {
+        editing: true,
         showTypeMenu: false,
         showLinkForm: false,
-        linkFormError: { label: false, url: false }
+        updates: {
+          change: '',
+          type: 'none',
+          createdDate: Date.now(),
+          linkFormError: { label: false, url: false }
+        }
       },
-      links: [],
     });
     setChangeIds([changeToAdd, ...changeIds]);
+    updateOtherStates(changeToAdd, { editing: false })
     setUpdatedDate(Date.now());
   };
   const deleteChange = (changeToDelete: string) => {
@@ -99,6 +119,13 @@ function Widget() {
         propertyName: 'branding',
         isToggled: showBranding,
       },
+      {
+        itemType: 'toggle',
+        tooltip: 'Lock Widget',
+        propertyName: 'isLocked',
+        isToggled: isLocked,
+        icon: isLocked ? <ActionLockIcon color={COLOR.greyLight}/> : <ActionUnlockIcon color={COLOR.greyLight}/>
+      },
     ],
     ({ propertyName, propertyValue }) => {
       switch (propertyName) {
@@ -121,6 +148,9 @@ function Widget() {
           break;
         case 'logTypes':
           setShowLogTypes(!showLogTypes);
+          break;
+        case 'isLocked':
+          setIsLocked(!isLocked);
           break;
       }
       setUpdatedDate(Date.now());
@@ -157,17 +187,21 @@ function Widget() {
         setVersion={setVersion}
         showVersion={showVersion}
         addChange={addChange}
+        isLocked={isLocked}
       />
       {changeIds.length === 0 ? (
-        <ChangeLogEmpty />
+        <ChangeLogEmpty 
+          isLocked={isLocked}
+        />
       ) : (
         <ChangeLogList
           changeLogs={changeLogs}
           changeLogIds={changeIds}
-          adminId={adminId}
+          updateOtherStates={updateOtherStates}
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
           showTypes={showLogTypes}
+          isLocked={isLocked}
         />
       )}
       <Footer showBranding={showBranding} />

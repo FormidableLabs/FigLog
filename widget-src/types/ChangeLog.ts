@@ -9,10 +9,23 @@ export interface ChangeLog {
   change: string;
   editCount: number;
   links?: LinkType[];
-  state?: {
-    showTypeMenu?: boolean;
-    link?: LinkType,
-    showLinkForm?: boolean;
+  state?: ChangeLogState;
+}
+
+export interface ChangeLogState {
+  editing?: boolean;
+  showTypeMenu?: boolean;
+  showLinkForm?: boolean;
+  updates?: {
+    createdDate?: number;
+    createdDateTmp?: {
+      date: { val?: string, er?: boolean },
+      time: { val?: string, er?: boolean }
+    };
+    links?: LinkType[];
+    link?: LinkType;
     linkFormError?: { label: boolean, url: boolean };
-  };
+    type?: ChangeType;
+    change?: string;
+  }
 }

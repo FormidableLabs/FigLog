@@ -8,6 +8,7 @@ interface MetaValueProps {
   value: string;
   setValue?: (value: string) => void;
   setUpdatedDate?: (updatedDate: number) => void;
+  locked: boolean;
 }
 
 export const MetaValue = ({
@@ -15,6 +16,7 @@ export const MetaValue = ({
   value,
   setValue,
   setUpdatedDate,
+  locked,
 }: MetaValueProps) => {
   return (
     <AutoLayout
@@ -39,7 +41,7 @@ export const MetaValue = ({
       >
         {label}
       </Text>
-      {setValue && setUpdatedDate ? (
+      {setValue && setUpdatedDate && !locked ? (
         <Input
           name="EditableMetaValueValue"
           fill={COLOR.greyDark}
@@ -50,7 +52,6 @@ export const MetaValue = ({
             fill: COLOR.white,
           }}
           onTextEditEnd={e => {
-            // only update if something changed
             if (e.characters !== value) {
               setValue ? setValue(e.characters) : null;
               setUpdatedDate ? setUpdatedDate(Date.now()) : null;

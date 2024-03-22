@@ -19,6 +19,7 @@ interface HeaderProps {
   showVersion: boolean;
   setVersion: (updatedVersion: string) => void;
   addChange: (changeId: string) => void;
+  isLocked: boolean;
 }
 
 export const Header = ({
@@ -33,6 +34,7 @@ export const Header = ({
   showVersion,
   setVersion,
   addChange,
+  isLocked,
 }: HeaderProps) => {
   const [nameText, setNameText] = useSyncedState('nameText', '');
   const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
@@ -44,7 +46,13 @@ export const Header = ({
         {status !== '0' && <Status status={status} />}
         {/* NAME */}
         {name && (
-          <Name name={name} nameText={nameText} setNameText={setNameText} setUpdatedDate={setUpdatedDate} />
+          <Name
+            name={name}
+            nameText={nameText}
+            setNameText={setNameText}
+            setUpdatedDate={setUpdatedDate}
+            locked={isLocked}
+          />
         )}
         {/* DESCRIPTION */}
         {description && (
@@ -53,6 +61,7 @@ export const Header = ({
             descriptionText={descriptionText}
             setDescriptionText={setDescriptionText}
             setUpdatedDate={setUpdatedDate}
+            locked={isLocked}
           />
         )}
         {/* META */}
@@ -64,6 +73,7 @@ export const Header = ({
           showVersion={showVersion}
           setVersion={setVersion}
           addChange={addChange}
+          locked={isLocked}
         />
       </AutoLayout>
       <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />
