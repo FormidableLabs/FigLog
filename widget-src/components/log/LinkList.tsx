@@ -7,11 +7,13 @@ const { AutoLayout  } = widget;
 
 interface LinkListProps {
   links?: Array<LinkType>;
-  deleteLink: (linkKey: string) => void;
+  editing?: boolean;
+  deleteLink?: (linkKey: string) => void;
 }
 
 export const LinkList = ({
   links,
+  editing = false,
   deleteLink,
 }: LinkListProps) => {
   return(
@@ -21,6 +23,7 @@ export const LinkList = ({
         name="Log Links"
         overflow="visible"
         width="fill-parent"
+        height="hug-contents"
         direction="horizontal"
         wrap
         padding={{
@@ -34,7 +37,8 @@ export const LinkList = ({
             url={!!link.url ? link.url : ""}
             key={link.key}
             icon={link.icon ? link.icon : "link"}
-            deleteLink={() => deleteLink(link.key)}
+            editing={editing}
+            deleteLink={() => !!deleteLink ? deleteLink(link.key) : null}
           />
         ))}
       </AutoLayout>

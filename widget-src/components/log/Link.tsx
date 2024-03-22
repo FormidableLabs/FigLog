@@ -36,6 +36,7 @@ interface LinkProps {
   url: string,
   icon?: string,
   key: string,
+  editing: boolean,
   deleteLink: () => void;
 }
 
@@ -44,6 +45,7 @@ export const Link = ({
   url,
   icon = <ActionLinkIcon color={COLOR.greyDark} />,
   key,
+  editing = false,
   deleteLink,
 }: LinkProps) => {
 
@@ -121,8 +123,8 @@ export const Link = ({
         }}
         cornerRadius={{
           topLeft: RADIUS.xs,
-          topRight: RADIUS.none,
-          bottomRight: RADIUS.none,
+          topRight: editing ? RADIUS.none : RADIUS.xs,
+          bottomRight: editing ? RADIUS.none : RADIUS.xs,
           bottomLeft: RADIUS.xs,
         }}
         hoverStyle={{ fill: COLOR.grey }}
@@ -158,31 +160,33 @@ export const Link = ({
           {label}
         </Text>
       </AutoLayout>
-      <AutoLayout
-        name="delete link"
-        onClick={() => deleteLink()}
-        padding={{
-          left: PADDING.sm,
-          right: PADDING.sm,
-        }}
-        cornerRadius={{
-          topLeft: RADIUS.none,
-          topRight: RADIUS.xs,
-          bottomRight: RADIUS.xs,
-          bottomLeft: RADIUS.none,
-        }}
-        fill={COLOR.greyLight}
-        hoverStyle={{ fill: COLOR.grey }}
-        height={SPACE.sm}
-        verticalAlignItems="center"
-      >
-        <SVG
-          name="delete"
-          height={SPACE.xxs}
-          width={SPACE.xxs}
-          src={<ActionDeleteIcon color={COLOR.greyDark} />}
-        />
-      </AutoLayout>
+      {editing && (
+        <AutoLayout
+          name="delete link"
+          onClick={() => deleteLink()}
+          padding={{
+            left: PADDING.sm,
+            right: PADDING.sm,
+          }}
+          cornerRadius={{
+            topLeft: RADIUS.none,
+            topRight: RADIUS.xs,
+            bottomRight: RADIUS.xs,
+            bottomLeft: RADIUS.none,
+          }}
+          fill={COLOR.greyLight}
+          hoverStyle={{ fill: COLOR.grey }}
+          height={SPACE.sm}
+          verticalAlignItems="center"
+        >
+          <SVG
+            name="delete"
+            height={SPACE.xs}
+            width={SPACE.xs}
+            src={<ActionDeleteIcon color={COLOR.greyDark} />}
+          />
+        </AutoLayout>
+      )}
     </AutoLayout>
   )
 }

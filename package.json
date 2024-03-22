@@ -1,21 +1,23 @@
 {
   "name": "figlog",
   "version": "1.0.0",
-  "description": "The easiest and most efficient way to document team decisions and the evolution of your changes in Figma.",
   "repository": "https://github.com/FormidableLabs/figlog.git",
+  "devDependencies": {
+    "@figma/plugin-typings": "*",
+    "@figma/widget-typings": "*",
+    "date-fns": "^3.6.0",
+    "esbuild": "*",
+    "typescript": "*"
+  },
+  "contributors": [
+    "Ryan Srofe <rsrofe@gmail.com>",
+    "Christy Presler <christy.presler@nearform.com>"
+  ],
+  "description": "The easiest and most efficient way to document team decisions and the evolution of your changes in Figma.",
+  "license": "MIT",
   "scripts": {
     "build": "esbuild widget-src/Widget.tsx --bundle --outfile=dist/code.js --target=es6",
     "tsc": "tsc --noEmit -p widget-src",
     "watch": "bun run build -- --watch"
-  },
-  "contributors": [
-    "Ryan Srofe <rsrofe@gmail.com>"
-  ],
-  "license": "MIT",
-  "devDependencies": {
-    "@figma/plugin-typings": "*",
-    "@figma/widget-typings": "*",
-    "esbuild": "*",
-    "typescript": "*"
   }
 }
