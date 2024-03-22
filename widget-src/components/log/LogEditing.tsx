@@ -131,7 +131,7 @@ export const ChangeLogEditing = ({
               }}
             />
             <Button
-              label="Save Changelog"
+              label="Save Change"
               action={() => {
                 const dateError = !!changeLog.state?.updates?.createdDateTmp?.date.er;
                 const timeError = !!changeLog.state?.updates?.createdDateTmp?.time.er;
@@ -246,7 +246,7 @@ export const ChangeLogEditing = ({
           verticalAlignItems="center"
         >
           <Button
-            label="Delete ChangeLog"
+            label="Delete Change"
             iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
             action={deleteChange}
           />
