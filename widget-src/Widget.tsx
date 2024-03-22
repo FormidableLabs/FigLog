@@ -190,7 +190,9 @@ function Widget() {
         isLocked={isLocked}
       />
       {changeIds.length === 0 ? (
-        <ChangeLogEmpty />
+        <ChangeLogEmpty 
+          isLocked={isLocked}
+        />
       ) : (
         <ChangeLogList
           changeLogs={changeLogs}
