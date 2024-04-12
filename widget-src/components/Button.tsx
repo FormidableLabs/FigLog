@@ -23,7 +23,7 @@ export const Button = ({
     return (
       <AutoLayout
         name={`error-button-${label}`}
-        fill={COLOR.greyLight}
+        fill={COLOR.white}
         cornerRadius={RADIUS.sm}
         overflow="visible"
         spacing={GAP.sm}
