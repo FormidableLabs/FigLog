@@ -5,7 +5,7 @@ import { ChangeLogEditing } from './log/LogEditing';
 import { ChangeLogDisplay } from './log/LogDisplay';
 
 const { widget } = figma;
-const { AutoLayout, Input, Rectangle, Text } = widget;
+const { AutoLayout, Rectangle } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;

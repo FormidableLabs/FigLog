@@ -166,7 +166,6 @@ function Widget() {
         description={showDescription}
         status={showStatus}
         createdDate={createdDate}
-        setCreatedDate={setCreatedDate}
         updatedDate={updatedDate}
         setUpdatedDate={setUpdatedDate}
         version={version}
