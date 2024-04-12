@@ -44,7 +44,7 @@ export const MetaValue = ({
       {setValue && setUpdatedDate && !locked ? (
         <Input
           name="EditableMetaValueValue"
-          fill={!!value ? COLOR.greyDark : COLOR.grey}
+          fill={COLOR.greyDark}
           lineHeight={FONT.lineHeight.xs}
           fontFamily={FONT.family}
           fontSize={FONT.size.xs}
@@ -58,7 +58,7 @@ export const MetaValue = ({
             }
           }}
           placeholder="0.0.0"
-          value={value || '0.0.0'}
+          value={value}
           width={SPACE.md}
           inputBehavior="truncate"
           truncate={0}
@@ -66,14 +66,14 @@ export const MetaValue = ({
       ) : (
         <Text
           name="MetaValueValue"
-          fill={COLOR.greyDark}
+          fill={!!value ? COLOR.greyDark : COLOR.grey}
           lineHeight={FONT.lineHeight.xs}
           fontFamily={FONT.family}
           fontSize={FONT.size.xs}
           letterSpacing={FONT.letterSpacing.sm}
           width={'hug-contents'}
         >
-          {value}
+          {value || '0.0.0'}
         </Text>
       )}
     </AutoLayout>
