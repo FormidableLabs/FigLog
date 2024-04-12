@@ -16,6 +16,7 @@ interface ChangeLogDisplayProps {
   updateChangeState: (changes: Partial<ChangeLogState>) => void;
   updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   showTypes: boolean;
+  locked: boolean;
 }
 
 export const ChangeLogDisplay = ({
@@ -24,6 +25,7 @@ export const ChangeLogDisplay = ({
   updateChangeState,
   updateOtherStates,
   showTypes,
+  locked,
 }: ChangeLogDisplayProps) => {
   return (
     <AutoLayout
@@ -79,30 +81,32 @@ export const ChangeLogDisplay = ({
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <Button
-            label="Edit"
-            hideLabel={true}
-            iconSrc={<ActionEditIcon />}
-            action={() => {
-              updateChangeState({
-                ...changeLog.state,
-                editing: true,
-                updates: {
-                  createdDate: changeLog.createdDate,
-                  createdDateTmp: {
-                    date: { val: displayDate(changeLog.createdDate, "date"), er: false },
-                    time: { val: displayDate(changeLog.createdDate, "time"), er: false }
-                  },
-                  links: changeLog.links,
-                  link: { label: '', url: '', icon: '', key: ''},
-                  type: changeLog.type,
-                  change: changeLog.change,
-                  linkFormError: { label: false, url: false },
-                }
-              })
-              updateOtherStates(changeLogId, { editing: false })
-            }}
-          />
+          {!locked && (
+            <Button
+              label="Edit"
+              hideLabel={true}
+              iconSrc={<ActionEditIcon />}
+              action={() => {
+                updateChangeState({
+                  ...changeLog.state,
+                  editing: true,
+                  updates: {
+                    createdDate: changeLog.createdDate,
+                    createdDateTmp: {
+                      date: { val: displayDate(changeLog.createdDate, "date"), er: false },
+                      time: { val: displayDate(changeLog.createdDate, "time"), er: false }
+                    },
+                    links: changeLog.links,
+                    link: { label: '', url: '', icon: '', key: ''},
+                    type: changeLog.type,
+                    change: changeLog.change,
+                    linkFormError: { label: false, url: false },
+                  }
+                })
+                updateOtherStates(changeLogId, { editing: false })
+              }}
+            />
+          )}
         </AutoLayout>
       </AutoLayout>
       <AutoLayout name="Changes" overflow="visible" width="fill-parent">

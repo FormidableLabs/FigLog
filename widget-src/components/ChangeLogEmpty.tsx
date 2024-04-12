@@ -4,7 +4,7 @@ import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
 const { widget } = figma;
 const { AutoLayout, SVG, Text } = widget;
 
-export const ChangeLogEmpty = () => (
+export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
   <AutoLayout
     name="Changelog"
     overflow="visible"
@@ -15,7 +15,6 @@ export const ChangeLogEmpty = () => (
     }}
     width="fill-parent"
   >
-    {}
     <AutoLayout
       name="Empty"
       fill={COLOR.white}
@@ -29,18 +28,34 @@ export const ChangeLogEmpty = () => (
       width="fill-parent"
       horizontalAlignItems="center"
     >
-      <Text
-        name="No changes found in this log. Add your first change here"
-        fill={COLOR.black}
-        lineHeight={FONT.lineHeight.sm}
-        fontFamily={FONT.family}
-        fontSize={FONT.size.sm}
-        letterSpacing={FONT.letterSpacing.sm}
-        textCase="upper"
-      >
-        no changes found in log. add your first change here
-      </Text>
-      <SVG name="Arrow" x={570} y={-4} positioning="absolute" height={SPACE.md} width={SPACE.lg} src={<HelpArrow />} />
+      {isLocked ? (
+        <Text
+          name="No changes found in this log. Add your first change here"
+          fill={COLOR.black}
+          lineHeight={FONT.lineHeight.sm}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.sm}
+          letterSpacing={FONT.letterSpacing.sm}
+          textCase="upper"
+        >
+         unlock widget from property menu to add your first change.
+        </Text>
+      ) : (
+        <>
+          <Text
+            name="No changes found in this log. Add your first change here"
+            fill={COLOR.black}
+            lineHeight={FONT.lineHeight.sm}
+            fontFamily={FONT.family}
+            fontSize={FONT.size.sm}
+            letterSpacing={FONT.letterSpacing.sm}
+            textCase="upper"
+          >
+            no changes found in log. add your first change here
+          </Text>
+          <SVG name="Arrow" x={570} y={-4} positioning="absolute" height={SPACE.md} width={SPACE.lg} src={<HelpArrow />} />
+        </>
+      )}
     </AutoLayout>
   </AutoLayout>
 );
