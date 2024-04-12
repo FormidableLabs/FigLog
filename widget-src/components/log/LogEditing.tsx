@@ -249,7 +249,6 @@ export const ChangeLogEditing = ({
         >
           <Button
             label="Delete Change"
-            // iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
             action={deleteChange}
           />
         </AutoLayout>
