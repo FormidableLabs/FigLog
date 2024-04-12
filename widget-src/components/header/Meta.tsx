@@ -78,7 +78,7 @@ export const Meta = ({
               horizontalAlignItems="end"
               verticalAlignItems="center"
             >
-              <SVG name="Lock" height={SPACE.sm} width={SPACE.sm} src={<ActionLockIcon color={COLOR.greyDark} />} />
+              <SVG name="Lock" height={SPACE.sm} width={SPACE.sm} src={<ActionLockIcon color={COLOR.grey} />} />
             </AutoLayout>
           ) : (
             <AutoLayout

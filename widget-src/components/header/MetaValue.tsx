@@ -44,7 +44,7 @@ export const MetaValue = ({
       {setValue && setUpdatedDate && !locked ? (
         <Input
           name="EditableMetaValueValue"
-          fill={COLOR.greyDark}
+          fill={!!value ? COLOR.greyDark : COLOR.grey}
           lineHeight={FONT.lineHeight.xs}
           fontFamily={FONT.family}
           fontSize={FONT.size.xs}
@@ -58,7 +58,7 @@ export const MetaValue = ({
             }
           }}
           placeholder="0.0.0"
-          value={value}
+          value={value || '0.0.0'}
           width={SPACE.md}
           inputBehavior="truncate"
           truncate={0}
