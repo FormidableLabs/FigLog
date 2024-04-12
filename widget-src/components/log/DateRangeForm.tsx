@@ -296,7 +296,7 @@ export const DateRangeForm = ({
           positioning="absolute"
           y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs*2 + PADDING.sm }}
         >
-          A valid time (12 hour HH:MM:SS AM format) is required.
+          A valid time (HH:MM:SS AM format) is required.
         </Text>
         )}
       </AutoLayout>
