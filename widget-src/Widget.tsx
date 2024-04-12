@@ -121,10 +121,9 @@ function Widget() {
       },
       {
         itemType: 'toggle',
-        tooltip: 'Lock Widget',
+        tooltip: 'Lock',
         propertyName: 'isLocked',
         isToggled: isLocked,
-        icon: isLocked ? <ActionLockIcon color={COLOR.greyLight}/> : <ActionUnlockIcon color={COLOR.greyLight}/>
       },
     ],
     ({ propertyName, propertyValue }) => {
