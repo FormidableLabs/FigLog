@@ -31,7 +31,7 @@ export const ChangeLogEditing = ({
 }: ChangeLogEditingProps) => {
 
   useEffect(() => {
-    console.log('state: ', changeLog.state);
+    // console.log('state: ', changeLog.state);
   })
 
   return (

@@ -23,7 +23,7 @@ export const ChangeLogList = ({
   showTypes
 }: ChangeLogListProps) => {
   useEffect(() => {
-    console.log('ChangeLogs', changeLogs.entries());
+    // console.log('ChangeLogs', changeLogs.entries());
   });
 
   return (
