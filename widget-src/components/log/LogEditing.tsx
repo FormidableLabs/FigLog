@@ -131,11 +131,10 @@ export const ChangeLogEditing = ({
               }}
             />
             <Button
-              label="Save Change"
+              label={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er) ? "Fix Error to Save": "Save Change"}
+              error={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er)}
               action={() => {
-                const dateError = !!changeLog.state?.updates?.createdDateTmp?.date.er;
-                const timeError = !!changeLog.state?.updates?.createdDateTmp?.time.er;
-                if ( !dateError && !timeError ) {
+                if ( !(!!changeLog.state?.updates?.createdDateTmp?.date.er && !!changeLog.state?.updates?.createdDateTmp?.time.er) ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type; 
                   const saveChange = changeLog.state?.updates?.change || changeLog.change;

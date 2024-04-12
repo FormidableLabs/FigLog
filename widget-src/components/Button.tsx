@@ -8,14 +8,66 @@ interface ButtonProps {
   hideLabel?: boolean;
   action: () => void;
   iconSrc?: string;
+  error?: boolean;
 }
 
 export const Button = ({
   label,
   hideLabel = false,
   action,
-  iconSrc
+  iconSrc,
+  error = false,
 }: ButtonProps) => {
+
+  if (error) {
+    return (
+      <AutoLayout
+        name={`error-button-${label}`}
+        fill={COLOR.greyLight}
+        cornerRadius={RADIUS.sm}
+        overflow="visible"
+        spacing={GAP.sm}
+        padding={PADDING.xs}
+        stroke={COLOR.red}
+        strokeWidth={SPACE.one}
+        horizontalAlignItems="center"
+        verticalAlignItems="center"
+      >
+        {iconSrc && (
+          <Frame name="Icon" overflow="visible" width={SPACE.xxs} height={SPACE.xxs}>
+            <SVG
+              name={label}
+              x={{
+                type: 'center',
+                offset: PADDING.none,
+              }}
+              y={{
+                type: 'center',
+                offset: PADDING.none,
+              }}
+              height={SPACE.xs}
+              width={SPACE.xs}
+              src={iconSrc}
+            />
+          </Frame>
+        )}
+        <Text
+          name="Label"
+          fill={COLOR.red}
+          verticalAlignText="center"
+          lineHeight={FONT.lineHeight.xs}
+          fontFamily={FONT.family}
+          fontSize={FONT.size.xs}
+          letterSpacing={FONT.letterSpacing.sm}
+          fontWeight={FONT.weight.bold}
+          textCase="upper"
+          hidden={hideLabel}
+        >
+          {label}
+        </Text>
+      </AutoLayout>
+    )
+  }
 
   return (
     <AutoLayout
