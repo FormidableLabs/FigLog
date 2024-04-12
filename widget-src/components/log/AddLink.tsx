@@ -1,7 +1,6 @@
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { COLOR, FONT } from '../../utilities/Styles';
-import { ActionLinkIcon } from '../../svgs/ActionLinkIcon';
 
 const { widget } = figma;
 const { AutoLayout, Text } = widget;
@@ -35,7 +34,6 @@ export const AddLink = ({
       ) : (
         <Button
           label="Add Link"
-          iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
           action={() => {
             updateChangeState({
               ...changeLog.state,

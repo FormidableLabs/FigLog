@@ -254,7 +254,7 @@ export const LinkForm = ({
         }} />
         <Button
           label="Cancel"
-          hideLabel={true}
+          hideLabel
           iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
           action={() => {
             updateChangeState({

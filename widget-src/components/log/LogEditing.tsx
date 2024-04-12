@@ -8,6 +8,7 @@ import { Type } from './Type';
 import { TypeMenu } from './TypeMenu';
 import { LinkForm } from './LinkForm';
 import { AddLink } from './AddLink';
+import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 
 const { widget } = figma;
 const { AutoLayout, Text, Input, useEffect } = widget;
@@ -31,7 +32,7 @@ export const ChangeLogEditing = ({
 }: ChangeLogEditingProps) => {
 
   useEffect(() => {
-    console.log('state: ', changeLog.state);
+    // console.log('state: ', changeLog.state);
   })
 
   return (
@@ -122,15 +123,6 @@ export const ChangeLogEditing = ({
             spacing={GAP.lg}
           >
             <Button
-              label="Cancel"
-              action={() => {
-                updateChangeState({
-                  ...changeLog.state,
-                  editing: false,
-                })
-              }}
-            />
-            <Button
               label={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er) ? "Fix Error to Save": "Save Change"}
               error={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er)}
               action={() => {
@@ -154,6 +146,17 @@ export const ChangeLogEditing = ({
                   })
                   setUpdatedDate(Date.now());
                 }
+              }}
+            />
+            <Button
+              label="Cancel"
+              hideLabel
+              iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
+              action={() => {
+                updateChangeState({
+                  ...changeLog.state,
+                  editing: false,
+                })
               }}
             />
           </AutoLayout>
@@ -246,7 +249,7 @@ export const ChangeLogEditing = ({
         >
           <Button
             label="Delete Change"
-            iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
+            // iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}  
             action={deleteChange}
           />
         </AutoLayout>
