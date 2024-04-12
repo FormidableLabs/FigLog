@@ -6,7 +6,7 @@ const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
 
 interface TypeMenuProps {
-  currentType: string;
+  currentType: ChangeType;
   selectType: (newType: ChangeType) => void;
 }
 
@@ -41,12 +41,16 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       {ChangeTypes.map((changeType) => {
         if (changeType !== 'added' && changeType !== 'none') {
           return (
-            <Type
-              type={changeType}
-              key={changeType}
-              isActive={changeType === currentType}
-              action={() => selectType(changeType)}
-            />
+            <AutoLayout
+             name="Action Wrapper"
+             onClick={() => selectType(changeType)}
+            >
+              <Type
+                type={changeType}
+                key={changeType}
+                isActive={changeType === currentType}
+              />
+            </AutoLayout>
           )
         }
       })}

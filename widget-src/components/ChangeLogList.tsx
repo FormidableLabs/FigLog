@@ -1,4 +1,4 @@
-import { ChangeLog } from '../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
@@ -8,7 +8,7 @@ const { AutoLayout, useEffect } = widget;
 interface ChangeLogListProps {
   changeLogIds: string[];
   changeLogs: SyncedMap<ChangeLog>;
-  adminId: string;
+  updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   deleteChange: (changeId: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
@@ -17,13 +17,13 @@ interface ChangeLogListProps {
 export const ChangeLogList = ({
   changeLogIds,
   changeLogs,
-  // adminId,
+  updateOtherStates,
   deleteChange,
   setUpdatedDate,
   showTypes
 }: ChangeLogListProps) => {
   useEffect(() => {
-    console.log('ChangeLogs', changeLogs.entries());
+    // console.log('ChangeLogs', changeLogs.entries());
   });
 
   return (
@@ -37,16 +37,9 @@ export const ChangeLogList = ({
         horizontal: PADDING.none,
       }}
     >
-      {changeLogIds.map((changeLogId, index) => {
-        const changeLog = changeLogs.get(changeLogId) as ChangeLog;
-
-        function isEditable(): boolean {
-          // if widget admin
-          // if (adminId === currentUser?.id) { return true; }
-          // if changeLog owner
-          // if (changeLog?.user?.id === currentUser?.id) { return true; }
-          return true;
-        }
+      {changeLogs.entries().sort((a, b) => b[1].createdDate - a[1].createdDate ).map((changeLogArr, index) => {
+        const changeLogId = changeLogArr[0];
+        const changeLog = changeLogArr[1];
 
         return (
           <ChangeLogRow
@@ -55,17 +48,10 @@ export const ChangeLogList = ({
             changeLog={changeLog}
             isLastRow={index === changeLogIds.length - 1}
             updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
-            updateOthers={changes => {
-              changeLogIds.map((id) => {
-                if (id !== changeLogId) {
-                  const otherLog = changeLogs.get(id) as ChangeLog;
-                  changeLogs.set(id, { ...otherLog, ...changes })
-                }
-              })
-            }}
+            updateChangeState={changes => changeLogs.set(changeLogId, { ...changeLog, state: { ... changes }})}
+            updateOtherStates={updateOtherStates}
             deleteChange={() => deleteChange(changeLogId)}
             setUpdatedDate={setUpdatedDate}
-            isEditable={isEditable()}
             showTypes={showTypes}
           />
         );

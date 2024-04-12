@@ -1,16 +1,8 @@
-import { ChangeLog } from '../types/ChangeLog';
-import { Button } from './Button';
+import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { User } from './log/User';
-import { DateRange } from './log/DateRange';
-import { Type } from './log/Type';
-import { formatDate } from '../utilities/Utils';
-import { COLOR, FONT, GAP, PADDING, SPACE } from '../utilities/Styles';
-import { TypeMenu } from './log/TypeMenu';
-import { ActionDeleteIcon } from '../svgs/ActionDeleteIcon';
-import { ActionLinkIcon } from '../svgs/ActionLinkIcon';
-import { LinkForm } from './log/LinkForm';
-import { LinkList } from './log/LinkList';
-import { AddLink } from './log/AddLink';
+import { COLOR, GAP, SPACE } from '../utilities/Styles';
+import { ChangeLogEditing } from './log/LogEditing';
+import { ChangeLogDisplay } from './log/LogDisplay';
 
 const { widget } = figma;
 const { AutoLayout, Input, Rectangle, Text } = widget;
@@ -19,11 +11,11 @@ interface ChangeLogRowProps {
   changeLogId: string;
   changeLog: ChangeLog;
   isLastRow: boolean;
-  updateChange: (changes: Partial<ChangeLog>) => void; // update this change log
-  updateOthers: (changes: Partial<ChangeLog>) => void; // update all other change logs
+  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
+  updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
-  isEditable: boolean;
   showTypes: boolean;
 }
 
@@ -32,10 +24,10 @@ export const ChangeLogRow = ({
   changeLog,
   isLastRow,
   updateChange,
-  updateOthers,
+  updateChangeState,
+  updateOtherStates,
   deleteChange,
   setUpdatedDate,
-  isEditable,
   showTypes,
 }: ChangeLogRowProps) => {
 
@@ -50,183 +42,24 @@ export const ChangeLogRow = ({
     >
       <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
         <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} />
-        <AutoLayout
-          name="Change Content"
-          overflow="visible"
-          direction="vertical"
-          spacing={GAP.lg}
-          padding={{
-            vertical: PADDING.xl,
-            horizontal: PADDING.none,
-          }}
-          width="fill-parent"
-        >
-          <AutoLayout
-            name="Meta"
-            overflow="visible"
-            spacing={GAP.md}
-            padding={{
-              top: PADDING.none,
-              right: PADDING.xxs,
-              bottom: PADDING.none,
-              left: PADDING.none,
-            }}
-            width="fill-parent"
-            verticalAlignItems="center"
-          >
-            {!!changeLog.state?.showTypeMenu && (
-              <TypeMenu
-                currentType={changeLog.type === 'added' ? 'none' : changeLog.type}
-                selectType={(newType) => {
-
-                  const addEdit = changeLog.type !== 'none' && changeLog.type !== 'added';
-
-                  if (newType !== changeLog.type) {
-                      updateChange({
-                        type: newType,
-                        editCount: addEdit ? changeLog.editCount + 1 : changeLog.editCount,
-                        editedDate: addEdit ? Date.now() : changeLog.editedDate,
-                        state: {
-                          ...changeLog.state,
-                          showTypeMenu: !changeLog.state?.showTypeMenu,
-                        },
-                      });
-                      setUpdatedDate(Date.now());
-                  } else {
-                    updateChange({
-                      state: {
-                        ...changeLog.state,
-                        showTypeMenu: !changeLog.state?.showTypeMenu,
-                      },
-                    })
-                  }
-                }}
-              />
-            )}
-            {showTypes && (
-              <Type
-                type={changeLog.type} 
-                action={() => {
-                  // toggle log type menu
-                  updateChange({
-                    state: {
-                      ...changeLog.state,
-                      showTypeMenu: !changeLog.state?.showTypeMenu,
-                    }
-                  })
-                  // hide all other log type menues
-                  updateOthers({
-                    state: {
-                      ...changeLog.state,
-                      showTypeMenu: false,
-                    }
-                  })
-                }}
-              />
-            )}
-            <Text
-              name="Date"
-              fill={COLOR.black}
-              lineHeight={FONT.lineHeight.sm}
-              fontFamily={FONT.family}
-              fontSize={FONT.size.sm}
-              letterSpacing={FONT.letterSpacing.sm}
-              fontWeight={FONT.weight.bold}
-              textCase="upper"
-            >
-              {changeLog.user?.name || ''}
-            </Text>
-
-            <DateRange
-              editedDate={formatDate(changeLog.editedDate, 'date')}
-              editedTime={formatDate(changeLog.editedDate, 'time')}
-              date={formatDate(changeLog.createdDate, 'date')}
-              time={formatDate(changeLog.createdDate, 'time')}
-              editCount={changeLog.editCount}
-            />
-            {isEditable && (
-              <AutoLayout
-                name="Actions"
-                overflow="visible"
-                spacing={GAP.md}
-                width="fill-parent"
-                horizontalAlignItems="end"
-                verticalAlignItems="center"
-              >
-                <Button label="Delete" hideLabel={true} iconSrc={<ActionDeleteIcon />} action={deleteChange} />
-              </AutoLayout>
-            )}
-          </AutoLayout>
-          <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-            {isEditable ? (
-              <Input
-                name="EditableChange"
-                fill={COLOR.black}
-                inputBehavior="multiline"
-                inputFrameProps={{
-                  fill: COLOR.white,
-                }}
-                onTextEditEnd={e => {
-                  if (e.characters !== changeLog.change) {
-                    updateChange({
-                      change: e.characters,
-                      editCount: changeLog.editCount + 1,
-                      editedDate: Date.now(),
-                    });
-                    setUpdatedDate(Date.now());
-                  }
-                }}
-                placeholder="Your update..."
-                value={changeLog.change}
-                width="fill-parent"
-                lineHeight={FONT.lineHeight.lg}
-                fontFamily={FONT.family}
-              />
-            ) : (
-              <Text
-                name="Change"
-                fill={COLOR.black}
-                lineHeight={FONT.lineHeight.lg}
-                fontFamily={FONT.family}
-                width={'fill-parent'}
-              >
-                {changeLog.change || '...'}
-              </Text>
-            )}
-          </AutoLayout>
-          <AutoLayout
-            width="fill-parent"
-            horizontalAlignItems="end"
-            direction="vertical"
-          >
-            <LinkList
-              links={changeLog.links}
-              deleteLink={(linkToDelete) => {
-                updateChange({
-                  links: changeLog.links ? changeLog.links.filter(link => link.key !== linkToDelete) : []
-                })
-              }}
-            />
-            <AutoLayout
-              width="fill-parent"
-              horizontalAlignItems="end"
-              verticalAlignItems="center"
-            >
-              {!!changeLog.state?.showLinkForm ? (
-                <LinkForm
-                  changeLog={changeLog}
-                  updateChange={updateChange}
-                  setUpdatedDate={setUpdatedDate}
-                  />
-              ) : (
-                <AddLink
-                  changeLog={changeLog}
-                  updateChange={updateChange}  
-                />
-              )} 
-            </AutoLayout>
-          </AutoLayout>
-        </AutoLayout>
+        {!!changeLog.state?.editing ? (
+          <ChangeLogEditing
+            changeLog={changeLog}
+            updateChange={updateChange}
+            updateChangeState={updateChangeState}
+            deleteChange={deleteChange}
+            setUpdatedDate={setUpdatedDate}
+            showTypes={showTypes}
+          />
+        ): (
+          <ChangeLogDisplay
+            changeLogId={changeLogId}
+            changeLog={changeLog}
+            updateChangeState={updateChangeState}
+            updateOtherStates={updateOtherStates}
+            showTypes={showTypes}
+          />
+        )}
       </AutoLayout>
       <Rectangle
         name="Divider"

@@ -4,11 +4,10 @@
 export const randomId = () => Math.random().toString(36).substring(2, 15);
 
 // accepts an epoch timestamp and a format ('date', 'time', or 'datetime')
-export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') => {
+export const displayDate = (epoch: number, format: 'date' | 'time' | 'datetime') => {
   const date: Date = new Date(epoch);
   let formattedDate: string = '';
   let month: number | string = 0;
-  let year: number | string = 0;
   let yearFull: number | string = 0;
   let day: number | string = 0;
   let hours: number | string = 0;
@@ -20,7 +19,6 @@ export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') 
   if (format.includes('date')) {
     month = date.getMonth() + 1;
     yearFull = date.getFullYear();
-    year = yearFull.toString().slice(-2);
     day = date.getDate();
   }
   // if the format includes "time" get time data
@@ -40,18 +38,18 @@ export const formatDate = (epoch: number, format: 'date' | 'time' | 'datetime') 
   // based on format option, return the formatted date
   switch (format) {
     case 'date':
-      // MM/DD/YY
-      formattedDate = `${month}|${day}|${year}`;
+      // MM/DD/YYYY
+      formattedDate = `${month}/${day}/${yearFull}`;
       break;
 
     case 'time':
       // 00:00 AM/PM
-      formattedDate = `${hours}:${minutes} ${ampm}`;
+      formattedDate = `${hours}:${minutes}:${seconds} ${ampm}`;
       break;
 
     case 'datetime':
       // MM/DD/YYYY @ 00:00:00 AM/PM
-      formattedDate = `${month}|${day}|${yearFull} @ ${hours}:${minutes}:${seconds} ${ampm}`;
+      formattedDate = `${month}/${day}/${yearFull} @ ${hours}:${minutes}:${seconds} ${ampm}`;
       break;
 
     default:

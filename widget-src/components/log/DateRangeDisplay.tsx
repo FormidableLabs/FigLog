@@ -1,23 +1,21 @@
 import { COLOR, FONT, GAP } from '../../utilities/Styles';
+import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
 interface DateRangeProps {
-  editedDate: string;
-  editedTime: string;
-  date: string;
-  time: string;
+  timestamp: number,
+  editedTimestamp: number,
   editCount: number;
 }
 
 export const DateRange = ({
-  editedDate,
-  editedTime,
-  date,
-  time,
+  timestamp,
+  editedTimestamp,
   editCount,
 }: DateRangeProps) => {
+
   return (
     <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
       <Text
@@ -29,11 +27,10 @@ export const DateRange = ({
         letterSpacing={FONT.letterSpacing.sm}
         fontWeight={FONT.weight.bold}
         textCase="upper"
-        hidden={date === undefined}
+        hidden={timestamp === undefined}
       >
-        {`${date} @ ${time}`}
+        {displayDate(timestamp, 'datetime')}
       </Text>
-
       {editCount >= 2 && (
         <Text
           name="Edited"
@@ -43,7 +40,7 @@ export const DateRange = ({
           fontSize={FONT.size.xs}
           letterSpacing={FONT.letterSpacing.sm}
         >
-          {`EDITED ${editedDate} @ ${editedTime}`}
+          {`EDITED ${displayDate(editedTimestamp, 'datetime')}`}
         </Text>
       )}
     </AutoLayout>

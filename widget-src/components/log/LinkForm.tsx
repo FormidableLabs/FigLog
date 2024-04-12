@@ -1,4 +1,4 @@
-import { ChangeLog } from '../../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { randomId } from '../../utilities/Utils';
 import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
@@ -30,7 +30,7 @@ import {
   rxTeams,
   rxMicrosoft
 } from '../../utilities/Regexes';
-import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
+import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 
 
 const { widget } = figma;
@@ -38,13 +38,13 @@ const { AutoLayout, Input, Text } = widget;
 
 interface LinkFormProps {
   changeLog: ChangeLog;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
   setUpdatedDate: (updatedDate: number) => void;
 }
 
 export const LinkForm = ({
   changeLog,
-  updateChange,
+  updateChangeState,
   setUpdatedDate,
 }: LinkFormProps) => {
 
@@ -151,7 +151,7 @@ export const LinkForm = ({
           fill={COLOR.black}
           inputFrameProps={{
             fill: COLOR.white,
-            stroke: !!changeLog.state?.linkFormError?.label ? COLOR.red : COLOR.grey,
+            stroke: !!changeLog.state?.updates?.linkFormError?.label ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
             padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
@@ -161,23 +161,24 @@ export const LinkForm = ({
           lineHeight={FONT.lineHeight.xs}
           fontSize={FONT.size.xs}
           fontFamily={FONT.family}
-          value={changeLog.state?.link?.label || ''}
+          value={changeLog.state?.updates?.link?.label || ''}
           onTextEditEnd={(e) => {
             const trimmedLabel = e.characters.trim()
-            updateChange({
-              state: {
-                ...changeLog.state,
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
                 link: {
-                  ...changeLog.state?.link,
+                  ...changeLog.state?.updates?.link,
                   label: trimmedLabel,
-                  url: changeLog.state?.link?.url || '',
-                  key: changeLog.state?.link?.key || '',
+                  url: changeLog.state?.updates?.link?.url || '',
+                  key: changeLog.state?.updates?.link?.key || '',
                 },
                 linkFormError: {
                   label: !validLabel(trimmedLabel),
-                  url: !!changeLog.state?.linkFormError?.url,
+                  url: !!changeLog.state?.updates?.linkFormError?.url,
                 }
-              },
+              }
             })
           }}
         />
@@ -186,7 +187,7 @@ export const LinkForm = ({
           fill={COLOR.black}
           inputFrameProps={{
             fill: COLOR.white,
-            stroke: !!changeLog.state?.linkFormError?.url ? COLOR.red : COLOR.grey,
+            stroke: !!changeLog.state?.updates?.linkFormError?.url ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
             padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
@@ -196,39 +197,40 @@ export const LinkForm = ({
           lineHeight={FONT.lineHeight.xs}
           fontSize={FONT.size.xs}
           fontFamily={FONT.family}
-          value={changeLog.state?.link?.url || ''}
+          value={changeLog.state?.updates?.link?.url || ''}
           onTextEditEnd={(e) => {
             const trimmedUrl = e.characters.trim();
-            updateChange({
-              state: {
-                ...changeLog.state,
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
                 link: {
-                  ...changeLog.state?.link,
-                  label: changeLog.state?.link?.label || '',
+                  ...changeLog.state?.updates?.link,
+                  label: changeLog.state?.updates?.link?.label || '',
                   url: trimmedUrl,
                   icon: assignIcon(trimmedUrl),
-                  key: changeLog.state?.link?.key || '',
+                  key: changeLog.state?.updates?.link?.key || '',
                 },
                 linkFormError: {
-                  label: !!changeLog.state?.linkFormError?.label,
+                  label: !!changeLog.state?.updates?.linkFormError?.label,
                   url: !validUrl(trimmedUrl),
                 }
-              },
+              }
             })
           }}
         />
         <Button label="Add" action={() => {
-          const labelValid = validLabel(changeLog.state?.link?.label);
-          const urlValid = validUrl(changeLog.state?.link?.url);
+          const labelValid = validLabel(changeLog.state?.updates?.link?.label);
+          const urlValid = validUrl(changeLog.state?.updates?.link?.url);
           const linkKey= `link-${randomId()}`;
 
           if (labelValid && urlValid) {
-            updateChange({
-              links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.link, key: linkKey }] : [{...changeLog.state?.link, key: linkKey }],
-              editCount: changeLog.editCount + 1,
-              editedDate: Date.now(),
-              state: {
-                showLinkForm: false,
+            updateChangeState({
+              ...changeLog.state,
+              showLinkForm: false,
+              updates: {
+                ...changeLog.state?.updates,
+                links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }] : [{...changeLog.state?.updates?.link, key: linkKey }],
                 link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: {
                   label: false,
@@ -238,9 +240,10 @@ export const LinkForm = ({
             })
             setUpdatedDate(Date.now());
           } else {
-            updateChange({
-              state: {
-                ...changeLog.state,
+            updateChangeState({
+              ...changeLog.state,
+              updates: {
+                ...changeLog.state?.updates,
                 linkFormError: {
                   label: !labelValid,
                   url: !urlValid
@@ -251,12 +254,14 @@ export const LinkForm = ({
         }} />
         <Button
           label="Cancel"
-          hideLabel={true}
-          iconSrc={<ActionDeleteIcon color={COLOR.greyDark} />}
+          hideLabel
+          iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
           action={() => {
-            updateChange({
-              state: {
-                showLinkForm: false,
+            updateChangeState({
+              ...changeLog.state,
+              showLinkForm: false,
+              updates: {
+                ...changeLog.state?.updates,
                 link: { label: '', url: '', key: '', icon: '' },
                 linkFormError: { label: false, url: false, }
               }
@@ -269,7 +274,7 @@ export const LinkForm = ({
         fontSize={FONT.size.xs}
         fontFamily={FONT.family}
       >
-        {errorMsg(!!changeLog.state?.linkFormError?.label, !!changeLog.state?.linkFormError?.url)}
+        {errorMsg(!!changeLog.state?.updates?.linkFormError?.label, !!changeLog.state?.updates?.linkFormError?.url)}
       </Text>
     </AutoLayout>
   )

@@ -1,19 +1,18 @@
-import { ChangeLog } from '../../types/ChangeLog';
+import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { COLOR, FONT } from '../../utilities/Styles';
-import { ActionLinkIcon } from '../../svgs/ActionLinkIcon';
 
 const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
 interface AddLinkProps {
   changeLog: ChangeLog;
-  updateChange: (changes: Partial<ChangeLog>) => void;
+  updateChangeState: (changes: Partial<ChangeLogState>) => void;
 }
 
 export const AddLink = ({
   changeLog,
-  updateChange,
+  updateChangeState,
 }: AddLinkProps) => {
   return (
     <AutoLayout
@@ -35,13 +34,10 @@ export const AddLink = ({
       ) : (
         <Button
           label="Add Link"
-          iconSrc={<ActionLinkIcon color={COLOR.greyDark} />}
           action={() => {
-            updateChange({
-              state: {
-                ...changeLog.state,
-                showLinkForm: true,
-              }
+            updateChangeState({
+              ...changeLog.state,
+              showLinkForm: true,
             })
           }}
         />
