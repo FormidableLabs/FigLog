@@ -202,7 +202,7 @@ export const DateRangeForm = ({
           y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs*2 + PADDING.sm }}
           x={{ type: 'right', offset: 0 }}
         >
-          A valid past date in MM/DD/YYYY format is required.
+          A valid past date (MM/DD/YYYY format) is required.
         </Text>
         )}
       </AutoLayout>
@@ -296,7 +296,7 @@ export const DateRangeForm = ({
           positioning="absolute"
           y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs*2 + PADDING.sm }}
         >
-          A valid time in 12 hour "HH:mm:ss a" format is required.
+          A valid time (12 hour HH:MM:SS AM format) is required.
         </Text>
         )}
       </AutoLayout>
