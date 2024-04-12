@@ -2,7 +2,6 @@ import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
 import { DateRangeForm } from './DateRangeForm';
 import { Button } from '../Button';
-import { ActionDeleteIcon } from '../../svgs/ActionDeleteIcon';
 import { LinkList } from './LinkList';
 import { Type } from './Type';
 import { TypeMenu } from './TypeMenu';

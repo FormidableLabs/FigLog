@@ -17,7 +17,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild widget-src/Widget.tsx --bundle --outfile=dist/code.js --target=es6",
-    "tsc": "tsc --noEmit -p widget-src",
+    "tsc": "tsc --noEmit --noUnusedLocals --noUnusedParameters --skipLibCheck -p widget-src",
     "watch": "bun run build -- --watch"
   }
 }

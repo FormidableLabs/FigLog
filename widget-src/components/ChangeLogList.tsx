@@ -2,7 +2,7 @@ import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
-const { widget, currentUser } = figma;
+const { widget } = figma;
 const { AutoLayout, useEffect } = widget;
 
 interface ChangeLogListProps {

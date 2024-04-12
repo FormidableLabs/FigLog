@@ -12,7 +12,6 @@ interface HeaderProps {
   description: boolean;
   status: string;
   createdDate: number;
-  setCreatedDate: (updatedDate: number) => void;
   updatedDate: number;
   setUpdatedDate: (updatedDate: number) => void;
   version: string;
@@ -26,7 +25,6 @@ export const Header = ({
   description,
   status,
   createdDate,
-  setCreatedDate,
   updatedDate,
   setUpdatedDate,
   version,

@@ -1,9 +1,9 @@
 import { ChangeType, ChangeTypes } from '../../types/ChangeTypes';
-import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
+import { COLOR, FONT, PADDING, RADIUS } from '../../utilities/Styles';
 import { Type } from './Type';
 
 const { widget } = figma;
-const { AutoLayout, Input, Rectangle, Text } = widget;
+const { AutoLayout } = widget;
 
 interface TypeMenuProps {
   currentType: ChangeType;
