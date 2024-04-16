@@ -4,9 +4,6 @@ import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
-import { ActionLockIcon } from './svgs/ActionLockIcon';
-import { ActionUnlockIcon } from './svgs/ActionUnlockIcon';
-import { COLOR } from './utilities/Styles';
 
 const { currentUser, widget } = figma;
 const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
