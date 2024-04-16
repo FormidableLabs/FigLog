@@ -7,6 +7,7 @@
     "@figma/widget-typings": "*",
     "date-fns": "^3.6.0",
     "esbuild": "*",
+    "prettier": "3.2.5",
     "typescript": "*"
   },
   "contributors": [
@@ -17,7 +18,7 @@
   "license": "MIT",
   "scripts": {
     "build": "esbuild widget-src/Widget.tsx --bundle --outfile=dist/code.js --target=es6",
-    "tsc": "tsc --noEmit --noUnusedLocals --noUnusedParameters --skipLibCheck -p widget-src",
+    "test": "prettier . --write && tsc --noEmit --noUnusedLocals --noUnusedParameters --skipLibCheck -p widget-src",
     "watch": "bun run build -- --watch"
   }
 }

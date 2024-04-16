@@ -1,3 +1,7 @@
 # ignore artifacts
 dist
 .lockb
+.github
+.prettierrc
+**/*.json
+**/*.md
