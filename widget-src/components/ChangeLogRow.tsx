@@ -17,6 +17,7 @@ interface ChangeLogRowProps {
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
+  showAvatars: boolean;
   locked: boolean;
 }
 
@@ -30,9 +31,9 @@ export const ChangeLogRow = ({
   deleteChange,
   setUpdatedDate,
   showTypes,
+  showAvatars,
   locked,
 }: ChangeLogRowProps) => {
-
   return (
     <AutoLayout
       key={changeLogId}
@@ -43,7 +44,7 @@ export const ChangeLogRow = ({
       width="fill-parent"
     >
       <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
-        <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} />
+        <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} showAvatars={showAvatars} />
         {!!changeLog.state?.editing && !locked ? (
           <ChangeLogEditing
             changeLog={changeLog}

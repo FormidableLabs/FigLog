@@ -16,6 +16,7 @@ function Widget() {
   const [showVersion, setShowVersion] = useSyncedState('showVersion', false);
   const [showBranding, setShowBranding] = useSyncedState('showBradning', true); // fixing the typo messes with branding state on existing widgets
   const [showLogTypes, setShowLogTypes] = useSyncedState('showLogTypes', true);
+  const [showAvatars, setShowAvatars] = useSyncedState('showAvatars', true);
   const [isLocked, setIsLocked] = useSyncedState('isLocked', false);
   // Meta Data
   const [createdDate, setCreatedDate] = useSyncedState('createdDate', 0);
@@ -109,6 +110,12 @@ function Widget() {
       },
       {
         itemType: 'toggle',
+        tooltip: 'Avatars',
+        propertyName: 'avatars',
+        isToggled: showAvatars,
+      },
+      {
+        itemType: 'toggle',
         tooltip: 'Branding',
         propertyName: 'branding',
         isToggled: showBranding,
@@ -141,6 +148,9 @@ function Widget() {
           break;
         case 'logTypes':
           setShowLogTypes(!showLogTypes);
+          break;
+        case 'avatars':
+          setShowAvatars(!showAvatars);
           break;
         case 'isLocked':
           setIsLocked(!isLocked);
@@ -191,6 +201,7 @@ function Widget() {
           deleteChange={deleteChange}
           setUpdatedDate={setUpdatedDate}
           showTypes={showLogTypes}
+          showAvatars={showAvatars}
           isLocked={isLocked}
         />
       )}
