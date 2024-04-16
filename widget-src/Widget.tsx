@@ -4,9 +4,6 @@ import { Footer } from './components/Footer';
 import { WidgetContainer } from './components/WidgetContainer';
 import { ChangeLogEmpty } from './components/ChangeLogEmpty';
 import { ChangeLogList } from './components/ChangeLogList';
-import { ActionLockIcon } from './svgs/ActionLockIcon';
-import { ActionUnlockIcon } from './svgs/ActionUnlockIcon';
-import { COLOR } from './utilities/Styles';
 
 const { currentUser, widget } = figma;
 const { usePropertyMenu, useEffect, useSyncedMap, useSyncedState } = widget;
@@ -33,10 +30,10 @@ function Widget() {
     changeIds.map((id: string) => {
       if (id !== currentChangeId) {
         const otherLog = changeLogs.get(id) as ChangeLog;
-        changeLogs.set(id, { ...otherLog, state: { ...otherLog.state, ...changes }})
+        changeLogs.set(id, { ...otherLog, state: { ...otherLog.state, ...changes } });
       }
-    })
-  }
+    });
+  };
 
   const addChange = (changeToAdd: string) => {
     changeLogs.set(changeToAdd, {
@@ -55,12 +52,12 @@ function Widget() {
           change: '',
           type: 'none',
           createdDate: Date.now(),
-          linkFormError: { label: false, url: false }
-        }
+          linkFormError: { label: false, url: false },
+        },
       },
     });
     setChangeIds([changeToAdd, ...changeIds]);
-    updateOtherStates(changeToAdd, { editing: false })
+    updateOtherStates(changeToAdd, { editing: false });
     setUpdatedDate(Date.now());
   };
   const deleteChange = (changeToDelete: string) => {
@@ -87,7 +84,10 @@ function Widget() {
         propertyName: 'status',
       },
       {
-        itemType: 'separator',
+        itemType: 'toggle',
+        tooltip: 'Version',
+        propertyName: 'version',
+        isToggled: showVersion,
       },
       {
         itemType: 'toggle',
@@ -100,12 +100,6 @@ function Widget() {
         tooltip: 'Description',
         propertyName: 'description',
         isToggled: showDescription,
-      },
-      {
-        itemType: 'toggle',
-        tooltip: 'Version',
-        propertyName: 'version',
-        isToggled: showVersion,
       },
       {
         itemType: 'toggle',
@@ -188,9 +182,7 @@ function Widget() {
         isLocked={isLocked}
       />
       {changeIds.length === 0 ? (
-        <ChangeLogEmpty 
-          isLocked={isLocked}
-        />
+        <ChangeLogEmpty isLocked={isLocked} />
       ) : (
         <ChangeLogList
           changeLogs={changeLogs}
