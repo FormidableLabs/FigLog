@@ -19,6 +19,7 @@ interface ChangeLogEditingProps {
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
+  isLastRow: boolean;
 }
 
 export const ChangeLogEditing = ({
@@ -28,11 +29,11 @@ export const ChangeLogEditing = ({
   deleteChange,
   setUpdatedDate,
   showTypes,
+  isLastRow,
 }: ChangeLogEditingProps) => {
-
   useEffect(() => {
     // console.log('state: ', changeLog.state);
-  })
+  });
 
   return (
     <AutoLayout
@@ -41,7 +42,8 @@ export const ChangeLogEditing = ({
       direction="vertical"
       spacing={GAP.lg}
       padding={{
-        vertical: PADDING.xl,
+        top: PADDING.xl,
+        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
         horizontal: PADDING.none,
       }}
       width="fill-parent"
@@ -64,15 +66,14 @@ export const ChangeLogEditing = ({
             {!!changeLog.state?.showTypeMenu && (
               <TypeMenu
                 currentType={!!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type}
-                selectType={(newType) => {
+                selectType={newType => {
                   updateChangeState({
                     ...changeLog.state,
                     showTypeMenu: !changeLog.state?.showTypeMenu,
                     updates: {
                       ...changeLog.state?.updates,
                       type: newType !== changeLog.type ? newType : changeLog.type,
-                    }
-                    
+                    },
                   });
                 }}
               />
@@ -83,10 +84,10 @@ export const ChangeLogEditing = ({
                 updateChangeState({
                   ...changeLog.state,
                   showTypeMenu: !changeLog.state?.showTypeMenu,
-                })
+                });
               }}
               width="hug-contents"
-              positioning='auto'
+              positioning="auto"
             >
               <Type type={!!changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type} />
             </AutoLayout>
@@ -118,19 +119,30 @@ export const ChangeLogEditing = ({
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <AutoLayout
-            spacing={GAP.lg}
-          >
+          <AutoLayout spacing={GAP.lg}>
             <Button
-              label={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er) ? "Fix Error to Save": "Save Change"}
-              error={(!!changeLog.state?.updates?.createdDateTmp?.date.er || !!changeLog.state?.updates?.createdDateTmp?.time.er)}
+              label={
+                !!changeLog.state?.updates?.createdDateTmp?.date.er ||
+                !!changeLog.state?.updates?.createdDateTmp?.time.er
+                  ? 'Fix Error to Save'
+                  : 'Save Change'
+              }
+              error={
+                !!changeLog.state?.updates?.createdDateTmp?.date.er ||
+                !!changeLog.state?.updates?.createdDateTmp?.time.er
+              }
               action={() => {
-                if ( !(!!changeLog.state?.updates?.createdDateTmp?.date.er && !!changeLog.state?.updates?.createdDateTmp?.time.er) ) {
+                if (
+                  !(
+                    !!changeLog.state?.updates?.createdDateTmp?.date.er &&
+                    !!changeLog.state?.updates?.createdDateTmp?.time.er
+                  )
+                ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
-                  const saveType = changeLog.state?.updates?.type || changeLog.type; 
+                  const saveType = changeLog.state?.updates?.type || changeLog.type;
                   const saveChange = changeLog.state?.updates?.change || changeLog.change;
                   const saveLinks = changeLog.state?.updates?.links || changeLog.links;
-  
+
                   updateChange({
                     createdDate: saveCreatedDate,
                     editedDate: Date.now(),
@@ -141,8 +153,8 @@ export const ChangeLogEditing = ({
                     state: {
                       ...changeLog.state,
                       editing: false,
-                    }
-                  })
+                    },
+                  });
                   setUpdatedDate(Date.now());
                 }
               }}
@@ -155,18 +167,13 @@ export const ChangeLogEditing = ({
                 updateChangeState({
                   ...changeLog.state,
                   editing: false,
-                })
+                });
               }}
             />
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout
-        name="Changes"
-        overflow="visible"
-        width="fill-parent"
-        padding={{ top: PADDING.xs }}
-      >
+      <AutoLayout name="Changes" overflow="visible" width="fill-parent" padding={{ top: PADDING.xs }}>
         <Input
           name="EditableChange"
           fill={COLOR.black}
@@ -185,9 +192,8 @@ export const ChangeLogEditing = ({
                 updates: {
                   ...changeLog.state?.updates,
                   change: e.characters,
-                }
+                },
               });
-              
             }
           }}
           placeholder="Your update..."
@@ -198,60 +204,36 @@ export const ChangeLogEditing = ({
         />
       </AutoLayout>
       {!!changeLog.state?.updates?.links && changeLog.state?.updates?.links.length > 0 && (
-        <AutoLayout
-          name="Links"
-          width="fill-parent"
-          horizontalAlignItems="end"
-          direction="vertical"
-        >
+        <AutoLayout name="Links" width="fill-parent" horizontalAlignItems="end" direction="vertical">
           <LinkList
             links={!!changeLog.state?.updates?.links ? changeLog.state?.updates?.links : []}
             editing={true}
-            deleteLink={(linkToDelete) => {
+            deleteLink={linkToDelete => {
               updateChangeState({
                 ...changeLog.state,
                 updates: {
                   ...changeLog.state?.updates,
-                  links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links.filter(link => link.key !== linkToDelete) : []
-                }
-              })
+                  links: changeLog.state?.updates?.links
+                    ? changeLog.state?.updates?.links.filter(link => link.key !== linkToDelete)
+                    : [],
+                },
+              });
             }}
           />
-        </AutoLayout> 
-      )}
-      <AutoLayout
-        width="fill-parent"
-        direction="vertical"
-      >
-        <AutoLayout
-          width="fill-parent"
-          horizontalAlignItems="end"
-          verticalAlignItems="center"
-        >
-          {!!changeLog.state?.showLinkForm ? (
-            <LinkForm
-              changeLog={changeLog}
-              updateChangeState={updateChangeState}
-              setUpdatedDate={setUpdatedDate}
-              />
-          ) : (
-            <AddLink
-              changeLog={changeLog}
-              updateChangeState={updateChangeState}  
-            />
-          )} 
         </AutoLayout>
-        <AutoLayout
-          width="fill-parent"
-          horizontalAlignItems="start"
-          verticalAlignItems="center"
-        >
-          <Button
-            label="Delete Change"
-            action={deleteChange}
-          />
+      )}
+      <AutoLayout width="fill-parent" direction="vertical">
+        <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
+          {!!changeLog.state?.showLinkForm ? (
+            <LinkForm changeLog={changeLog} updateChangeState={updateChangeState} setUpdatedDate={setUpdatedDate} />
+          ) : (
+            <AddLink changeLog={changeLog} updateChangeState={updateChangeState} />
+          )}
+        </AutoLayout>
+        <AutoLayout width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
+          <Button label="Delete Change" action={deleteChange} />
         </AutoLayout>
       </AutoLayout>
     </AutoLayout>
-  )
-}
+  );
+};

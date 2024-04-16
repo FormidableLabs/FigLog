@@ -32,7 +32,6 @@ export const ChangeLogRow = ({
   showTypes,
   locked,
 }: ChangeLogRowProps) => {
-
   return (
     <AutoLayout
       key={changeLogId}
@@ -43,7 +42,7 @@ export const ChangeLogRow = ({
       width="fill-parent"
     >
       <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
-        <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} />
+        <User userName={changeLog.user?.name} userPhotoUrl={changeLog.user?.photoUrl} isLastRow={isLastRow} />
         {!!changeLog.state?.editing && !locked ? (
           <ChangeLogEditing
             changeLog={changeLog}
@@ -52,6 +51,7 @@ export const ChangeLogRow = ({
             deleteChange={deleteChange}
             setUpdatedDate={setUpdatedDate}
             showTypes={showTypes}
+            isLastRow={isLastRow}
           />
         ) : (
           <ChangeLogDisplay
@@ -61,6 +61,7 @@ export const ChangeLogRow = ({
             updateOtherStates={updateOtherStates}
             showTypes={showTypes}
             locked={locked}
+            isLastRow={isLastRow}
           />
         )}
       </AutoLayout>
