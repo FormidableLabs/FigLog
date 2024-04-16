@@ -70,10 +70,10 @@ While running Live Reload, go to `Menu > Widgets > Development > Import widget f
 
 ### Tests
 
-To typecheck the widget run:
+Before creating a pull request run prettier to ensure code formatting and a typecheck on the widget. Run:
 
 ```sh
-$ bun run tsc
+$ bun run test
 ```
 
 ## Contributor Covenant Code of Conduct
