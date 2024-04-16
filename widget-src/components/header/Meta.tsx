@@ -98,7 +98,6 @@ export const Meta = ({
             >
               <SVG name="Add" height={SPACE.sm} width={SPACE.sm} src={<ActionAddIcon />} />
             </AutoLayout>
-
           )}
         </AutoLayout>
       )}

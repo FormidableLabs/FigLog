@@ -32,7 +32,6 @@ export const ChangeLogRow = ({
   showTypes,
   locked,
 }: ChangeLogRowProps) => {
-
   return (
     <AutoLayout
       key={changeLogId}

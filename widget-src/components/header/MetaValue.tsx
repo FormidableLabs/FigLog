@@ -11,13 +11,7 @@ interface MetaValueProps {
   locked: boolean;
 }
 
-export const MetaValue = ({
-  label,
-  value,
-  setValue,
-  setUpdatedDate,
-  locked,
-}: MetaValueProps) => {
+export const MetaValue = ({ label, value, setValue, setUpdatedDate, locked }: MetaValueProps) => {
   return (
     <AutoLayout
       name="MetaValue"
