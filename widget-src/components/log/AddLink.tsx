@@ -10,16 +10,9 @@ interface AddLinkProps {
   updateChangeState: (changes: Partial<ChangeLogState>) => void;
 }
 
-export const AddLink = ({
-  changeLog,
-  updateChangeState,
-}: AddLinkProps) => {
+export const AddLink = ({ changeLog, updateChangeState }: AddLinkProps) => {
   return (
-    <AutoLayout
-      width="fill-parent"
-      horizontalAlignItems="end"
-      verticalAlignItems="center"
-    >
+    <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
       {changeLog.links && changeLog.links.length > 7 ? (
         <Text
           fill={COLOR.greyDark}
@@ -38,10 +31,10 @@ export const AddLink = ({
             updateChangeState({
               ...changeLog.state,
               showLinkForm: true,
-            })
+            });
           }}
         />
       )}
     </AutoLayout>
-  )
-}
+  );
+};

@@ -147,7 +147,7 @@ function Widget() {
           break;
       }
       setUpdatedDate(Date.now());
-    }
+    },
   );
 
   useEffect(() => {

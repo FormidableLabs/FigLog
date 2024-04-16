@@ -1,4 +1,3 @@
-
 import { BrandFigmaIcon } from '../../svgs/BrandFigmaIcon';
 import { BrandAsanaIcon } from '../../svgs/BrandAsanaIcon';
 import { BrandBitbucketIcon } from '../../svgs/BrandBitbucketIcon';
@@ -32,11 +31,11 @@ const { widget, openExternal } = figma;
 const { AutoLayout, Frame, SVG, Text } = widget;
 
 interface LinkProps {
-  label: string,
-  url: string,
-  icon?: string,
-  key: string,
-  editing: boolean,
+  label: string;
+  url: string;
+  icon?: string;
+  key: string;
+  editing: boolean;
   deleteLink: () => void;
 }
 
@@ -48,73 +47,69 @@ export const Link = ({
   editing = false,
   deleteLink,
 }: LinkProps) => {
-
   const assignSvg = (iconString: string) => {
     switch (iconString) {
-      case "figmaVersion":
+      case 'figmaVersion':
         return <FileHistory color={COLOR.greyDark} />;
-      case "figmaPrototype":
+      case 'figmaPrototype':
         return <Prototype color={COLOR.greyDark} />;
-      case "figma":
+      case 'figma':
         return <BrandFigmaIcon color={COLOR.greyDark} />;
-      case "asana":
+      case 'asana':
         return <BrandAsanaIcon color={COLOR.greyDark} />;
-      case "atlassian":
+      case 'atlassian':
         return <BrandAtlassianIcon color={COLOR.greyDark} />;
-      case "basecamp":
+      case 'basecamp':
         return <BrandBasecampIcon color={COLOR.greyDark} />;
-      case "bitbucket":
+      case 'bitbucket':
         return <BrandBitbucketIcon color={COLOR.greyDark} />;
-      case "chatgpt":
+      case 'chatgpt':
         return <BrandChatGptIcon color={COLOR.greyDark} />;
-      case "clickup":
+      case 'clickup':
         return <BrandClickUpIcon color={COLOR.greyDark} />;
-      case "codepen":
+      case 'codepen':
         return <BrandCodePenIcon color={COLOR.greyDark} />;
-      case "codesandbox":
+      case 'codesandbox':
         return <BrandCodeSandboxIcon color={COLOR.greyDark} />;
-      case "framer":
+      case 'framer':
         return <BrandFramerIcon color={COLOR.greyDark} />;
-      case "github":
+      case 'github':
         return <BrandGithubIcon color={COLOR.greyDark} />;
-      case "gitlab":
+      case 'gitlab':
         return <BrandGitlabIcon color={COLOR.greyDark} />;
-      case "google":
+      case 'google':
         return <BrandGoogleIcon color={COLOR.greyDark} />;
-      case "miro":
+      case 'miro':
         return <BrandMiroIcon color={COLOR.greyDark} />;
-      case "monday":
+      case 'monday':
         return <BrandMondayIcon color={COLOR.greyDark} />;
-      case "mural":
+      case 'mural':
         return <BrandMuralIcon color={COLOR.greyDark} />;
-      case "notion":
+      case 'notion':
         return <BrandNotionIcon color={COLOR.greyDark} />;
-      case "slack":
+      case 'slack':
         return <BrandSlackIcon color={COLOR.greyDark} />;
-      case "smartsheet":
+      case 'smartsheet':
         return <BrandSmartsheetIcon color={COLOR.greyDark} />;
-      case "storybook":
+      case 'storybook':
         return <BrandStorybookIcon color={COLOR.greyDark} />;
-      case "teams":
+      case 'teams':
         return <BrandTeamsIcon color={COLOR.greyDark} />;
-      case "microsoft":
+      case 'microsoft':
         return <BrandMicrosoftIcon color={COLOR.greyDark} />;
-      case "trello":
+      case 'trello':
         return <BrandTrelloIcon color={COLOR.greyDark} />;
-      case "link":
+      case 'link':
       default:
         return <ActionLinkIcon color={COLOR.greyDark} />;
     }
-  }
+  };
 
   return (
-    <AutoLayout
-      name={`link_${label}`}
-      key={key}
-    >
+    <AutoLayout name={`link_${label}`} key={key}>
       <AutoLayout
         fill={COLOR.greyLight}
-        onClick={ () => openExternal(url) }
+        onClick={() => openExternal(url)}
         spacing={GAP.sm}
         padding={{
           vertical: PADDING.xs,
@@ -179,14 +174,9 @@ export const Link = ({
           height={SPACE.sm}
           verticalAlignItems="center"
         >
-          <SVG
-            name="delete"
-            height={SPACE.xs}
-            width={SPACE.xs}
-            src={<ActionDeleteIcon color={COLOR.greyDark} />}
-          />
+          <SVG name="delete" height={SPACE.xs} width={SPACE.xs} src={<ActionDeleteIcon color={COLOR.greyDark} />} />
         </AutoLayout>
       )}
     </AutoLayout>
-  )
-}
+  );
+};

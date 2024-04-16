@@ -1,4 +1,6 @@
-export const rxUrl = new RegExp(/^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=!]*)$/gi);
+export const rxUrl = new RegExp(
+  /^(http(s)?:\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=!]*)$/gi,
+);
 
 export const rxAsana = new RegExp(/asana\.com/);
 
@@ -20,7 +22,7 @@ export const rxFigmaVersion = new RegExp(/(figma\.com\/file\/).+(version-id)/);
 
 export const rxFigmaProto = new RegExp(/figma\.com\/proto\//);
 
-export const rxFramer= new RegExp(/framer\./);
+export const rxFramer = new RegExp(/framer\./);
 
 export const rxGithub = new RegExp(/github\.com/);
 

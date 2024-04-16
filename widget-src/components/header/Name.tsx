@@ -11,13 +11,7 @@ interface NameProps {
   locked: boolean;
 }
 
-export const Name = ({
-  name,
-  nameText,
-  setNameText,
-  setUpdatedDate,
-  locked,
-}: NameProps) => {
+export const Name = ({ name, nameText, setNameText, setUpdatedDate, locked }: NameProps) => {
   return (
     <AutoLayout name="NameWrapper" overflow="visible" direction="vertical" width="fill-parent" hidden={!name}>
       {locked ? (
@@ -31,7 +25,7 @@ export const Name = ({
           fontWeight={FONT.weight.bold}
           hidden={!name}
         >
-          {nameText || "Name..."}
+          {nameText || 'Name...'}
         </Text>
       ) : (
         <Input
@@ -53,7 +47,6 @@ export const Name = ({
           value={nameText}
           hidden={!name}
         />
-
       )}
     </AutoLayout>
   );

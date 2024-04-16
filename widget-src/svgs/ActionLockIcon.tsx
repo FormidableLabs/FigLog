@@ -1,7 +1,6 @@
-import { COLOR } from "../utilities/Styles";
+import { COLOR } from '../utilities/Styles';
 
-export const ActionLockIcon = ( {color = COLOR.black} ) => (
+export const ActionLockIcon = ({ color = COLOR.black }) =>
   `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" clip-rule="evenodd" fill="${color}" d="M7 9.54148V8.5C7 5.62256 9.45095 3.5 12 3.5C14.549 3.5 17 5.62256 17 8.5V9.54148C18.4189 9.77952 19.5 11.0135 19.5 12.5V17.5C19.5 19.1569 18.1569 20.5 16.5 20.5H7.5C5.84315 20.5 4.5 19.1569 4.5 17.5V12.5C4.5 11.0135 5.58114 9.77952 7 9.54148ZM9 8.5C9 6.80643 10.4745 5.5 12 5.5C13.5255 5.5 15 6.80643 15 8.5V9.5H9V8.5ZM7.5 11.5C6.94772 11.5 6.5 11.9477 6.5 12.5V17.5C6.5 18.0523 6.94772 18.5 7.5 18.5H16.5C17.0523 18.5 17.5 18.0523 17.5 17.5V12.5C17.5 11.9477 17.0523 11.5 16.5 11.5H7.5Z"/>
-  </svg>`
-);
+  </svg>`;

@@ -11,12 +11,11 @@ interface TypeMenuProps {
 }
 
 export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
-
   return (
     <AutoLayout
       positioning="absolute"
       x={-PADDING.sm}
-      y={{ type: 'bottom', offset: FONT.lineHeight.xs + PADDING.xs*2 + PADDING.xxs }}
+      y={{ type: 'bottom', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.xxs }}
       fill={COLOR.white}
       stroke={COLOR.grey}
       strokeDashPattern={[]}
@@ -30,7 +29,7 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
       overflow="visible"
       cornerRadius={RADIUS.sm}
       effect={{
-        type: "drop-shadow",
+        type: 'drop-shadow',
         visible: false,
         color: COLOR.grey,
         offset: { x: 3, y: 3 },
@@ -38,22 +37,15 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
         spread: -4,
       }}
     >
-      {ChangeTypes.map((changeType) => {
+      {ChangeTypes.map(changeType => {
         if (changeType !== 'added' && changeType !== 'none') {
           return (
-            <AutoLayout
-             name="Action Wrapper"
-             onClick={() => selectType(changeType)}
-            >
-              <Type
-                type={changeType}
-                key={changeType}
-                isActive={changeType === currentType}
-              />
+            <AutoLayout name="Action Wrapper" onClick={() => selectType(changeType)}>
+              <Type type={changeType} key={changeType} isActive={changeType === currentType} />
             </AutoLayout>
-          )
+          );
         }
       })}
     </AutoLayout>
-  )
-}
+  );
+};

@@ -28,10 +28,9 @@ import {
   rxMural,
   rxSmartsheet,
   rxTeams,
-  rxMicrosoft
+  rxMicrosoft,
 } from '../../utilities/Regexes';
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
-
 
 const { widget } = figma;
 const { AutoLayout, Input, Text } = widget;
@@ -42,95 +41,90 @@ interface LinkFormProps {
   setUpdatedDate: (updatedDate: number) => void;
 }
 
-export const LinkForm = ({
-  changeLog,
-  updateChangeState,
-  setUpdatedDate,
-}: LinkFormProps) => {
-
+export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkFormProps) => {
   const validUrl = (address: string | undefined) => {
     if (address === undefined) {
       return false;
     }
     return address !== '' && rxUrl.test(address);
-  }
+  };
 
   const validLabel = (label: string | undefined) => {
     if (label === undefined) {
       return false;
     }
     return label !== '' && label.length <= 40;
-  }
+  };
 
   const assignIcon = (url: string) => {
     switch (true) {
       case rxFigmaVersion.test(url):
-        return "figmaVersion";
+        return 'figmaVersion';
       case rxFigmaProto.test(url):
-        return "figmaPrototype";
+        return 'figmaPrototype';
       case rxFigma.test(url):
-        return "figma";
+        return 'figma';
       case rxAsana.test(url):
-        return "asana";
+        return 'asana';
       case rxAtlassian.test(url):
-        return "atlassian";
+        return 'atlassian';
       case rxBasecamp.test(url):
-        return "basecamp";
+        return 'basecamp';
       case rxBitbucket.test(url):
-        return "bitbucket";
+        return 'bitbucket';
       case rxChatGpt.test(url):
-        return "chatgpt";
+        return 'chatgpt';
       case rxClickUp.test(url):
-        return "clickup";
+        return 'clickup';
       case rxCodePen.test(url):
-        return "codepen";
+        return 'codepen';
       case rxCodeSandbox.test(url):
-        return "codesandbox";
+        return 'codesandbox';
       case rxFramer.test(url):
-        return "framer";
+        return 'framer';
       case rxGithub.test(url):
-        return "github";
+        return 'github';
       case rxGitlab.test(url):
-        return "gitlab";
+        return 'gitlab';
       case rxGoogle.test(url):
-        return "google";
+        return 'google';
       case rxMiro.test(url):
-        return "miro";
+        return 'miro';
       case rxMonday.test(url):
-        return "monday";
+        return 'monday';
       case rxMural.test(url):
-        return "mural";
+        return 'mural';
       case rxNotion.test(url):
-        return "notion";
+        return 'notion';
       case rxSlack.test(url):
-        return "slack";
+        return 'slack';
       case rxSmartsheet.test(url):
-        return "smartsheet";
+        return 'smartsheet';
       case rxStorybook.test(url):
-        return "storybook";
+        return 'storybook';
       case rxTeams.test(url):
-        return "teams";
+        return 'teams';
       case rxMicrosoft.test(url):
-        return "microsoft";
+        return 'microsoft';
       case rxTrello.test(url):
-        return "trello";
+        return 'trello';
       default:
-        return "link";
+        return 'link';
     }
-  }
+  };
 
   const errorMsg = (labelError: boolean, urlError: boolean) => {
     switch (true) {
-      case (labelError && urlError):
+      case labelError && urlError:
         return "A link label (40 character maximum) and valid url (including 'https://') are required.";
-      case (labelError):
-        return "A link label (40 character maximum) is required.";
-      case (urlError):
+      case labelError:
+        return 'A link label (40 character maximum) is required.';
+      case urlError:
         return "A valid url (including 'https://') is required.";
       default:
-        return "";
+        return '';
     }
-  }
+  };
 
   return (
     <AutoLayout
@@ -140,13 +134,8 @@ export const LinkForm = ({
       horizontalAlignItems="end"
       verticalAlignItems="center"
     >
-      <AutoLayout
-        width="fill-parent"
-        horizontalAlignItems="end"
-        verticalAlignItems="center"
-        spacing={GAP.md}
-      >
-        <Input 
+      <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center" spacing={GAP.md}>
+        <Input
           name="LinkLabel"
           fill={COLOR.black}
           inputFrameProps={{
@@ -154,7 +143,7 @@ export const LinkForm = ({
             stroke: !!changeLog.state?.updates?.linkFormError?.label ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
+            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
           }}
           placeholder="Link Label"
           width={SPACE.lg}
@@ -162,8 +151,8 @@ export const LinkForm = ({
           fontSize={FONT.size.xs}
           fontFamily={FONT.family}
           value={changeLog.state?.updates?.link?.label || ''}
-          onTextEditEnd={(e) => {
-            const trimmedLabel = e.characters.trim()
+          onTextEditEnd={e => {
+            const trimmedLabel = e.characters.trim();
             updateChangeState({
               ...changeLog.state,
               updates: {
@@ -177,12 +166,12 @@ export const LinkForm = ({
                 linkFormError: {
                   label: !validLabel(trimmedLabel),
                   url: !!changeLog.state?.updates?.linkFormError?.url,
-                }
-              }
-            })
+                },
+              },
+            });
           }}
         />
-        <Input 
+        <Input
           name="LinkUrl"
           fill={COLOR.black}
           inputFrameProps={{
@@ -190,7 +179,7 @@ export const LinkForm = ({
             stroke: !!changeLog.state?.updates?.linkFormError?.url ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs }
+            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
           }}
           width="fill-parent"
           placeholder="https://figma.com"
@@ -198,7 +187,7 @@ export const LinkForm = ({
           fontSize={FONT.size.xs}
           fontFamily={FONT.family}
           value={changeLog.state?.updates?.link?.url || ''}
-          onTextEditEnd={(e) => {
+          onTextEditEnd={e => {
             const trimmedUrl = e.characters.trim();
             updateChangeState({
               ...changeLog.state,
@@ -214,44 +203,49 @@ export const LinkForm = ({
                 linkFormError: {
                   label: !!changeLog.state?.updates?.linkFormError?.label,
                   url: !validUrl(trimmedUrl),
-                }
-              }
-            })
+                },
+              },
+            });
           }}
         />
-        <Button label="Add" action={() => {
-          const labelValid = validLabel(changeLog.state?.updates?.link?.label);
-          const urlValid = validUrl(changeLog.state?.updates?.link?.url);
-          const linkKey= `link-${randomId()}`;
+        <Button
+          label="Add"
+          action={() => {
+            const labelValid = validLabel(changeLog.state?.updates?.link?.label);
+            const urlValid = validUrl(changeLog.state?.updates?.link?.url);
+            const linkKey = `link-${randomId()}`;
 
-          if (labelValid && urlValid) {
-            updateChangeState({
-              ...changeLog.state,
-              showLinkForm: false,
-              updates: {
-                ...changeLog.state?.updates,
-                links: !!changeLog.links ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }] : [{...changeLog.state?.updates?.link, key: linkKey }],
-                link: { label: '', url: '', key: '', icon: '' },
-                linkFormError: {
-                  label: false,
-                  url: false,
-                }
-              }
-            })
-            setUpdatedDate(Date.now());
-          } else {
-            updateChangeState({
-              ...changeLog.state,
-              updates: {
-                ...changeLog.state?.updates,
-                linkFormError: {
-                  label: !labelValid,
-                  url: !urlValid
-                }
-              }
-            })
-          }
-        }} />
+            if (labelValid && urlValid) {
+              updateChangeState({
+                ...changeLog.state,
+                showLinkForm: false,
+                updates: {
+                  ...changeLog.state?.updates,
+                  links: !!changeLog.links
+                    ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }]
+                    : [{ ...changeLog.state?.updates?.link, key: linkKey }],
+                  link: { label: '', url: '', key: '', icon: '' },
+                  linkFormError: {
+                    label: false,
+                    url: false,
+                  },
+                },
+              });
+              setUpdatedDate(Date.now());
+            } else {
+              updateChangeState({
+                ...changeLog.state,
+                updates: {
+                  ...changeLog.state?.updates,
+                  linkFormError: {
+                    label: !labelValid,
+                    url: !urlValid,
+                  },
+                },
+              });
+            }
+          }}
+        />
         <Button
           label="Cancel"
           hideLabel
@@ -263,20 +257,15 @@ export const LinkForm = ({
               updates: {
                 ...changeLog.state?.updates,
                 link: { label: '', url: '', key: '', icon: '' },
-                linkFormError: { label: false, url: false, }
-              }
-            })
+                linkFormError: { label: false, url: false },
+              },
+            });
           }}
         />
       </AutoLayout>
-      <Text
-        fill={COLOR.red}
-        fontSize={FONT.size.xs}
-        fontFamily={FONT.family}
-      >
+      <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
         {errorMsg(!!changeLog.state?.updates?.linkFormError?.label, !!changeLog.state?.updates?.linkFormError?.url)}
       </Text>
     </AutoLayout>
-  )
-
-}
+  );
+};

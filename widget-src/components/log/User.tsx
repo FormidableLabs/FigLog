@@ -24,13 +24,7 @@ export const User = ({ userName, userPhotoUrl }: UserProps) => {
     >
       <AutoLayout name="Avatar" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
         {userPhotoUrl ? (
-          <Image
-            name="UserImage"
-            cornerRadius={RADIUS.lg}
-            width={SPACE.sm}
-            height={SPACE.sm}
-            src={userPhotoUrl}
-          />
+          <Image name="UserImage" cornerRadius={RADIUS.lg} width={SPACE.sm} height={SPACE.sm} src={userPhotoUrl} />
         ) : (
           <Rectangle name="Placeholder" fill={COLOR.grey} cornerRadius={RADIUS.lg} width={SPACE.sm} height={SPACE.sm} />
         )}

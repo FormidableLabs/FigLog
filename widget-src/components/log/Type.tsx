@@ -1,5 +1,5 @@
 import { COLOR, FONT, RADIUS, PADDING, SPACE, GAP } from '../../utilities/Styles';
-import { ChangeType } from '../../types/ChangeTypes'
+import { ChangeType } from '../../types/ChangeTypes';
 import { Check } from '../../svgs/Check';
 import { ActionAddIcon } from '../../svgs/ActionAddIcon';
 
@@ -22,40 +22,40 @@ export const Type = ({ type, isActive = false }: TypeProps) => {
       txColor = COLOR.greyDark;
       bgColor = COLOR.white;
       showStroke = true;
-      displayName = "Log Type";
+      displayName = 'Log Type';
       break;
     case 'newAdd':
       bgColor = COLOR.green;
-      displayName = "Added";
+      displayName = 'Added';
       break;
     case 'breaking':
       bgColor = COLOR.red;
-      displayName = "Breaking";
+      displayName = 'Breaking';
       break;
     case 'changed':
       bgColor = COLOR.purple;
-      displayName = "Changed";
+      displayName = 'Changed';
       break;
     case 'deprecated':
       bgColor = COLOR.orange;
-      displayName = "Deprecated";
+      displayName = 'Deprecated';
       break;
     case 'fixed':
       bgColor = COLOR.blue;
-      displayName = "Fixed";
+      displayName = 'Fixed';
       break;
     case 'removed':
       bgColor = COLOR.greyDark;
-      displayName = "Removed";
+      displayName = 'Removed';
       break;
     default:
       // other
       txColor = COLOR.black;
       bgColor = COLOR.grey;
-      displayName = "Other";
+      displayName = 'Other';
       break;
   }
-  
+
   return (
     <AutoLayout
       name="Log Type"
@@ -68,15 +68,13 @@ export const Type = ({ type, isActive = false }: TypeProps) => {
       horizontalAlignItems="center"
       verticalAlignItems="center"
       spacing={SPACE.xxxs}
-      positioning='auto'
+      positioning="auto"
       stroke={showStroke ? COLOR.grey : ''}
       strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
     >
-      {isActive && (
-        <SVG name="Active" height={PADDING.md} width={PADDING.md} src={<Check color={txColor}/>} />
-      )}
+      {isActive && <SVG name="Active" height={PADDING.md} width={PADDING.md} src={<Check color={txColor} />} />}
       {type === ('none' || 'added') && (
-        <SVG name="Add" height={PADDING.md} width={PADDING.md}  src={<ActionAddIcon color={txColor}/>} />
+        <SVG name="Add" height={PADDING.md} width={PADDING.md} src={<ActionAddIcon color={txColor} />} />
       )}
       <Text
         name="Type"

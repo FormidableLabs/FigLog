@@ -11,7 +11,7 @@ const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
 interface ChangeLogDisplayProps {
-  changeLogId: string,
+  changeLogId: string;
   changeLog: ChangeLog;
   updateChangeState: (changes: Partial<ChangeLogState>) => void;
   updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
@@ -52,9 +52,7 @@ export const ChangeLogDisplay = ({
         width="fill-parent"
         verticalAlignItems="center"
       >
-        {showTypes && changeLog.type !== ('none' || 'added') && (
-          <Type type={changeLog.type} />
-        )}
+        {showTypes && changeLog.type !== ('none' || 'added') && <Type type={changeLog.type} />}
         <Text
           name="Name"
           fill={COLOR.black}
@@ -93,17 +91,17 @@ export const ChangeLogDisplay = ({
                   updates: {
                     createdDate: changeLog.createdDate,
                     createdDateTmp: {
-                      date: { val: displayDate(changeLog.createdDate, "date"), er: false },
-                      time: { val: displayDate(changeLog.createdDate, "time"), er: false }
+                      date: { val: displayDate(changeLog.createdDate, 'date'), er: false },
+                      time: { val: displayDate(changeLog.createdDate, 'time'), er: false },
                     },
                     links: changeLog.links,
-                    link: { label: '', url: '', icon: '', key: ''},
+                    link: { label: '', url: '', icon: '', key: '' },
                     type: changeLog.type,
                     change: changeLog.change,
                     linkFormError: { label: false, url: false },
-                  }
-                })
-                updateOtherStates(changeLogId, { editing: false })
+                  },
+                });
+                updateOtherStates(changeLogId, { editing: false });
               }}
             />
           )}
@@ -121,17 +119,10 @@ export const ChangeLogDisplay = ({
         </Text>
       </AutoLayout>
       {!!changeLog.links && changeLog.links.length > 0 && (
-        <AutoLayout
-          name="Links"
-          width="fill-parent"
-          horizontalAlignItems="end"
-          direction="vertical"
-        >
-          <LinkList
-            links={changeLog.links}
-          />
-        </AutoLayout> 
+        <AutoLayout name="Links" width="fill-parent" horizontalAlignItems="end" direction="vertical">
+          <LinkList links={changeLog.links} />
+        </AutoLayout>
       )}
     </AutoLayout>
-  )
-}
+  );
+};

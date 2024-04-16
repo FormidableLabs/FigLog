@@ -39,26 +39,29 @@ export const ChangeLogList = ({
         horizontal: PADDING.none,
       }}
     >
-      {changeLogs.entries().sort((a, b) => b[1].createdDate - a[1].createdDate ).map((changeLogArr, index) => {
-        const changeLogId = changeLogArr[0];
-        const changeLog = changeLogArr[1];
+      {changeLogs
+        .entries()
+        .sort((a, b) => b[1].createdDate - a[1].createdDate)
+        .map((changeLogArr, index) => {
+          const changeLogId = changeLogArr[0];
+          const changeLog = changeLogArr[1];
 
-        return (
-          <ChangeLogRow
-            key={changeLogId}
-            changeLogId={changeLogId}
-            changeLog={changeLog}
-            isLastRow={index === changeLogIds.length - 1}
-            updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
-            updateChangeState={changes => changeLogs.set(changeLogId, { ...changeLog, state: { ... changes }})}
-            updateOtherStates={updateOtherStates}
-            deleteChange={() => deleteChange(changeLogId)}
-            setUpdatedDate={setUpdatedDate}
-            showTypes={showTypes}
-            locked={isLocked}
-          />
-        );
-      })}
+          return (
+            <ChangeLogRow
+              key={changeLogId}
+              changeLogId={changeLogId}
+              changeLog={changeLog}
+              isLastRow={index === changeLogIds.length - 1}
+              updateChange={changes => changeLogs.set(changeLogId, { ...changeLog, ...changes })}
+              updateChangeState={changes => changeLogs.set(changeLogId, { ...changeLog, state: { ...changes } })}
+              updateOtherStates={updateOtherStates}
+              deleteChange={() => deleteChange(changeLogId)}
+              setUpdatedDate={setUpdatedDate}
+              showTypes={showTypes}
+              locked={isLocked}
+            />
+          );
+        })}
     </AutoLayout>
   );
 };

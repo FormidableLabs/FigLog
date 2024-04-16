@@ -11,14 +11,7 @@ interface ButtonProps {
   error?: boolean;
 }
 
-export const Button = ({
-  label,
-  hideLabel = false,
-  action,
-  iconSrc,
-  error = false,
-}: ButtonProps) => {
-
+export const Button = ({ label, hideLabel = false, action, iconSrc, error = false }: ButtonProps) => {
   if (error) {
     return (
       <AutoLayout
@@ -66,7 +59,7 @@ export const Button = ({
           {label}
         </Text>
       </AutoLayout>
-    )
+    );
   }
 
   return (
