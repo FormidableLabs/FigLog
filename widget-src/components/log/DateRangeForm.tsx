@@ -127,7 +127,7 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
             stroke: !!changeLog.state?.updates?.createdDateTmp?.date.er ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
+            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
           }}
           placeholder={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
           value={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
@@ -219,7 +219,7 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
             stroke: !!changeLog.state?.updates?.createdDateTmp?.time.er ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
+            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
           }}
           placeholder={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
           value={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
