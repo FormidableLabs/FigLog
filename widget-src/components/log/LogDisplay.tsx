@@ -92,15 +92,38 @@ export const ChangeLogDisplay = ({
                   ...changeLog.state,
                   editing: true,
                   updates: {
-                    createdDate: changeLog.createdDate,
+                    createdDate: changeLog.state?.updates?.createdDate
+                      ? changeLog.state?.updates?.createdDate
+                      : changeLog.createdDate,
                     createdDateTmp: {
-                      date: { val: displayDate(changeLog.createdDate, 'date'), er: false },
-                      time: { val: displayDate(changeLog.createdDate, 'time'), er: false },
+                      date: {
+                        val: displayDate(
+                          changeLog.state?.updates?.createdDate
+                            ? changeLog.state?.updates?.createdDate
+                            : changeLog.createdDate,
+                          'date',
+                        ),
+                        er: false,
+                      },
+                      time: {
+                        val: displayDate(
+                          changeLog.state?.updates?.createdDate
+                            ? changeLog.state?.updates?.createdDate
+                            : changeLog.createdDate,
+                          'time',
+                        ),
+                        er: false,
+                      },
                     },
-                    links: changeLog.links,
-                    link: { label: '', url: '', icon: '', key: '' },
-                    type: changeLog.type,
-                    change: changeLog.change,
+                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links,
+                    link: {
+                      label: changeLog.state?.updates?.link?.label ? changeLog.state?.updates?.link?.label : '',
+                      url: changeLog.state?.updates?.link?.url ? changeLog.state?.updates?.link?.url : '',
+                      icon: changeLog.state?.updates?.link?.icon ? changeLog.state?.updates?.link?.icon : '',
+                      key: changeLog.state?.updates?.link?.key ? changeLog.state?.updates?.link?.key : '',
+                    },
+                    type: changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type,
+                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : changeLog.change,
                     linkFormError: { label: false, url: false },
                   },
                 });

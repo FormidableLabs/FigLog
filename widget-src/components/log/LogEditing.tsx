@@ -8,6 +8,7 @@ import { TypeMenu } from './TypeMenu';
 import { LinkForm } from './LinkForm';
 import { AddLink } from './AddLink';
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
+import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
 const { AutoLayout, Text, Input, useEffect } = widget;
@@ -167,6 +168,29 @@ export const ChangeLogEditing = ({
                 updateChangeState({
                   ...changeLog.state,
                   editing: false,
+                  updates: {
+                    createdDate: changeLog.createdDate,
+                    createdDateTmp: {
+                      date: {
+                        val: displayDate(changeLog.createdDate, 'date'),
+                        er: false,
+                      },
+                      time: {
+                        val: displayDate(changeLog.createdDate, 'time'),
+                        er: false,
+                      },
+                    },
+                    links: changeLog.links,
+                    link: {
+                      label: '',
+                      url: '',
+                      icon: '',
+                      key: '',
+                    },
+                    type: changeLog.type,
+                    change: changeLog.change,
+                    linkFormError: { label: false, url: false },
+                  },
                 });
               }}
             />
