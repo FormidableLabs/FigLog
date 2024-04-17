@@ -27,7 +27,11 @@ export const User = ({ userName, userPhotoUrl, showAvatars }: UserProps) => {
               right: PADDING.sm,
               left: PADDING.none,
             }
-      }
+      padding={{
+        vertical: PADDING.xl,
+        horizontal: PADDING.none,
+        right: showAvatars ? PADDING.none : PADDING.sm,
+      }}
       height="fill-parent"
       horizontalAlignItems="center"
     >
