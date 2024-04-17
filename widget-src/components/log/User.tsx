@@ -17,17 +17,6 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
       overflow="visible"
       direction="vertical"
       spacing={GAP.none}
-      padding={
-        showAvatars
-          ? {
-              vertical: PADDING.xl,
-              horizontal: PADDING.none,
-            }
-          : {
-              vertical: PADDING.xl,
-              right: PADDING.sm,
-              left: PADDING.none,
-            }
       padding={{
         top: PADDING.xl,
         bottom: isLastRow ? PADDING.xxs : PADDING.xl,
