@@ -38,7 +38,7 @@ export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
           letterSpacing={FONT.letterSpacing.sm}
           textCase="upper"
         >
-         unlock widget from property menu to add your first change.
+          unlock widget from property menu to add your first change.
         </Text>
       ) : (
         <>
@@ -53,7 +53,15 @@ export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
           >
             no changes found in log. add your first change here
           </Text>
-          <SVG name="Arrow" x={570} y={-4} positioning="absolute" height={SPACE.md} width={SPACE.lg} src={<HelpArrow />} />
+          <SVG
+            name="Arrow"
+            x={570}
+            y={-4}
+            positioning="absolute"
+            height={SPACE.md}
+            width={SPACE.lg}
+            src={<HelpArrow />}
+          />
         </>
       )}
     </AutoLayout>

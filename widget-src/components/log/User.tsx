@@ -7,9 +7,10 @@ interface UserProps {
   userName: string | undefined;
   userPhotoUrl: string | null | undefined;
   showAvatars: boolean;
+  isLastRow: boolean;
 }
 
-export const User = ({ userName, userPhotoUrl, showAvatars }: UserProps) => {
+export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserProps) => {
   return (
     <AutoLayout
       name="User"
@@ -28,7 +29,8 @@ export const User = ({ userName, userPhotoUrl, showAvatars }: UserProps) => {
               left: PADDING.none,
             }
       padding={{
-        vertical: PADDING.xl,
+        top: PADDING.xl,
+        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
         horizontal: PADDING.none,
         right: showAvatars ? PADDING.none : PADDING.sm,
       }}
@@ -62,7 +64,6 @@ export const User = ({ userName, userPhotoUrl, showAvatars }: UserProps) => {
           </Text>
         </AutoLayout>
       )}
-
       <Rectangle name="Divider" fill={COLOR.grey} cornerRadius={RADIUS.md} width={SPACE.one} height="fill-parent" />
     </AutoLayout>
   );

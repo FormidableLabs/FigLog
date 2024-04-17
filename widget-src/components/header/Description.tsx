@@ -40,7 +40,7 @@ export const Description = ({
           fontSize={FONT.size.lg}
           hidden={!description}
         >
-          {descriptionText || "Description..."}
+          {descriptionText || 'Description...'}
         </Text>
       ) : (
         <Input
@@ -62,7 +62,6 @@ export const Description = ({
           fontSize={FONT.size.lg}
           hidden={!description}
         />
-
       )}
     </AutoLayout>
   );

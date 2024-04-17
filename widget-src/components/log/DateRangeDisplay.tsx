@@ -5,17 +5,12 @@ const { widget } = figma;
 const { AutoLayout, Text } = widget;
 
 interface DateRangeProps {
-  timestamp: number,
-  editedTimestamp: number,
+  timestamp: number;
+  editedTimestamp: number;
   editCount: number;
 }
 
-export const DateRange = ({
-  timestamp,
-  editedTimestamp,
-  editCount,
-}: DateRangeProps) => {
-
+export const DateRange = ({ timestamp, editedTimestamp, editCount }: DateRangeProps) => {
   return (
     <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
       <Text

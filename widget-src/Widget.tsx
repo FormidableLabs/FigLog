@@ -157,7 +157,7 @@ function Widget() {
           break;
       }
       setUpdatedDate(Date.now());
-    }
+    },
   );
 
   useEffect(() => {
@@ -205,7 +205,7 @@ function Widget() {
           isLocked={isLocked}
         />
       )}
-      <Footer showBranding={showBranding} />
+      {showBranding && <Footer />}
     </WidgetContainer>
   );
 }
