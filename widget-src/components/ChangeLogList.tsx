@@ -12,6 +12,7 @@ interface ChangeLogListProps {
   deleteChange: (changeId: string) => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
+  showAvatars: boolean;
   isLocked: boolean;
 }
 
@@ -22,6 +23,7 @@ export const ChangeLogList = ({
   deleteChange,
   setUpdatedDate,
   showTypes,
+  showAvatars,
   isLocked,
 }: ChangeLogListProps) => {
   useEffect(() => {
@@ -58,6 +60,7 @@ export const ChangeLogList = ({
               deleteChange={() => deleteChange(changeLogId)}
               setUpdatedDate={setUpdatedDate}
               showTypes={showTypes}
+              showAvatars={showAvatars}
               locked={isLocked}
             />
           );
