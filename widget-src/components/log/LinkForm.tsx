@@ -221,8 +221,8 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
                 showLinkForm: false,
                 updates: {
                   ...changeLog.state?.updates,
-                  links: !!changeLog.links
-                    ? [...changeLog.links, { ...changeLog.state?.updates?.link, key: linkKey }]
+                  links: changeLog.state?.updates?.links
+                    ? [...changeLog.state.updates.links, { ...changeLog.state?.updates?.link, key: linkKey }]
                     : [{ ...changeLog.state?.updates?.link, key: linkKey }],
                   link: { label: '', url: '', key: '', icon: '' },
                   linkFormError: {
