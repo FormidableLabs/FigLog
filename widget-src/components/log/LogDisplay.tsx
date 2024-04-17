@@ -17,6 +17,7 @@ interface ChangeLogDisplayProps {
   updateOtherStates: (changeId: string, changes: Partial<ChangeLogState>) => void;
   showTypes: boolean;
   locked: boolean;
+  isLastRow: boolean;
 }
 
 export const ChangeLogDisplay = ({
@@ -26,6 +27,7 @@ export const ChangeLogDisplay = ({
   updateOtherStates,
   showTypes,
   locked,
+  isLastRow,
 }: ChangeLogDisplayProps) => {
   return (
     <AutoLayout
@@ -34,7 +36,8 @@ export const ChangeLogDisplay = ({
       direction="vertical"
       spacing={GAP.lg}
       padding={{
-        vertical: PADDING.xl,
+        top: PADDING.xl,
+        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
         horizontal: PADDING.none,
       }}
       width="fill-parent"

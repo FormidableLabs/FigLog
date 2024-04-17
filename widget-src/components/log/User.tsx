@@ -6,9 +6,10 @@ const { AutoLayout, Image, Rectangle, Text } = widget;
 interface UserProps {
   userName: string | undefined;
   userPhotoUrl: string | null | undefined;
+  isLastRow: boolean;
 }
 
-export const User = ({ userName, userPhotoUrl }: UserProps) => {
+export const User = ({ userName, userPhotoUrl, isLastRow }: UserProps) => {
   return (
     <AutoLayout
       name="User"
@@ -16,7 +17,8 @@ export const User = ({ userName, userPhotoUrl }: UserProps) => {
       direction="vertical"
       spacing={GAP.none}
       padding={{
-        vertical: PADDING.xl,
+        top: PADDING.xl,
+        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
         horizontal: PADDING.none,
       }}
       height="fill-parent"

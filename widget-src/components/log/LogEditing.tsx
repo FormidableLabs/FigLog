@@ -19,6 +19,7 @@ interface ChangeLogEditingProps {
   deleteChange: () => void;
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
+  isLastRow: boolean;
 }
 
 export const ChangeLogEditing = ({
@@ -28,6 +29,7 @@ export const ChangeLogEditing = ({
   deleteChange,
   setUpdatedDate,
   showTypes,
+  isLastRow,
 }: ChangeLogEditingProps) => {
   useEffect(() => {
     // console.log('state: ', changeLog.state);
@@ -40,7 +42,8 @@ export const ChangeLogEditing = ({
       direction="vertical"
       spacing={GAP.lg}
       padding={{
-        vertical: PADDING.xl,
+        top: PADDING.xl,
+        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
         horizontal: PADDING.none,
       }}
       width="fill-parent"

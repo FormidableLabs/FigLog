@@ -194,7 +194,7 @@ function Widget() {
           isLocked={isLocked}
         />
       )}
-      <Footer showBranding={showBranding} />
+      {showBranding && <Footer />}
     </WidgetContainer>
   );
 }
