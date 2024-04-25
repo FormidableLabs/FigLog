@@ -19,14 +19,14 @@ export const Footer = () => (
       <AutoLayout
         name="FigLog Logo"
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         verticalAlignItems="center"
         onClick={() => {
           openExternal('https://commerce.nearform.com/open-source/');
         }}
       >
         <SVG name="FigLog Logo" height={PADDING.xxl} width={PADDING.xxl} src={LogoFigLog} />
-        <AutoLayout name="FigLog Logo Text" spacing={GAP.sm}>
+        <AutoLayout name="FigLog Logo Text" spacing={GAP.xs}>
           <Text
             fontFamily={FONT.family}
             fill={COLOR.black}
@@ -50,7 +50,7 @@ export const Footer = () => (
       <AutoLayout
         name="Nearform_Commerce Logo"
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         verticalAlignItems="center"
         onClick={() => {
           openExternal('https://commerce.nearform.com/');

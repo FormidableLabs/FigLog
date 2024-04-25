@@ -43,7 +43,7 @@ export const ChangeLogRow = ({
       direction="vertical"
       width="fill-parent"
     >
-      <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
+      <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.sm} width="fill-parent">
         <User
           userName={changeLog.user?.name}
           userPhotoUrl={changeLog.user?.photoUrl}
@@ -78,7 +78,7 @@ export const ChangeLogRow = ({
         stroke={COLOR.grey}
         width="fill-parent"
         height={SPACE.one}
-        strokeDashPattern={[GAP.sm, GAP.sm]}
+        strokeDashPattern={[GAP.xs, GAP.xs]}
       />
     </AutoLayout>
   );

@@ -70,7 +70,7 @@ export const Type = ({ type, isActive = false }: TypeProps) => {
       spacing={SPACE.xxxs}
       positioning="auto"
       stroke={showStroke ? COLOR.grey : ''}
-      strokeDashPattern={showStroke ? [GAP.sm, GAP.sm] : []}
+      strokeDashPattern={showStroke ? [GAP.xs, GAP.xs] : []}
     >
       {isActive && <SVG name="Active" height={PADDING.md} width={PADDING.md} src={<Check color={txColor} />} />}
       {type === ('none' || 'added') && (

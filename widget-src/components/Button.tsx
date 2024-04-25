@@ -19,7 +19,7 @@ export const Button = ({ label, hideLabel = false, action, iconSrc, error = fals
         fill={COLOR.white}
         cornerRadius={RADIUS.sm}
         overflow="visible"
-        spacing={GAP.sm}
+        spacing={GAP.xs}
         padding={PADDING.xs}
         stroke={COLOR.red}
         strokeWidth={SPACE.one}
@@ -72,7 +72,7 @@ export const Button = ({ label, hideLabel = false, action, iconSrc, error = fals
       onClick={() => {
         action();
       }}
-      spacing={GAP.sm}
+      spacing={GAP.xs}
       padding={PADDING.xs}
       horizontalAlignItems="center"
       verticalAlignItems="center"

@@ -12,7 +12,7 @@ interface DateRangeProps {
 
 export const DateRange = ({ timestamp, editedTimestamp, editCount }: DateRangeProps) => {
   return (
-    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
+    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.sm} verticalAlignItems="center">
       <Text
         name="Created"
         fill={COLOR.black}

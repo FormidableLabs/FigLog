@@ -73,7 +73,7 @@ export const Meta = ({
               cornerRadius={RADIUS.sm}
               fill={COLOR.white}
               overflow="visible"
-              spacing={GAP.md}
+              spacing={GAP.sm}
               padding={PADDING.xs}
               horizontalAlignItems="end"
               verticalAlignItems="center"
@@ -91,7 +91,7 @@ export const Meta = ({
                 addChange(changeId);
               }}
               overflow="visible"
-              spacing={GAP.md}
+              spacing={GAP.sm}
               padding={PADDING.xs}
               horizontalAlignItems="end"
               verticalAlignItems="center"

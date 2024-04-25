@@ -38,7 +38,7 @@ export const Header = ({
   const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
 
   return (
-    <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.md} width="fill-parent">
+    <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.sm} width="fill-parent">
       <AutoLayout name="Container" overflow="visible" direction="vertical" width="fill-parent">
         {/* STATUS */}
         {status !== '0' && <Status status={status} />}
