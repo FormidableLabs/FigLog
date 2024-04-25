@@ -118,23 +118,17 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
       case labelError && urlError:
         return "A link label (40 character maximum) and valid url (including 'https://') are required.";
       case labelError:
-        return 'A link label (40 character maximum) is required.';
+        return 'Enter label (1-40 characters).';
       case urlError:
-        return "A valid url (including 'https://') is required.";
+        return 'Enter URL (https://, no spaces/specials).';
       default:
         return '';
     }
   };
 
   return (
-    <AutoLayout
-      width="fill-parent"
-      direction="vertical"
-      spacing={GAP.sm}
-      horizontalAlignItems="end"
-      verticalAlignItems="center"
-    >
-      <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center" spacing={GAP.md}>
+    <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="start" spacing={GAP.sm}>
+      <AutoLayout name="Input Wrapper" overflow="visible" direction="vertical" spacing={GAP.xs}>
         <Input
           name="LinkLabel"
           fill={COLOR.black}
@@ -143,12 +137,12 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
             stroke: !!changeLog.state?.updates?.linkFormError?.label ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
+            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
           }}
           placeholder="Link Label"
           width={SPACE.lg}
-          lineHeight={FONT.lineHeight.xs}
-          fontSize={FONT.size.xs}
+          lineHeight={FONT.lineHeight.sm}
+          fontSize={FONT.size.sm}
           fontFamily={FONT.family}
           value={changeLog.state?.updates?.link?.label || ''}
           onTextEditEnd={e => {
@@ -171,6 +165,11 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
             });
           }}
         />
+        <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
+          {!!changeLog.state?.updates?.linkFormError?.label ? 'Enter label (1-40 characters).' : ''}
+        </Text>
+      </AutoLayout>
+      <AutoLayout name="Input Wrapper" overflow="visible" direction="vertical" spacing={GAP.xs} width="fill-parent">
         <Input
           name="LinkUrl"
           fill={COLOR.black}
@@ -179,12 +178,12 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
             stroke: !!changeLog.state?.updates?.linkFormError?.url ? COLOR.red : COLOR.grey,
             strokeWidth: SPACE.one,
             cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
+            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
           }}
           width="fill-parent"
           placeholder="https://figma.com"
-          lineHeight={FONT.lineHeight.xs}
-          fontSize={FONT.size.xs}
+          lineHeight={FONT.lineHeight.sm}
+          fontSize={FONT.size.sm}
           fontFamily={FONT.family}
           value={changeLog.state?.updates?.link?.url || ''}
           onTextEditEnd={e => {
@@ -208,6 +207,11 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
             });
           }}
         />
+        <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
+          {!!changeLog.state?.updates?.linkFormError?.url ? 'Enter URL (https://, no spaces/specials).' : ''}
+        </Text>
+      </AutoLayout>
+      <AutoLayout name="Actions Wrapper" overflow="visible" spacing={GAP.xs}>
         <Button
           label="Add"
           action={() => {
@@ -263,9 +267,6 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
           }}
         />
       </AutoLayout>
-      <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
-        {errorMsg(!!changeLog.state?.updates?.linkFormError?.label, !!changeLog.state?.updates?.linkFormError?.url)}
-      </Text>
     </AutoLayout>
   );
 };
