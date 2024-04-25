@@ -116,7 +116,7 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
   };
 
   return (
-    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
+    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.sm} verticalAlignItems="center">
       <AutoLayout name="Input Wrapper" overflow="visible">
         <Input
           name="Editable Date"
@@ -189,10 +189,10 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
             fontSize={FONT.size.xs}
             fontFamily={FONT.family}
             positioning="absolute"
-            y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.sm }}
+            y={{ type: 'top', offset: PADDING.xl + 4 }}
             x={{ type: 'right', offset: 0 }}
           >
-            A valid past date (MM/DD/YYYY format) is required.
+            Enter past date (MM/DD/YYYY).
           </Text>
         )}
       </AutoLayout>
@@ -281,9 +281,9 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
             fontSize={FONT.size.xs}
             fontFamily={FONT.family}
             positioning="absolute"
-            y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.sm }}
+            y={{ type: 'top', offset: PADDING.xl + 4 }}
           >
-            A valid time (HH:MM:SS AM format) is required.
+            Enter time (HH:MM:SS AM/PM).
           </Text>
         )}
       </AutoLayout>
