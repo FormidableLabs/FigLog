@@ -20,14 +20,14 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
       padding={{
         top: PADDING.xl,
         right: showAvatars ? PADDING.none : PADDING.sm,
-        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
+        bottom: isLastRow ? PADDING.none : PADDING.xl,
         left: PADDING.none,
       }}
       height="fill-parent"
       horizontalAlignItems="center"
     >
       {showAvatars && (
-        <AutoLayout name="Avatar" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
+        <AutoLayout name="Avatar" overflow="visible" spacing={GAP.sm} verticalAlignItems="center">
           {userPhotoUrl ? (
             <Image name="UserImage" cornerRadius={RADIUS.lg} width={SPACE.sm} height={SPACE.sm} src={userPhotoUrl} />
           ) : (
@@ -53,7 +53,18 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
           </Text>
         </AutoLayout>
       )}
-      <Rectangle name="Divider" fill={COLOR.grey} cornerRadius={RADIUS.md} width={SPACE.one} height="fill-parent" />
+      <Rectangle
+        name="Divider"
+        fill={COLOR.grey}
+        cornerRadius={{
+          topLeft: showAvatars ? RADIUS.none : RADIUS.md,
+          topRight: showAvatars ? RADIUS.none : RADIUS.md,
+          bottomRight: RADIUS.md,
+          bottomLeft: RADIUS.md,
+        }}
+        width={SPACE.one}
+        height="fill-parent"
+      />
     </AutoLayout>
   );
 };
