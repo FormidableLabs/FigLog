@@ -52,7 +52,7 @@ export const ChangeLogEditing = ({
       <AutoLayout
         name="Meta"
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         padding={{
           top: PADDING.none,
           right: PADDING.xxs,
@@ -115,33 +115,39 @@ export const ChangeLogEditing = ({
         <AutoLayout
           name="Actions"
           overflow="visible"
-          spacing={GAP.md}
+          spacing={GAP.sm}
           width="fill-parent"
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <AutoLayout spacing={GAP.lg}>
+          <AutoLayout spacing={GAP.sm}>
             <Button
               label={
                 !!changeLog.state?.updates?.createdDateTmp?.date.er ||
-                !!changeLog.state?.updates?.createdDateTmp?.time.er
+                !!changeLog.state?.updates?.createdDateTmp?.time.er ||
+                !!changeLog.state?.updates?.linkFormError?.label ||
+                !!changeLog.state?.updates?.linkFormError?.url
                   ? 'Fix Error to Save'
                   : 'Save Change'
               }
               error={
                 !!changeLog.state?.updates?.createdDateTmp?.date.er ||
-                !!changeLog.state?.updates?.createdDateTmp?.time.er
+                !!changeLog.state?.updates?.createdDateTmp?.time.er ||
+                !!changeLog.state?.updates?.linkFormError?.label ||
+                !!changeLog.state?.updates?.linkFormError?.url
               }
               action={() => {
                 if (
                   !(
                     !!changeLog.state?.updates?.createdDateTmp?.date.er &&
-                    !!changeLog.state?.updates?.createdDateTmp?.time.er
+                    !!changeLog.state?.updates?.createdDateTmp?.time.er &&
+                    !!changeLog.state?.updates?.linkFormError?.label &&
+                    !!changeLog.state?.updates?.linkFormError?.url
                   )
                 ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type;
-                  const saveChange = changeLog.state?.updates?.change || changeLog.change;
+                  const saveChange = changeLog.state?.updates?.change || '';
                   const saveLinks = changeLog.state?.updates?.links || changeLog.links;
 
                   updateChange({
@@ -197,7 +203,7 @@ export const ChangeLogEditing = ({
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout name="Changes" overflow="visible" width="fill-parent" padding={{ top: PADDING.xs }}>
+      <AutoLayout name="Changes" overflow="visible" width="fill-parent">
         <Input
           name="EditableChange"
           fill={COLOR.black}
@@ -221,7 +227,7 @@ export const ChangeLogEditing = ({
             }
           }}
           placeholder="Your update..."
-          value={changeLog.state?.updates?.change || changeLog.change}
+          value={changeLog.state?.updates?.change || ''}
           width="fill-parent"
           lineHeight={FONT.lineHeight.lg}
           fontFamily={FONT.family}
@@ -246,15 +252,15 @@ export const ChangeLogEditing = ({
           />
         </AutoLayout>
       )}
-      <AutoLayout width="fill-parent" direction="vertical">
-        <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
+      <AutoLayout name="Actions" width="fill-parent" direction="vertical" spacing={GAP.sm}>
+        <AutoLayout name="Add Link" width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
           {!!changeLog.state?.showLinkForm ? (
             <LinkForm changeLog={changeLog} updateChangeState={updateChangeState} setUpdatedDate={setUpdatedDate} />
           ) : (
             <AddLink changeLog={changeLog} updateChangeState={updateChangeState} />
           )}
         </AutoLayout>
-        <AutoLayout width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
+        <AutoLayout name="Delete Change" width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
           <Button label="Delete Change" action={deleteChange} />
         </AutoLayout>
       </AutoLayout>
