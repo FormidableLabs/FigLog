@@ -1,4 +1,4 @@
-import { COLOR, FONT, GAP, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
 
 const { widget } = figma;
 const { AutoLayout, Image, Rectangle, Text } = widget;
@@ -8,9 +8,10 @@ interface UserProps {
   userPhotoUrl: string | null | undefined;
   showAvatars: boolean;
   isLastRow: boolean;
+  isFocused: boolean;
 }
 
-export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserProps) => {
+export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow, isFocused }: UserProps) => {
   return (
     <AutoLayout
       name="User"
@@ -55,7 +56,7 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
       )}
       <Rectangle
         name="Divider"
-        fill={COLOR.grey}
+        fill={!!isFocused ? COLOR.greyDark : COLOR.grey}
         cornerRadius={{
           topLeft: showAvatars ? RADIUS.none : RADIUS.md,
           topRight: showAvatars ? RADIUS.none : RADIUS.md,
