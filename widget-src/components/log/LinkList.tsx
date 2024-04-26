@@ -1,5 +1,5 @@
 import { LinkType } from '../../types/LinkTypes';
-import { PADDING, GAP } from '../../utilities/Styles';
+import { GAP } from '../../utilities/Styles';
 import { Link } from './Link';
 
 const { widget } = figma;

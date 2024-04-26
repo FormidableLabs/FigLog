@@ -113,19 +113,6 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
     }
   };
 
-  const errorMsg = (labelError: boolean, urlError: boolean) => {
-    switch (true) {
-      case labelError && urlError:
-        return "A link label (40 character maximum) and valid url (including 'https://') are required.";
-      case labelError:
-        return 'Enter label (1-40 characters).';
-      case urlError:
-        return 'Enter URL (https://, no spaces/specials).';
-      default:
-        return '';
-    }
-  };
-
   return (
     <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="start" spacing={GAP.sm}>
       <AutoLayout name="Input Wrapper" overflow="visible" direction="vertical" spacing={GAP.xs}>
