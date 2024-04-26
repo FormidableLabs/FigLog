@@ -1,11 +1,11 @@
 import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { User } from './log/User';
-import { COLOR, GAP, SPACE } from '../utilities/Styles';
+import { COLOR, GAP, RADIUS, SPACE } from '../utilities/Styles';
 import { ChangeLogEditing } from './log/LogEditing';
 import { ChangeLogDisplay } from './log/LogDisplay';
 
 const { widget } = figma;
-const { AutoLayout, Rectangle } = widget;
+const { AutoLayout, Line } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;
@@ -49,6 +49,7 @@ export const ChangeLogRow = ({
           userPhotoUrl={changeLog.user?.photoUrl}
           showAvatars={showAvatars}
           isLastRow={isLastRow}
+          isFocused={!!changeLog.state?.editing && !locked}
         />
         {!!changeLog.state?.editing && !locked ? (
           <ChangeLogEditing
@@ -72,13 +73,14 @@ export const ChangeLogRow = ({
           />
         )}
       </AutoLayout>
-      <Rectangle
+      <Line
         name="Divider"
         hidden={isLastRow}
         stroke={COLOR.grey}
-        width="fill-parent"
-        height={SPACE.one}
-        strokeDashPattern={[GAP.xs, GAP.xs]}
+        length="fill-parent"
+        strokeDashPattern={[RADIUS.sm, RADIUS.sm]}
+        strokeCap="round"
+        strokeWidth={SPACE.one}
       />
     </AutoLayout>
   );

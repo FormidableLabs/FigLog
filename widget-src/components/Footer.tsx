@@ -1,6 +1,6 @@
 import { LogoFigLog } from '../svgs/LogoFigLog';
 import { LogoNearform } from '../svgs/LogoNearform';
-import { COLOR, GAP, FONT, SPACE, PADDING } from '../utilities/Styles';
+import { COLOR, GAP, FONT, RADIUS, SPACE, PADDING } from '../utilities/Styles';
 
 const { widget, openExternal } = figma;
 const { AutoLayout, Rectangle, SVG, Text } = widget;
@@ -14,7 +14,14 @@ export const Footer = () => (
     width="fill-parent"
     padding={{ top: PADDING.xl }}
   >
-    <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />
+    <Rectangle
+      name="Divider"
+      fill={COLOR.greyDark}
+      strokeAlign="outside"
+      width="fill-parent"
+      height={SPACE.one}
+      cornerRadius={RADIUS.md}
+    />
     <AutoLayout name="Row" overflow="visible" spacing="auto" width="fill-parent" verticalAlignItems="center">
       <AutoLayout
         name="FigLog Logo"
