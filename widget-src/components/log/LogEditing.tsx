@@ -1,7 +1,8 @@
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
-import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING } from '../../utilities/Styles';
 import { DateRangeForm } from './DateRangeForm';
 import { Button } from '../Button';
+import { InputField } from '../InputField';
 import { LinkList } from './LinkList';
 import { Type } from './Type';
 import { TypeMenu } from './TypeMenu';
@@ -11,7 +12,7 @@ import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
-const { AutoLayout, Text, Input, useEffect } = widget;
+const { AutoLayout, Text, useEffect } = widget;
 
 interface ChangeLogEditingProps {
   changeLog: ChangeLog;
@@ -204,33 +205,23 @@ export const ChangeLogEditing = ({
         </AutoLayout>
       </AutoLayout>
       <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-        <Input
+        <InputField
           name="EditableChange"
-          fill={COLOR.black}
-          inputBehavior="multiline"
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
-          }}
-          onTextEditEnd={e => {
-            if (e.characters !== changeLog.change) {
+          placeholder="Your Update..."
+          value={changeLog.state?.updates?.change || ''}
+          large={true}
+          behavior="multiline"
+          action={val => {
+            if (val !== changeLog.change) {
               updateChangeState({
                 ...changeLog.state,
                 updates: {
                   ...changeLog.state?.updates,
-                  change: e.characters,
+                  change: val,
                 },
               });
             }
           }}
-          placeholder="Your update..."
-          value={changeLog.state?.updates?.change || ''}
-          width="fill-parent"
-          lineHeight={FONT.lineHeight.lg}
-          fontFamily={FONT.family}
         />
       </AutoLayout>
       {!!changeLog.state?.updates?.links && changeLog.state?.updates?.links.length > 0 && (

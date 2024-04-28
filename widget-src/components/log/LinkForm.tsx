@@ -1,7 +1,8 @@
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
 import { Button } from '../Button';
 import { randomId } from '../../utilities/Utils';
-import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
+import { COLOR, GAP, SPACE } from '../../utilities/Styles';
+import { InputField } from '../InputField';
 import {
   rxUrl,
   rxAsana,
@@ -33,7 +34,7 @@ import {
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 
 const { widget } = figma;
-const { AutoLayout, Input, Text } = widget;
+const { AutoLayout } = widget;
 
 interface LinkFormProps {
   changeLog: ChangeLog;
@@ -115,89 +116,61 @@ export const LinkForm = ({ changeLog, updateChangeState, setUpdatedDate }: LinkF
 
   return (
     <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="start" spacing={GAP.sm}>
-      <AutoLayout name="Input Wrapper" overflow="visible" direction="vertical" spacing={GAP.xs}>
-        <Input
-          name="LinkLabel"
-          fill={COLOR.black}
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: !!changeLog.state?.updates?.linkFormError?.label ? COLOR.red : COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
-          }}
-          placeholder="Link Label"
-          width={SPACE.lg}
-          lineHeight={FONT.lineHeight.sm}
-          fontSize={FONT.size.sm}
-          fontFamily={FONT.family}
-          value={changeLog.state?.updates?.link?.label || ''}
-          onTextEditEnd={e => {
-            const trimmedLabel = e.characters.trim();
-            updateChangeState({
-              ...changeLog.state,
-              updates: {
-                ...changeLog.state?.updates,
-                link: {
-                  ...changeLog.state?.updates?.link,
-                  label: trimmedLabel,
-                  url: changeLog.state?.updates?.link?.url || '',
-                  key: changeLog.state?.updates?.link?.key || '',
-                },
-                linkFormError: {
-                  label: !validLabel(trimmedLabel),
-                  url: !!changeLog.state?.updates?.linkFormError?.url,
-                },
+      <InputField
+        name="LinkLabel"
+        placeholder="Link Label"
+        value={changeLog.state?.updates?.link?.label || ''}
+        width={SPACE.xl}
+        isRequired={true}
+        hasError={!!changeLog.state?.updates?.linkFormError?.label}
+        errorMessage="Enter label (1-40 characters)."
+        action={label => {
+          updateChangeState({
+            ...changeLog.state,
+            updates: {
+              ...changeLog.state?.updates,
+              link: {
+                ...changeLog.state?.updates?.link,
+                label: label,
+                url: changeLog.state?.updates?.link?.url || '',
+                key: changeLog.state?.updates?.link?.key || '',
               },
-            });
-          }}
-        />
-        <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
-          {!!changeLog.state?.updates?.linkFormError?.label ? 'Enter label (1-40 characters).' : ''}
-        </Text>
-      </AutoLayout>
-      <AutoLayout name="Input Wrapper" overflow="visible" direction="vertical" spacing={GAP.xs} width="fill-parent">
-        <Input
-          name="LinkUrl"
-          fill={COLOR.black}
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: !!changeLog.state?.updates?.linkFormError?.url ? COLOR.red : COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
-          }}
-          width="fill-parent"
-          placeholder="https://figma.com"
-          lineHeight={FONT.lineHeight.sm}
-          fontSize={FONT.size.sm}
-          fontFamily={FONT.family}
-          value={changeLog.state?.updates?.link?.url || ''}
-          onTextEditEnd={e => {
-            const trimmedUrl = e.characters.trim();
-            updateChangeState({
-              ...changeLog.state,
-              updates: {
-                ...changeLog.state?.updates,
-                link: {
-                  ...changeLog.state?.updates?.link,
-                  label: changeLog.state?.updates?.link?.label || '',
-                  url: trimmedUrl,
-                  icon: assignIcon(trimmedUrl),
-                  key: changeLog.state?.updates?.link?.key || '',
-                },
-                linkFormError: {
-                  label: !!changeLog.state?.updates?.linkFormError?.label,
-                  url: !validUrl(trimmedUrl),
-                },
+              linkFormError: {
+                label: !validLabel(label),
+                url: !!changeLog.state?.updates?.linkFormError?.url,
               },
-            });
-          }}
-        />
-        <Text fill={COLOR.red} fontSize={FONT.size.xs} fontFamily={FONT.family}>
-          {!!changeLog.state?.updates?.linkFormError?.url ? 'Enter URL (https://, no spaces/specials).' : ''}
-        </Text>
-      </AutoLayout>
+            },
+          });
+        }}
+      />
+      <InputField
+        name="LinkUrl"
+        placeholder="https://figma.com"
+        value={changeLog.state?.updates?.link?.url || ''}
+        width="fill-parent"
+        isRequired={true}
+        hasError={!!changeLog.state?.updates?.linkFormError?.url}
+        errorMessage="Enter URL (https://, no spaces/specials)."
+        action={url => {
+          updateChangeState({
+            ...changeLog.state,
+            updates: {
+              ...changeLog.state?.updates,
+              link: {
+                ...changeLog.state?.updates?.link,
+                label: changeLog.state?.updates?.link?.label || '',
+                url: url,
+                icon: assignIcon(url),
+                key: changeLog.state?.updates?.link?.key || '',
+              },
+              linkFormError: {
+                label: !!changeLog.state?.updates?.linkFormError?.label,
+                url: !validUrl(url),
+              },
+            },
+          });
+        }}
+      />
       <AutoLayout name="Actions Wrapper" overflow="visible" spacing={GAP.xs}>
         <Button
           label="Add"
