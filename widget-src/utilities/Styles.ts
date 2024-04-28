@@ -74,9 +74,9 @@ export const COLOR = {
   red: '#C34C4E',
   tan: '#EBE5DA',
   white: '#FFFFFF',
-  formidable: '#f04d21',
 };
 
+// GAP should be used for vertical and horizontal auto layout gap spacing only
 export const GAP = {
   none: 0,
   xs: 4,
@@ -86,6 +86,7 @@ export const GAP = {
   xl: 32,
 } as const;
 
+// RADIUS should be used for corner radius values only
 export const RADIUS = {
   none: 0,
   xs: 2,
@@ -94,6 +95,7 @@ export const RADIUS = {
   lg: 16,
 } as const;
 
+// PADDING should be used for vertical and horizontal padding and absolute offset values only
 export const PADDING = {
   none: 0,
   xxs: 4,
@@ -105,17 +107,18 @@ export const PADDING = {
   xxl: 32,
 } as const;
 
+// SPACE should be used for width and height values only
 export const SPACE = {
   one: 1, // borders, dividers, strokes, w & h, etc
-  xxxs: 4, // dashes,
-  xxs: 12, // w & h of icons,
-  xs: 16, // w & h of icons,
-  sm: 24, // w & h of user avatar, formidable logo height
-  md: 108, // once in empty state height, formidable logo width
-  lg: 169, // once in empty state width,
-  xl: 600, // widget width (sm) !! not in use yet
-  xxl: 800, // widget width (md - default)
-  xxxl: 1000, // widget width (lg) !! not in use yet
+  xxxs: 4, // dashes
+  xxs: 12, // w&h small icons
+  xs: 16, // w&h medium icons
+  sm: 24, // w&h large icons and user avatar
+  md: 92, // date and time range field width, meta value field width
+  lg: 108, // no logs empty state height
+  xl: 169, // no logs empty state width, link label field width
+  xxl: 800, // widget width default
+  xxxl: 1000, // widget width large (! not used yet)
 } as const;
 
 export const OPACITY = {
