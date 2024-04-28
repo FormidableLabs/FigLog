@@ -58,8 +58,8 @@ export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
             x={570}
             y={-4}
             positioning="absolute"
-            height={SPACE.md}
-            width={SPACE.lg}
+            height={SPACE.lg}
+            width={SPACE.xl}
             src={<HelpArrow />}
           />
         </>

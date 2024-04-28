@@ -1,6 +1,6 @@
 import { ChangeLog, ChangeLogState } from '../types/ChangeLog';
 import { User } from './log/User';
-import { COLOR, GAP, RADIUS, SPACE } from '../utilities/Styles';
+import { COLOR, GAP, SPACE } from '../utilities/Styles';
 import { ChangeLogEditing } from './log/LogEditing';
 import { ChangeLogDisplay } from './log/LogDisplay';
 
@@ -78,7 +78,7 @@ export const ChangeLogRow = ({
         hidden={isLastRow}
         stroke={COLOR.grey}
         length="fill-parent"
-        strokeDashPattern={[RADIUS.sm, RADIUS.sm]}
+        strokeDashPattern={[SPACE.xxxs, SPACE.xxxs]}
         strokeCap="round"
         strokeWidth={SPACE.one}
       />

@@ -67,14 +67,14 @@ export const Type = ({ type, isActive = false }: TypeProps) => {
       }}
       horizontalAlignItems="center"
       verticalAlignItems="center"
-      spacing={SPACE.xxxs}
+      spacing={GAP.xs}
       positioning="auto"
       stroke={showStroke ? COLOR.grey : ''}
-      strokeDashPattern={showStroke ? [GAP.xs, GAP.xs] : []}
+      strokeDashPattern={showStroke ? [SPACE.xxxs, SPACE.xxxs] : []}
     >
-      {isActive && <SVG name="Active" height={PADDING.md} width={PADDING.md} src={<Check color={txColor} />} />}
+      {isActive && <SVG name="Active" height={SPACE.xxs} width={SPACE.xxs} src={<Check color={txColor} />} />}
       {type === ('none' || 'added') && (
-        <SVG name="Add" height={PADDING.md} width={PADDING.md} src={<ActionAddIcon color={txColor} />} />
+        <SVG name="Add" height={SPACE.xxs} width={SPACE.xxs} src={<ActionAddIcon color={txColor} />} />
       )}
       <Text
         name="Type"

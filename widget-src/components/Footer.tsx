@@ -10,7 +10,7 @@ export const Footer = () => (
     name="Footer"
     overflow="visible"
     direction="vertical"
-    spacing={PADDING.xl}
+    spacing={GAP.lg}
     width="fill-parent"
     padding={{ top: PADDING.xl }}
   >
@@ -32,7 +32,7 @@ export const Footer = () => (
           openExternal('https://commerce.nearform.com/open-source/');
         }}
       >
-        <SVG name="FigLog Logo" height={PADDING.xxl} width={PADDING.xxl} src={LogoFigLog} />
+        <SVG name="FigLog Logo" height={32} width={32} src={LogoFigLog} />
         <AutoLayout name="FigLog Logo Text" spacing={GAP.xs}>
           <Text
             fontFamily={FONT.family}

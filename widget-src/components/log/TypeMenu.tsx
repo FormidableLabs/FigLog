@@ -1,5 +1,5 @@
 import { ChangeType, ChangeTypes } from '../../types/ChangeTypes';
-import { COLOR, FONT, PADDING, RADIUS } from '../../utilities/Styles';
+import { COLOR, GAP, PADDING, RADIUS } from '../../utilities/Styles';
 import { Type } from './Type';
 
 const { widget } = figma;
@@ -15,7 +15,7 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
     <AutoLayout
       positioning="absolute"
       x={-PADDING.sm}
-      y={{ type: 'bottom', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.xxs }}
+      y={{ type: 'bottom', offset: PADDING.xxl }}
       fill={COLOR.white}
       stroke={COLOR.grey}
       strokeDashPattern={[]}
@@ -23,7 +23,7 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
         vertical: PADDING.sm,
         horizontal: PADDING.sm,
       }}
-      spacing={PADDING.md}
+      spacing={GAP.sm}
       horizontalAlignItems="start"
       verticalAlignItems="center"
       overflow="visible"
@@ -34,14 +34,13 @@ export const TypeMenu = ({ currentType, selectType }: TypeMenuProps) => {
         color: COLOR.grey,
         offset: { x: 3, y: 3 },
         blur: 8,
-        spread: -4,
       }}
     >
       {ChangeTypes.map(changeType => {
         if (changeType !== 'added' && changeType !== 'none') {
           return (
-            <AutoLayout name="Action Wrapper" onClick={() => selectType(changeType)}>
-              <Type type={changeType} key={changeType} isActive={changeType === currentType} />
+            <AutoLayout name="Action Wrapper" onClick={() => selectType(changeType)} key={changeType}>
+              <Type type={changeType} isActive={changeType === currentType} />
             </AutoLayout>
           );
         }
