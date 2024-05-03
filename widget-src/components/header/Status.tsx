@@ -59,7 +59,7 @@ export const Status = ({ status }: StatusProps) => {
         fill={COLOR.tan}
         cornerRadius={RADIUS.sm}
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         padding={{
           vertical: PADDING.sm,
           horizontal: PADDING.md,

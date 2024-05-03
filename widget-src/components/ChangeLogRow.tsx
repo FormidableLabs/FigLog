@@ -5,7 +5,7 @@ import { ChangeLogEditing } from './log/LogEditing';
 import { ChangeLogDisplay } from './log/LogDisplay';
 
 const { widget } = figma;
-const { AutoLayout, Rectangle } = widget;
+const { AutoLayout, Line } = widget;
 
 interface ChangeLogRowProps {
   changeLogId: string;
@@ -43,12 +43,13 @@ export const ChangeLogRow = ({
       direction="vertical"
       width="fill-parent"
     >
-      <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.md} width="fill-parent">
+      <AutoLayout name="Wrapper" overflow="visible" spacing={GAP.sm} width="fill-parent">
         <User
           userName={changeLog.user?.name}
           userPhotoUrl={changeLog.user?.photoUrl}
           showAvatars={showAvatars}
           isLastRow={isLastRow}
+          isFocused={!!changeLog.state?.editing && !locked}
         />
         {!!changeLog.state?.editing && !locked ? (
           <ChangeLogEditing
@@ -72,13 +73,14 @@ export const ChangeLogRow = ({
           />
         )}
       </AutoLayout>
-      <Rectangle
+      <Line
         name="Divider"
         hidden={isLastRow}
         stroke={COLOR.grey}
-        width="fill-parent"
-        height={SPACE.one}
-        strokeDashPattern={[GAP.sm, GAP.sm]}
+        length="fill-parent"
+        strokeDashPattern={[SPACE.xxxs, SPACE.xxxs]}
+        strokeCap="round"
+        strokeWidth={SPACE.one}
       />
     </AutoLayout>
   );

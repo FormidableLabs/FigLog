@@ -1,16 +1,18 @@
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
-import { COLOR, FONT, GAP, PADDING, SPACE, RADIUS } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING } from '../../utilities/Styles';
 import { DateRangeForm } from './DateRangeForm';
 import { Button } from '../Button';
+import { InputField } from '../InputField';
 import { LinkList } from './LinkList';
 import { Type } from './Type';
 import { TypeMenu } from './TypeMenu';
 import { LinkForm } from './LinkForm';
 import { AddLink } from './AddLink';
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
+import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
-const { AutoLayout, Text, Input, useEffect } = widget;
+const { AutoLayout, Text, useEffect } = widget;
 
 interface ChangeLogEditingProps {
   changeLog: ChangeLog;
@@ -51,7 +53,7 @@ export const ChangeLogEditing = ({
       <AutoLayout
         name="Meta"
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         padding={{
           top: PADDING.none,
           right: PADDING.xxs,
@@ -114,33 +116,39 @@ export const ChangeLogEditing = ({
         <AutoLayout
           name="Actions"
           overflow="visible"
-          spacing={GAP.md}
+          spacing={GAP.sm}
           width="fill-parent"
           horizontalAlignItems="end"
           verticalAlignItems="center"
         >
-          <AutoLayout spacing={GAP.lg}>
+          <AutoLayout spacing={GAP.sm}>
             <Button
               label={
                 !!changeLog.state?.updates?.createdDateTmp?.date.er ||
-                !!changeLog.state?.updates?.createdDateTmp?.time.er
+                !!changeLog.state?.updates?.createdDateTmp?.time.er ||
+                !!changeLog.state?.updates?.linkFormError?.label ||
+                !!changeLog.state?.updates?.linkFormError?.url
                   ? 'Fix Error to Save'
                   : 'Save Change'
               }
               error={
                 !!changeLog.state?.updates?.createdDateTmp?.date.er ||
-                !!changeLog.state?.updates?.createdDateTmp?.time.er
+                !!changeLog.state?.updates?.createdDateTmp?.time.er ||
+                !!changeLog.state?.updates?.linkFormError?.label ||
+                !!changeLog.state?.updates?.linkFormError?.url
               }
               action={() => {
                 if (
                   !(
                     !!changeLog.state?.updates?.createdDateTmp?.date.er &&
-                    !!changeLog.state?.updates?.createdDateTmp?.time.er
+                    !!changeLog.state?.updates?.createdDateTmp?.time.er &&
+                    !!changeLog.state?.updates?.linkFormError?.label &&
+                    !!changeLog.state?.updates?.linkFormError?.url
                   )
                 ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type;
-                  const saveChange = changeLog.state?.updates?.change || changeLog.change;
+                  const saveChange = changeLog.state?.updates?.change || '';
                   const saveLinks = changeLog.state?.updates?.links || changeLog.links;
 
                   updateChange({
@@ -167,40 +175,53 @@ export const ChangeLogEditing = ({
                 updateChangeState({
                   ...changeLog.state,
                   editing: false,
+                  updates: {
+                    createdDate: changeLog.createdDate,
+                    createdDateTmp: {
+                      date: {
+                        val: displayDate(changeLog.createdDate, 'date'),
+                        er: false,
+                      },
+                      time: {
+                        val: displayDate(changeLog.createdDate, 'time'),
+                        er: false,
+                      },
+                    },
+                    links: changeLog.links,
+                    link: {
+                      label: '',
+                      url: '',
+                      icon: '',
+                      key: '',
+                    },
+                    type: changeLog.type,
+                    change: changeLog.change,
+                    linkFormError: { label: false, url: false },
+                  },
                 });
               }}
             />
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout name="Changes" overflow="visible" width="fill-parent" padding={{ top: PADDING.xs }}>
-        <Input
+      <AutoLayout name="Changes" overflow="visible" width="fill-parent">
+        <InputField
           name="EditableChange"
-          fill={COLOR.black}
-          inputBehavior="multiline"
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xs, vertical: PADDING.xs },
-          }}
-          onTextEditEnd={e => {
-            if (e.characters !== changeLog.change) {
+          placeholder="Your Update..."
+          value={changeLog.state?.updates?.change || ''}
+          large={true}
+          behavior="multiline"
+          action={val => {
+            if (val !== changeLog.change) {
               updateChangeState({
                 ...changeLog.state,
                 updates: {
                   ...changeLog.state?.updates,
-                  change: e.characters,
+                  change: val,
                 },
               });
             }
           }}
-          placeholder="Your update..."
-          value={changeLog.state?.updates?.change || changeLog.change}
-          width="fill-parent"
-          lineHeight={FONT.lineHeight.lg}
-          fontFamily={FONT.family}
         />
       </AutoLayout>
       {!!changeLog.state?.updates?.links && changeLog.state?.updates?.links.length > 0 && (
@@ -222,15 +243,15 @@ export const ChangeLogEditing = ({
           />
         </AutoLayout>
       )}
-      <AutoLayout width="fill-parent" direction="vertical">
-        <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
+      <AutoLayout name="Actions" width="fill-parent" direction="vertical" spacing={GAP.sm}>
+        <AutoLayout name="Add Link" width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
           {!!changeLog.state?.showLinkForm ? (
             <LinkForm changeLog={changeLog} updateChangeState={updateChangeState} setUpdatedDate={setUpdatedDate} />
           ) : (
             <AddLink changeLog={changeLog} updateChangeState={updateChangeState} />
           )}
         </AutoLayout>
-        <AutoLayout width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
+        <AutoLayout name="Delete Change" width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
           <Button label="Delete Change" action={deleteChange} />
         </AutoLayout>
       </AutoLayout>

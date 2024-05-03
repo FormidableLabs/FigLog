@@ -2,7 +2,7 @@ import { Status } from './header/Status';
 import { Meta } from './header/Meta';
 import { Name } from './header/Name';
 import { Description } from './header/Description';
-import { COLOR, GAP, SPACE } from '../utilities/Styles';
+import { COLOR, GAP, RADIUS, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
 const { AutoLayout, Rectangle, useSyncedState } = widget;
@@ -38,7 +38,7 @@ export const Header = ({
   const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
 
   return (
-    <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.md} width="fill-parent">
+    <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.sm} width="fill-parent">
       <AutoLayout name="Container" overflow="visible" direction="vertical" width="fill-parent">
         {/* STATUS */}
         {status !== '0' && <Status status={status} />}
@@ -74,7 +74,14 @@ export const Header = ({
           locked={isLocked}
         />
       </AutoLayout>
-      <Rectangle name="Divider" fill={COLOR.greyDark} strokeAlign="outside" width="fill-parent" height={SPACE.one} />
+      <Rectangle
+        name="Divider"
+        fill={COLOR.greyDark}
+        strokeAlign="outside"
+        width="fill-parent"
+        height={SPACE.one}
+        cornerRadius={RADIUS.md}
+      />
     </AutoLayout>
   );
 };

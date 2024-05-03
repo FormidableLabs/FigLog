@@ -34,10 +34,10 @@ export const ChangeLogDisplay = ({
       name="ChangeLog Content"
       overflow="visible"
       direction="vertical"
-      spacing={GAP.lg}
+      spacing={GAP.md}
       padding={{
         top: PADDING.xl,
-        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
+        bottom: isLastRow ? PADDING.none : PADDING.xl,
         horizontal: PADDING.none,
       }}
       width="fill-parent"
@@ -45,7 +45,7 @@ export const ChangeLogDisplay = ({
       <AutoLayout
         name="Meta"
         overflow="visible"
-        spacing={GAP.md}
+        spacing={GAP.sm}
         padding={{
           top: PADDING.none,
           right: PADDING.xxs,
@@ -77,7 +77,7 @@ export const ChangeLogDisplay = ({
         <AutoLayout
           name="Actions"
           overflow="visible"
-          spacing={GAP.md}
+          spacing={GAP.sm}
           width="fill-parent"
           horizontalAlignItems="end"
           verticalAlignItems="center"
@@ -92,16 +92,54 @@ export const ChangeLogDisplay = ({
                   ...changeLog.state,
                   editing: true,
                   updates: {
-                    createdDate: changeLog.createdDate,
+                    createdDate: changeLog.state?.updates?.createdDate
+                      ? changeLog.state?.updates?.createdDate
+                      : changeLog.createdDate,
                     createdDateTmp: {
-                      date: { val: displayDate(changeLog.createdDate, 'date'), er: false },
-                      time: { val: displayDate(changeLog.createdDate, 'time'), er: false },
+                      date: {
+                        val: changeLog.state?.updates?.createdDateTmp?.date?.er
+                          ? changeLog.state?.updates?.createdDateTmp?.date?.val
+                          : displayDate(
+                              changeLog.state?.updates?.createdDate
+                                ? changeLog.state?.updates?.createdDate
+                                : changeLog.createdDate,
+                              'date',
+                            ),
+                        er: changeLog.state?.updates?.createdDateTmp?.date?.er
+                          ? changeLog.state?.updates?.createdDateTmp?.date?.er
+                          : false,
+                      },
+                      time: {
+                        val: changeLog.state?.updates?.createdDateTmp?.time?.er
+                          ? changeLog.state?.updates?.createdDateTmp?.time?.val
+                          : displayDate(
+                              changeLog.state?.updates?.createdDate
+                                ? changeLog.state?.updates?.createdDate
+                                : changeLog.createdDate,
+                              'time',
+                            ),
+                        er: changeLog.state?.updates?.createdDateTmp?.time?.er
+                          ? changeLog.state?.updates?.createdDateTmp?.time?.er
+                          : false,
+                      },
                     },
-                    links: changeLog.links,
-                    link: { label: '', url: '', icon: '', key: '' },
-                    type: changeLog.type,
-                    change: changeLog.change,
-                    linkFormError: { label: false, url: false },
+                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links,
+                    link: {
+                      label: changeLog.state?.updates?.link?.label ? changeLog.state?.updates?.link?.label : '',
+                      url: changeLog.state?.updates?.link?.url ? changeLog.state?.updates?.link?.url : '',
+                      icon: changeLog.state?.updates?.link?.icon ? changeLog.state?.updates?.link?.icon : '',
+                      key: changeLog.state?.updates?.link?.key ? changeLog.state?.updates?.link?.key : '',
+                    },
+                    type: changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type,
+                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : '',
+                    linkFormError: {
+                      label: changeLog.state?.updates?.linkFormError?.label
+                        ? changeLog.state?.updates?.linkFormError?.label
+                        : false,
+                      url: changeLog.state?.updates?.linkFormError?.url
+                        ? changeLog.state?.updates?.linkFormError?.url
+                        : false,
+                    },
                   },
                 });
                 updateOtherStates(changeLogId, { editing: false });

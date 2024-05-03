@@ -1,10 +1,11 @@
 import { isExists } from 'date-fns/isExists';
 import { ChangeLog, ChangeLogState } from '../../types/ChangeLog';
-import { COLOR, FONT, GAP, SPACE, RADIUS, PADDING } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, SPACE } from '../../utilities/Styles';
+import { InputField } from '../InputField';
 import { displayDate } from '../../utilities/Utils';
 
 const { widget } = figma;
-const { AutoLayout, Text, Input } = widget;
+const { AutoLayout, Text } = widget;
 
 interface DateRangeFormProps {
   changeLog: ChangeLog;
@@ -116,86 +117,66 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
   };
 
   return (
-    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
-      <AutoLayout name="Input Wrapper" overflow="visible">
-        <Input
-          name="Editable Date"
-          fill={COLOR.black}
-          inputBehavior="truncate"
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: !!changeLog.state?.updates?.createdDateTmp?.date.er ? COLOR.red : COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
-          }}
-          placeholder={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
-          value={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
-          lineHeight={FONT.lineHeight.sm}
-          fontFamily={FONT.family}
-          fontSize={FONT.size.sm}
-          letterSpacing={FONT.letterSpacing.sm}
-          fontWeight={FONT.weight.bold}
-          textCase="upper"
-          width={SPACE.md - SPACE.xs - SPACE.xxxs}
-          onTextEditEnd={e => {
-            const newCreated = validDate(e.characters);
-            if (!!updateChangeState) {
-              switch (newCreated) {
-                case undefined:
-                  updateChangeState({
-                    ...changeLog.state,
-                    updates: {
-                      ...changeLog.state?.updates,
-                      createdDateTmp: {
-                        date: {
-                          val: e.characters,
-                          er: true,
-                        },
-                        time: {
-                          val: changeLog.state?.updates?.createdDateTmp?.time?.val,
-                          er: changeLog.state?.updates?.createdDateTmp?.time?.er,
-                        },
+    <AutoLayout name="Log Date" overflow="visible" spacing={GAP.sm} verticalAlignItems="center">
+      <InputField
+        name="Editable Date"
+        placeholder={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
+        value={changeLog.state?.updates?.createdDateTmp?.date.val || displayDate(timestamp, 'date')}
+        width={SPACE.md}
+        isRequired={true}
+        behavior="truncate"
+        fontWeight={FONT.weight.bold}
+        letterSpacing={FONT.letterSpacing.sm}
+        textCase="upper"
+        isAbsolutePos={true}
+        hasError={!!changeLog.state?.updates?.createdDateTmp?.date.er}
+        errorMessage="Enter past date (MM/DD/YYYY)."
+        errorPosition="right"
+        action={date => {
+          const newCreated = validDate(date);
+          if (!!updateChangeState) {
+            switch (newCreated) {
+              case undefined:
+                updateChangeState({
+                  ...changeLog.state,
+                  updates: {
+                    ...changeLog.state?.updates,
+                    createdDateTmp: {
+                      date: {
+                        val: date,
+                        er: true,
+                      },
+                      time: {
+                        val: changeLog.state?.updates?.createdDateTmp?.time?.val,
+                        er: changeLog.state?.updates?.createdDateTmp?.time?.er,
                       },
                     },
-                  });
-                  break;
-                default:
-                  updateChangeState({
-                    ...changeLog.state,
-                    updates: {
-                      ...changeLog.state?.updates,
-                      createdDate: newCreated,
-                      createdDateTmp: {
-                        date: {
-                          val: e.characters,
-                          er: false,
-                        },
-                        time: {
-                          val: changeLog.state?.updates?.createdDateTmp?.time?.val,
-                          er: changeLog.state?.updates?.createdDateTmp?.time?.er,
-                        },
+                  },
+                });
+                break;
+              default:
+                updateChangeState({
+                  ...changeLog.state,
+                  updates: {
+                    ...changeLog.state?.updates,
+                    createdDate: newCreated,
+                    createdDateTmp: {
+                      date: {
+                        val: date,
+                        er: false,
+                      },
+                      time: {
+                        val: changeLog.state?.updates?.createdDateTmp?.time?.val,
+                        er: changeLog.state?.updates?.createdDateTmp?.time?.er,
                       },
                     },
-                  });
-                  break;
-              }
+                  },
+                });
+                break;
             }
-          }}
-        />
-        {!!changeLog.state?.updates?.createdDateTmp?.date.er && (
-          <Text
-            fill={COLOR.red}
-            fontSize={FONT.size.xs}
-            fontFamily={FONT.family}
-            positioning="absolute"
-            y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.sm }}
-            x={{ type: 'right', offset: 0 }}
-          >
-            A valid past date (MM/DD/YYYY format) is required.
-          </Text>
-        )}
-      </AutoLayout>
+          }
+        }}
+      />
       <Text
         name="@"
         fill={COLOR.black}
@@ -209,84 +190,64 @@ export const DateRangeForm = ({ changeLog, timestamp, updateChangeState }: DateR
       >
         @
       </Text>
-      <AutoLayout name="Input Wrapper" overflow="visible">
-        <Input
-          name="Editable Time"
-          fill={COLOR.black}
-          inputBehavior="truncate"
-          inputFrameProps={{
-            fill: COLOR.white,
-            stroke: !!changeLog.state?.updates?.createdDateTmp?.time.er ? COLOR.red : COLOR.grey,
-            strokeWidth: SPACE.one,
-            cornerRadius: RADIUS.xs,
-            padding: { horizontal: PADDING.xxs, vertical: PADDING.xxs },
-          }}
-          placeholder={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
-          value={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
-          lineHeight={FONT.lineHeight.sm}
-          fontFamily={FONT.family}
-          fontSize={FONT.size.sm}
-          letterSpacing={FONT.letterSpacing.sm}
-          fontWeight={FONT.weight.bold}
-          textCase="upper"
-          width={SPACE.md - SPACE.xs}
-          onTextEditEnd={e => {
-            const newCreated = validTime(e.characters);
-            if (!!updateChangeState) {
-              switch (newCreated) {
-                case undefined:
-                  updateChangeState({
-                    ...changeLog.state,
-                    updates: {
-                      ...changeLog.state?.updates,
-                      createdDateTmp: {
-                        date: {
-                          val: changeLog.state?.updates?.createdDateTmp?.date?.val,
-                          er: changeLog.state?.updates?.createdDateTmp?.date?.er,
-                        },
-                        time: {
-                          val: e.characters,
-                          er: true,
-                        },
+      <InputField
+        name="Editable Time"
+        placeholder={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
+        value={changeLog.state?.updates?.createdDateTmp?.time.val || displayDate(timestamp, 'time')}
+        width={SPACE.md}
+        isRequired={true}
+        behavior="truncate"
+        fontWeight={FONT.weight.bold}
+        letterSpacing={FONT.letterSpacing.sm}
+        textCase="upper"
+        isAbsolutePos={true}
+        hasError={!!changeLog.state?.updates?.createdDateTmp?.time.er}
+        errorMessage="Enter time (HH:MM:SS AM/PM)."
+        action={time => {
+          const newCreated = validTime(time);
+          if (!!updateChangeState) {
+            switch (newCreated) {
+              case undefined:
+                updateChangeState({
+                  ...changeLog.state,
+                  updates: {
+                    ...changeLog.state?.updates,
+                    createdDateTmp: {
+                      date: {
+                        val: changeLog.state?.updates?.createdDateTmp?.date?.val,
+                        er: changeLog.state?.updates?.createdDateTmp?.date?.er,
+                      },
+                      time: {
+                        val: time,
+                        er: true,
                       },
                     },
-                  });
-                  break;
-                default:
-                  updateChangeState({
-                    ...changeLog.state,
-                    updates: {
-                      ...changeLog.state?.updates,
-                      createdDate: newCreated,
-                      createdDateTmp: {
-                        date: {
-                          val: changeLog.state?.updates?.createdDateTmp?.date?.val,
-                          er: changeLog.state?.updates?.createdDateTmp?.date?.er,
-                        },
-                        time: {
-                          val: e.characters,
-                          er: false,
-                        },
+                  },
+                });
+                break;
+              default:
+                updateChangeState({
+                  ...changeLog.state,
+                  updates: {
+                    ...changeLog.state?.updates,
+                    createdDate: newCreated,
+                    createdDateTmp: {
+                      date: {
+                        val: changeLog.state?.updates?.createdDateTmp?.date?.val,
+                        er: changeLog.state?.updates?.createdDateTmp?.date?.er,
+                      },
+                      time: {
+                        val: time,
+                        er: false,
                       },
                     },
-                  });
-                  break;
-              }
+                  },
+                });
+                break;
             }
-          }}
-        />
-        {!!changeLog.state?.updates?.createdDateTmp?.time.er && (
-          <Text
-            fill={COLOR.red}
-            fontSize={FONT.size.xs}
-            fontFamily={FONT.family}
-            positioning="absolute"
-            y={{ type: 'top', offset: FONT.lineHeight.xs + PADDING.xs * 2 + PADDING.sm }}
-          >
-            A valid time (HH:MM:SS AM format) is required.
-          </Text>
-        )}
-      </AutoLayout>
+          }
+        }}
+      />
     </AutoLayout>
   );
 };

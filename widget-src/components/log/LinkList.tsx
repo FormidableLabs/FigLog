@@ -1,5 +1,5 @@
 import { LinkType } from '../../types/LinkTypes';
-import { PADDING, GAP } from '../../utilities/Styles';
+import { GAP } from '../../utilities/Styles';
 import { Link } from './Link';
 
 const { widget } = figma;
@@ -22,10 +22,7 @@ export const LinkList = ({ links, editing = false, deleteLink }: LinkListProps) 
           height="hug-contents"
           direction="horizontal"
           wrap
-          padding={{
-            vertical: PADDING.sm,
-          }}
-          spacing={GAP.md}
+          spacing={GAP.sm}
         >
           {links.map(link => (
             <Link

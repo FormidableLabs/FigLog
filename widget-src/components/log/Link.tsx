@@ -110,7 +110,7 @@ export const Link = ({
       <AutoLayout
         fill={COLOR.greyLight}
         onClick={() => openExternal(url)}
-        spacing={GAP.sm}
+        spacing={GAP.xs}
         padding={{
           vertical: PADDING.xs,
           left: PADDING.sm,

@@ -1,4 +1,4 @@
-import { COLOR, FONT, GAP, RADIUS, PADDING, SPACE } from '../../utilities/Styles';
+import { COLOR, FONT, GAP, PADDING, RADIUS, SPACE } from '../../utilities/Styles';
 
 const { widget } = figma;
 const { AutoLayout, Image, Rectangle, Text } = widget;
@@ -8,9 +8,10 @@ interface UserProps {
   userPhotoUrl: string | null | undefined;
   showAvatars: boolean;
   isLastRow: boolean;
+  isFocused: boolean;
 }
 
-export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserProps) => {
+export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow, isFocused }: UserProps) => {
   return (
     <AutoLayout
       name="User"
@@ -20,14 +21,14 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
       padding={{
         top: PADDING.xl,
         right: showAvatars ? PADDING.none : PADDING.sm,
-        bottom: isLastRow ? PADDING.xxs : PADDING.xl,
+        bottom: isLastRow ? PADDING.none : PADDING.xl,
         left: PADDING.none,
       }}
       height="fill-parent"
       horizontalAlignItems="center"
     >
       {showAvatars && (
-        <AutoLayout name="Avatar" overflow="visible" spacing={GAP.md} verticalAlignItems="center">
+        <AutoLayout name="Avatar" overflow="visible" spacing={GAP.sm} verticalAlignItems="center">
           {userPhotoUrl ? (
             <Image name="UserImage" cornerRadius={RADIUS.lg} width={SPACE.sm} height={SPACE.sm} src={userPhotoUrl} />
           ) : (
@@ -53,7 +54,18 @@ export const User = ({ userName, userPhotoUrl, showAvatars, isLastRow }: UserPro
           </Text>
         </AutoLayout>
       )}
-      <Rectangle name="Divider" fill={COLOR.grey} cornerRadius={RADIUS.md} width={SPACE.one} height="fill-parent" />
+      <Rectangle
+        name="Divider"
+        fill={!!isFocused ? COLOR.greyDark : COLOR.grey}
+        cornerRadius={{
+          topLeft: showAvatars ? RADIUS.none : RADIUS.md,
+          topRight: showAvatars ? RADIUS.none : RADIUS.md,
+          bottomRight: RADIUS.md,
+          bottomLeft: RADIUS.md,
+        }}
+        width={SPACE.one}
+        height="fill-parent"
+      />
     </AutoLayout>
   );
 };

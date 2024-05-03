@@ -16,7 +16,7 @@ export const MetaValue = ({ label, value, setValue, setUpdatedDate, locked }: Me
     <AutoLayout
       name="MetaValue"
       overflow="visible"
-      spacing={GAP.md}
+      spacing={GAP.sm}
       padding={{
         vertical: PADDING.xxs,
         horizontal: PADDING.none,

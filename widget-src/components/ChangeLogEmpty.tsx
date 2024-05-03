@@ -20,7 +20,7 @@ export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
       fill={COLOR.white}
       overflow="visible"
       direction="vertical"
-      spacing={GAP.md}
+      spacing={GAP.sm}
       padding={{
         vertical: PADDING.xxl * 2,
         horizontal: PADDING.none,
@@ -58,8 +58,8 @@ export const ChangeLogEmpty = ({ isLocked }: { isLocked: boolean }) => (
             x={570}
             y={-4}
             positioning="absolute"
-            height={SPACE.md}
-            width={SPACE.lg}
+            height={SPACE.lg}
+            width={SPACE.xl}
             src={<HelpArrow />}
           />
         </>

@@ -13,7 +13,7 @@ interface AddLinkProps {
 export const AddLink = ({ changeLog, updateChangeState }: AddLinkProps) => {
   return (
     <AutoLayout width="fill-parent" horizontalAlignItems="end" verticalAlignItems="center">
-      {changeLog.links && changeLog.links.length > 7 ? (
+      {(changeLog.links?.length || 0) + (changeLog.state?.updates?.links?.length || 0) > 7 ? (
         <Text
           fill={COLOR.greyDark}
           lineHeight={FONT.lineHeight.xs}
