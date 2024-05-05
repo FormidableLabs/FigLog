@@ -11,8 +11,14 @@ import { AddLink } from './AddLink';
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 import { displayDate } from '../../utilities/Utils';
 
-const { widget } = figma;
+const { widget, saveVersionHistoryAsync } = figma;
 const { AutoLayout, Text, useEffect } = widget;
+
+async function saveToVersionHistory(name: string, description: string) {
+  await saveVersionHistoryAsync(name, description);
+  // console logging isnt working for some reason?
+  console.log('Version History Saved');
+}
 
 interface ChangeLogEditingProps {
   changeLog: ChangeLog;
@@ -164,6 +170,15 @@ export const ChangeLogEditing = ({
                     },
                   });
                   setUpdatedDate(Date.now());
+                  // ideally we should grab the name of the widget and the if there is a version
+                  // grab that too and put them together, maybe even increment the version number automatically
+                  // if its formatted properly or something?
+                  // anyways put the widget name and version number together and use are title of version history
+                  // then the changelog description as the description of the version history
+                  saveChange !== '' &&
+                    saveToVersionHistory(saveChange, saveChange)
+                      .then(val => console.log('Version History Saved', val))
+                      .catch(e => console.log('Error saving version history', e));
                 }
               }}
             />
