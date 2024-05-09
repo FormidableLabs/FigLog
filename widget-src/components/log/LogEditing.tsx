@@ -129,7 +129,7 @@ export const ChangeLogEditing = ({
                 !!changeLog.state?.updates?.linkFormError?.label ||
                 !!changeLog.state?.updates?.linkFormError?.url
                   ? 'Fix Error to Save'
-                  : 'Save Change'
+                  : 'Save Log'
               }
               error={
                 !!changeLog.state?.updates?.createdDateTmp?.date.er ||
@@ -167,40 +167,42 @@ export const ChangeLogEditing = ({
                 }
               }}
             />
-            <Button
-              label="Cancel"
-              hideLabel
-              iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
-              action={() => {
-                updateChangeState({
-                  ...changeLog.state,
-                  editing: false,
-                  updates: {
-                    createdDate: changeLog.createdDate,
-                    createdDateTmp: {
-                      date: {
-                        val: displayDate(changeLog.createdDate, 'date'),
-                        er: false,
+            {changeLog.editCount > 0 && (
+              <Button
+                label="Cancel"
+                hideLabel
+                iconSrc={<ActionCloseIcon color={COLOR.greyDark} />}
+                action={() => {
+                  updateChangeState({
+                    ...changeLog.state,
+                    editing: false,
+                    updates: {
+                      createdDate: changeLog.createdDate,
+                      createdDateTmp: {
+                        date: {
+                          val: displayDate(changeLog.createdDate, 'date'),
+                          er: false,
+                        },
+                        time: {
+                          val: displayDate(changeLog.createdDate, 'time'),
+                          er: false,
+                        },
                       },
-                      time: {
-                        val: displayDate(changeLog.createdDate, 'time'),
-                        er: false,
+                      links: changeLog.links,
+                      link: {
+                        label: '',
+                        url: '',
+                        icon: '',
+                        key: '',
                       },
+                      type: changeLog.type,
+                      change: changeLog.change,
+                      linkFormError: { label: false, url: false },
                     },
-                    links: changeLog.links,
-                    link: {
-                      label: '',
-                      url: '',
-                      icon: '',
-                      key: '',
-                    },
-                    type: changeLog.type,
-                    change: changeLog.change,
-                    linkFormError: { label: false, url: false },
-                  },
-                });
-              }}
-            />
+                  });
+                }}
+              />
+            )}
           </AutoLayout>
         </AutoLayout>
       </AutoLayout>
@@ -251,8 +253,8 @@ export const ChangeLogEditing = ({
             <AddLink changeLog={changeLog} updateChangeState={updateChangeState} />
           )}
         </AutoLayout>
-        <AutoLayout name="Delete Change" width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
-          <Button label="Delete Change" action={deleteChange} />
+        <AutoLayout name="Delete Log" width="fill-parent" horizontalAlignItems="start" verticalAlignItems="center">
+          <Button label="Delete Log" action={deleteChange} />
         </AutoLayout>
       </AutoLayout>
     </AutoLayout>
