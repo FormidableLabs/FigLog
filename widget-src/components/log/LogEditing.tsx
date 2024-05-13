@@ -144,7 +144,7 @@ export const ChangeLogEditing = ({
                 ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type;
-                  const saveChange = changeLog.state?.updates?.change || '';
+                  const saveChange = changeLog.state?.updates?.change || changeLog.change;
                   const saveLinks =
                     changeLog.links && changeLog.state?.updates?.links
                       ? changeLog.links.concat(changeLog.state?.updates?.links)
