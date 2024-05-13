@@ -131,7 +131,7 @@ export const ChangeLogDisplay = ({
                       key: changeLog.state?.updates?.link?.key ? changeLog.state?.updates?.link?.key : '',
                     },
                     type: changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type,
-                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : '',
+                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : changeLog.change,
                     linkFormError: {
                       label: changeLog.state?.updates?.linkFormError?.label
                         ? changeLog.state?.updates?.linkFormError?.label
