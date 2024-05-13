@@ -123,7 +123,7 @@ export const ChangeLogDisplay = ({
                           : false,
                       },
                     },
-                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links,
+                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : [],
                     link: {
                       label: changeLog.state?.updates?.link?.label ? changeLog.state?.updates?.link?.label : '',
                       url: changeLog.state?.updates?.link?.url ? changeLog.state?.updates?.link?.url : '',
@@ -160,7 +160,15 @@ export const ChangeLogDisplay = ({
         </Text>
       </AutoLayout>
       {!!changeLog.links && changeLog.links.length > 0 && (
-        <AutoLayout name="Links" width="fill-parent" horizontalAlignItems="end" direction="vertical">
+        <AutoLayout
+          name="Links"
+          overflow="visible"
+          width="fill-parent"
+          height="hug-contents"
+          direction="horizontal"
+          wrap
+          spacing={GAP.sm}
+        >
           <LinkList links={changeLog.links} />
         </AutoLayout>
       )}
