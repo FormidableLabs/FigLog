@@ -148,17 +148,19 @@ export const ChangeLogDisplay = ({
           )}
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-        <Text
-          name="Change"
-          fill={COLOR.black}
-          lineHeight={FONT.lineHeight.lg}
-          fontFamily={FONT.family}
-          width={'fill-parent'}
-        >
-          {changeLog.change || ''}
-        </Text>
-      </AutoLayout>
+      {!!changeLog.change && changeLog.change !== '' && (
+        <AutoLayout name="Changes" overflow="visible" width="fill-parent">
+          <Text
+            name="Change"
+            fill={COLOR.black}
+            lineHeight={FONT.lineHeight.lg}
+            fontFamily={FONT.family}
+            width={'fill-parent'}
+          >
+            {changeLog.change || ''}
+          </Text>
+        </AutoLayout>
+      )}
       {!!changeLog.links && changeLog.links.length > 0 && (
         <AutoLayout
           name="Links"

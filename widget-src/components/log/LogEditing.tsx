@@ -144,7 +144,7 @@ export const ChangeLogEditing = ({
                 ) {
                   const saveCreatedDate = changeLog.state?.updates?.createdDate || changeLog.createdDate;
                   const saveType = changeLog.state?.updates?.type || changeLog.type;
-                  const saveChange = changeLog.state?.updates?.change || changeLog.change;
+                  const saveChange = changeLog.state?.updates?.change || '';
                   const saveLinks =
                     changeLog.links && changeLog.state?.updates?.links
                       ? changeLog.links.concat(changeLog.state?.updates?.links)
@@ -214,7 +214,7 @@ export const ChangeLogEditing = ({
         <InputField
           name="EditableChange"
           placeholder="Your Update..."
-          value={changeLog.state?.updates?.change || changeLog.change}
+          value={changeLog.state?.updates?.change || ''}
           large={true}
           behavior="multiline"
           action={val => {
