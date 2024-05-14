@@ -123,7 +123,7 @@ export const ChangeLogDisplay = ({
                           : false,
                       },
                     },
-                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : changeLog.links,
+                    links: changeLog.state?.updates?.links ? changeLog.state?.updates?.links : [],
                     link: {
                       label: changeLog.state?.updates?.link?.label ? changeLog.state?.updates?.link?.label : '',
                       url: changeLog.state?.updates?.link?.url ? changeLog.state?.updates?.link?.url : '',
@@ -131,7 +131,7 @@ export const ChangeLogDisplay = ({
                       key: changeLog.state?.updates?.link?.key ? changeLog.state?.updates?.link?.key : '',
                     },
                     type: changeLog.state?.updates?.type ? changeLog.state?.updates?.type : changeLog.type,
-                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : '',
+                    change: changeLog.state?.updates?.change ? changeLog.state?.updates?.change : changeLog.change,
                     linkFormError: {
                       label: changeLog.state?.updates?.linkFormError?.label
                         ? changeLog.state?.updates?.linkFormError?.label
@@ -148,19 +148,29 @@ export const ChangeLogDisplay = ({
           )}
         </AutoLayout>
       </AutoLayout>
-      <AutoLayout name="Changes" overflow="visible" width="fill-parent">
-        <Text
-          name="Change"
-          fill={COLOR.black}
-          lineHeight={FONT.lineHeight.lg}
-          fontFamily={FONT.family}
-          width={'fill-parent'}
-        >
-          {changeLog.change || ''}
-        </Text>
-      </AutoLayout>
+      {!!changeLog.change && changeLog.change !== '' && (
+        <AutoLayout name="Changes" overflow="visible" width="fill-parent">
+          <Text
+            name="Change"
+            fill={COLOR.black}
+            lineHeight={FONT.lineHeight.lg}
+            fontFamily={FONT.family}
+            width={'fill-parent'}
+          >
+            {changeLog.change || ''}
+          </Text>
+        </AutoLayout>
+      )}
       {!!changeLog.links && changeLog.links.length > 0 && (
-        <AutoLayout name="Links" width="fill-parent" horizontalAlignItems="end" direction="vertical">
+        <AutoLayout
+          name="Links"
+          overflow="visible"
+          width="fill-parent"
+          height="hug-contents"
+          direction="horizontal"
+          wrap
+          spacing={GAP.sm}
+        >
           <LinkList links={changeLog.links} />
         </AutoLayout>
       )}

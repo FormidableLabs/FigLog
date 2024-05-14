@@ -1,9 +1,11 @@
 import { LogoFigLog } from '../svgs/LogoFigLog';
-import { LogoNearform } from '../svgs/LogoNearform';
+import { LogoNearformCommerce } from '../svgs/LogoNearformCommerce';
 import { COLOR, GAP, FONT, RADIUS, SPACE, PADDING } from '../utilities/Styles';
 
 const { widget, openExternal } = figma;
 const { AutoLayout, Rectangle, SVG, Text } = widget;
+
+const figLogVersion = '3'; // use "#.## beta" format to track beta versions
 
 export const Footer = () => (
   <AutoLayout
@@ -50,8 +52,41 @@ export const Footer = () => (
             fontSize={FONT.size.lg}
             fontWeight={FONT.weight.light}
           >
-            | Evolution Tracker
+            |
           </Text>
+          <AutoLayout
+            name="FigLog Version"
+            overflow="visible"
+            direction="vertical"
+            spacing={2}
+            padding={{
+              vertical: 5,
+              horizontal: PADDING.none,
+            }}
+            verticalAlignItems="center"
+          >
+            <Text
+              name="Evolution Tracker"
+              fill={COLOR.black}
+              lineHeight={FONT.lineHeight.xs}
+              fontFamily={FONT.family}
+              fontSize={FONT.size.sm}
+              fontWeight={FONT.weight.regular}
+            >
+              Evolution Tracker
+            </Text>
+            <Text
+              name="Version"
+              fill={COLOR.black}
+              lineHeight={4}
+              fontFamily={FONT.family}
+              fontSize={5}
+              fontWeight={FONT.weight.regular}
+            >
+              {' '}
+              version {figLogVersion}
+            </Text>
+          </AutoLayout>
         </AutoLayout>
       </AutoLayout>
       <AutoLayout
@@ -63,7 +98,7 @@ export const Footer = () => (
           openExternal('https://commerce.nearform.com/');
         }}
       >
-        <SVG name="Nearform_Commerce Logo" height={16} width={174} src={LogoNearform} />
+        <SVG name="Nearform_Commerce Logo" height={16} width={36} src={LogoNearformCommerce} />
       </AutoLayout>
     </AutoLayout>
   </AutoLayout>
