@@ -214,7 +214,7 @@ export const ChangeLogEditing = ({
         <InputField
           name="EditableChange"
           placeholder="Your Update..."
-          value={changeLog.state?.updates?.change || ''}
+          value={changeLog.state?.updates?.change || changeLog.change}
           large={true}
           behavior="multiline"
           action={val => {
