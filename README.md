@@ -38,12 +38,13 @@ We hope FigLog becomes a useful tool for you as a way of documenting the evoluti
 
 ## Features
 
-- 🕹️ Optional component status, name, description, version, log types, and branding
-- 👫 Multiplayer collaboration with user name and avatar
-- 🗓️ Automatic date handling (including log edits)
-- 💅 6 status types
-- 🏷️ 7 log types **(New!)**
-- 🔗 26 link types **(New!)**
+- 🕹️  Customizable name, description, version, and branding
+- 👫  Multiplayer collaboration with optional avatars
+- 🗓️  Automatic date capture and handling **(Now Editable)**
+- 💅  Multiple status types to define stages
+- 🏷️  7 log types for easier organization
+- 🔗  26 link types with automatic branding support
+- 🔒  Enhanced security for added control **(New!)**
 
 ## Usage
 

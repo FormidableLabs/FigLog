@@ -1,9 +1,5 @@
 import { LinkType } from '../../types/LinkTypes';
-import { GAP } from '../../utilities/Styles';
 import { Link } from './Link';
-
-const { widget } = figma;
-const { AutoLayout } = widget;
 
 interface LinkListProps {
   links?: Array<LinkType>;
@@ -15,15 +11,7 @@ export const LinkList = ({ links, editing = false, deleteLink }: LinkListProps) 
   return (
     <>
       {!!links && links.length > 0 && (
-        <AutoLayout
-          name="Log Links"
-          overflow="visible"
-          width="fill-parent"
-          height="hug-contents"
-          direction="horizontal"
-          wrap
-          spacing={GAP.sm}
-        >
+        <>
           {links.map(link => (
             <Link
               label={!!link.label ? link.label : 'Link'}
@@ -34,7 +22,7 @@ export const LinkList = ({ links, editing = false, deleteLink }: LinkListProps) 
               deleteLink={() => (!!deleteLink ? deleteLink(link.key) : null)}
             />
           ))}
-        </AutoLayout>
+        </>
       )}
     </>
   );

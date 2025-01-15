@@ -3,7 +3,7 @@ import { PADDING } from '../utilities/Styles';
 import { ChangeLogRow } from './ChangeLogRow';
 
 const { widget } = figma;
-const { AutoLayout, useEffect } = widget;
+const { AutoLayout } = widget;
 
 interface ChangeLogListProps {
   changeLogIds: string[];
@@ -26,10 +26,6 @@ export const ChangeLogList = ({
   showAvatars,
   isLocked,
 }: ChangeLogListProps) => {
-  useEffect(() => {
-    // console.log('ChangeLogs', changeLogs.entries());
-  });
-
   return (
     <AutoLayout
       name="ChangeLog"

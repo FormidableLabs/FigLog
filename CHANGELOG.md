@@ -1,5 +1,22 @@
 # FigLog Change Log
 
+## 3.0.0 (05-09-2024)
+
+New editing flow, user must save changes
+User can edit the start dates for logs
+User can hide and show avatars
+Added Nearform_Commerce branding
+Prettier integration
+Figma API update
+Cleanup and documentation and README
+
+## 2.0.0 (02-09-2024)
+
+User can add changelog types
+User can add links to logs
+Switch to Lucide icons
+Cleanup and documentation and README
+
 ## 1.0.0 (09-29-2023)
 
 README update
