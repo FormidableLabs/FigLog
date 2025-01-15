@@ -28,6 +28,7 @@ interface ChangeLogEditingProps {
   setUpdatedDate: (updatedDate: number) => void;
   showTypes: boolean;
   isLastRow: boolean;
+  nameText: string;
 }
 
 export const ChangeLogEditing = ({
@@ -38,6 +39,7 @@ export const ChangeLogEditing = ({
   setUpdatedDate,
   showTypes,
   isLastRow,
+  nameText,
 }: ChangeLogEditingProps) => {
   return (
     <AutoLayout
@@ -179,7 +181,7 @@ export const ChangeLogEditing = ({
                   // anyways put the widget name and version number together and use are title of version history
                   // then the changelog description as the description of the version history
                   saveChange !== '' &&
-                    saveToVersionHistory(saveChange, saveChange)
+                    saveToVersionHistory(nameText ? `FigLog | ${nameText}` : 'FigLog Save', saveChange)
                       .then(val => console.log('Version History Saved', val))
                       .catch(e => console.log('Error saving version history', e));
                 }

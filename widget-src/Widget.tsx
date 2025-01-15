@@ -26,6 +26,9 @@ function Widget() {
   // Change Logs
   const [changeIds, setChangeIds] = useSyncedState<string[]>('changeKeys', []);
   const changeLogs = useSyncedMap<ChangeLog>('changes');
+  // Name and Description
+  const [nameText, setNameText] = useSyncedState('nameText', '');
+  const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
 
   const updateOtherStates = (currentChangeId: string, changes: Partial<ChangeLogState>) => {
     changeIds.map((id: string) => {
@@ -190,6 +193,10 @@ function Widget() {
         showVersion={showVersion}
         addChange={addChange}
         isLocked={isLocked}
+        nameText={nameText}
+        setNameText={setNameText}
+        descriptionText={descriptionText}
+        setDescriptionText={setDescriptionText}
       />
       {changeIds.length === 0 ? (
         <ChangeLogEmpty isLocked={isLocked} />
@@ -203,6 +210,7 @@ function Widget() {
           showTypes={showLogTypes}
           showAvatars={showAvatars}
           isLocked={isLocked}
+          nameText={nameText}
         />
       )}
       {showBranding && <Footer />}

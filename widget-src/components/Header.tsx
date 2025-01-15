@@ -19,6 +19,10 @@ interface HeaderProps {
   setVersion: (updatedVersion: string) => void;
   addChange: (changeId: string) => void;
   isLocked: boolean;
+  nameText: string;
+  setNameText: (nameText: string) => void;
+  descriptionText: string;
+  setDescriptionText: (descriptionText: string) => void;
 }
 
 export const Header = ({
@@ -33,9 +37,13 @@ export const Header = ({
   setVersion,
   addChange,
   isLocked,
+  nameText,
+  setNameText,
+  descriptionText,
+  setDescriptionText,
 }: HeaderProps) => {
-  const [nameText, setNameText] = useSyncedState('nameText', '');
-  const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
+  // const [nameText, setNameText] = useSyncedState('nameText', '');
+  // const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
 
   return (
     <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.sm} width="fill-parent">
