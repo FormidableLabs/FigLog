@@ -5,7 +5,7 @@ import { Description } from './header/Description';
 import { COLOR, GAP, RADIUS, SPACE } from '../utilities/Styles';
 
 const { widget } = figma;
-const { AutoLayout, Rectangle, useSyncedState } = widget;
+const { AutoLayout, Rectangle } = widget;
 
 interface HeaderProps {
   name: boolean;
@@ -42,9 +42,6 @@ export const Header = ({
   descriptionText,
   setDescriptionText,
 }: HeaderProps) => {
-  // const [nameText, setNameText] = useSyncedState('nameText', '');
-  // const [descriptionText, setDescriptionText] = useSyncedState('descriptionText', '');
-
   return (
     <AutoLayout name="Header" overflow="visible" direction="vertical" spacing={GAP.sm} width="fill-parent">
       <AutoLayout name="Container" overflow="visible" direction="vertical" width="fill-parent">

@@ -12,7 +12,7 @@ import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 import { displayDate } from '../../utilities/Utils';
 
 const { widget, saveVersionHistoryAsync } = figma;
-const { AutoLayout, Text, useEffect } = widget;
+const { AutoLayout, Text } = widget;
 
 async function saveToVersionHistory(name: string, description: string) {
   await saveVersionHistoryAsync(name, description);
