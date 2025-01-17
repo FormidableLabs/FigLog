@@ -15,6 +15,9 @@ interface ChangeLogListProps {
   showAvatars: boolean;
   isLocked: boolean;
   nameText: string;
+  showName: boolean;
+  showVersion: boolean;
+  version: string;
 }
 
 export const ChangeLogList = ({
@@ -27,6 +30,9 @@ export const ChangeLogList = ({
   showAvatars,
   isLocked,
   nameText,
+  showName,
+  showVersion,
+  version,
 }: ChangeLogListProps) => {
   return (
     <AutoLayout
@@ -61,6 +67,9 @@ export const ChangeLogList = ({
               showAvatars={showAvatars}
               locked={isLocked}
               nameText={nameText}
+              showName={showName}
+              showVersion={showVersion}
+              version={version}
             />
           );
         })}

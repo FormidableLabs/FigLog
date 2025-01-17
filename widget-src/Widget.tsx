@@ -80,7 +80,7 @@ function Widget() {
           { option: '2', label: 'Draft' },
           { option: '3', label: 'Beta' },
           { option: '4', label: 'Released' },
-          { option: '5', label: 'Depreciated' },
+          { option: '5', label: 'Deprecated' },
           { option: '6', label: 'Archived' },
         ],
         selectedOption: showStatus.toString(),
@@ -211,6 +211,9 @@ function Widget() {
           showAvatars={showAvatars}
           isLocked={isLocked}
           nameText={nameText}
+          showName={showName}
+          version={version}
+          showVersion={showVersion}
         />
       )}
       {showBranding && <Footer />}

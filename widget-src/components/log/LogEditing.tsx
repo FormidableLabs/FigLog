@@ -10,14 +10,72 @@ import { LinkForm } from './LinkForm';
 import { AddLink } from './AddLink';
 import { ActionCloseIcon } from '../../svgs/ActionCloseIcon';
 import { displayDate } from '../../utilities/Utils';
+import { LinkType } from '../../types/LinkTypes';
 
 const { widget, saveVersionHistoryAsync } = figma;
 const { AutoLayout, Text } = widget;
 
-async function saveToVersionHistory(name: string, description: string) {
-  await saveVersionHistoryAsync(name, description);
-  // console logging isnt working for some reason?
-  console.log('Version History Saved');
+async function saveToVersionHistory(
+  name: string,
+  type: string,
+  description: string,
+  links: LinkType[] | undefined,
+  showName: boolean,
+  showTypes: boolean,
+  showVersion: boolean,
+  version?: string,
+) {
+  const formattedLinks = links?.map(link => `${link.label}\n${link.url}`).join('\n\n') || '';
+  if (!description.trim() && !formattedLinks.trim()) {
+    return;
+  }
+
+  let typeFormatted = '';
+  if (showTypes) {
+    switch (type) {
+      case 'none':
+        break;
+      case 'added': // catch legacy logs with "added" as default type
+        typeFormatted = '';
+        break;
+      case 'newAdd':
+        typeFormatted = 'Added';
+        break;
+      case 'breaking':
+        typeFormatted = 'Breaking';
+        break;
+      case 'changed':
+        typeFormatted = 'Changed';
+        break;
+      case 'deprecated':
+        typeFormatted = 'Deprecated';
+        break;
+      case 'fixed':
+        typeFormatted = 'Fixed';
+        break;
+      case 'removed':
+        typeFormatted = 'Removed';
+        break;
+      default:
+        typeFormatted = 'Other';
+        break;
+    }
+  }
+
+  const nameParts = ['FigLog'];
+  const innerParts = [
+    showName && name,
+    showVersion && version && `${version}`,
+    showTypes && `(${typeFormatted})`,
+  ].filter(Boolean);
+
+  if (innerParts.length > 0) {
+    nameParts.push(` | ${innerParts.join(' ')}`);
+  }
+
+  const nameFormatted = nameParts.join('');
+  const descriptionFormatted = `${description}\n\n- - - -\n\n${formattedLinks}`;
+  await saveVersionHistoryAsync(nameFormatted, descriptionFormatted);
 }
 
 interface ChangeLogEditingProps {
@@ -29,6 +87,9 @@ interface ChangeLogEditingProps {
   showTypes: boolean;
   isLastRow: boolean;
   nameText: string;
+  showName: boolean;
+  showVersion: boolean;
+  version: string;
 }
 
 export const ChangeLogEditing = ({
@@ -40,6 +101,9 @@ export const ChangeLogEditing = ({
   showTypes,
   isLastRow,
   nameText,
+  showName,
+  showVersion,
+  version,
 }: ChangeLogEditingProps) => {
   return (
     <AutoLayout
@@ -174,16 +238,21 @@ export const ChangeLogEditing = ({
                       },
                     },
                   });
+
                   setUpdatedDate(Date.now());
-                  // ideally we should grab the name of the widget and the if there is a version
-                  // grab that too and put them together, maybe even increment the version number automatically
-                  // if its formatted properly or something?
-                  // anyways put the widget name and version number together and use are title of version history
-                  // then the changelog description as the description of the version history
-                  saveChange !== '' &&
-                    saveToVersionHistory(nameText ? `FigLog | ${nameText}` : 'FigLog Save', saveChange)
-                      .then(val => console.log('Version History Saved', val))
-                      .catch(e => console.log('Error saving version history', e));
+
+                  saveToVersionHistory(
+                    nameText,
+                    saveType,
+                    saveChange,
+                    saveLinks,
+                    showName,
+                    showTypes,
+                    showVersion,
+                    version,
+                  )
+                    .then(val => console.log('Version History Saved', val))
+                    .catch(e => console.log('Error saving version history', e));
                 }
               }}
             />
