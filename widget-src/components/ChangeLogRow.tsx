@@ -19,6 +19,10 @@ interface ChangeLogRowProps {
   showTypes: boolean;
   showAvatars: boolean;
   locked: boolean;
+  nameText: string;
+  showName: boolean;
+  showVersion: boolean;
+  version: string;
 }
 
 export const ChangeLogRow = ({
@@ -33,6 +37,10 @@ export const ChangeLogRow = ({
   showTypes,
   showAvatars,
   locked,
+  nameText,
+  showName,
+  showVersion,
+  version,
 }: ChangeLogRowProps) => {
   return (
     <AutoLayout
@@ -60,6 +68,10 @@ export const ChangeLogRow = ({
             setUpdatedDate={setUpdatedDate}
             showTypes={showTypes}
             isLastRow={isLastRow}
+            nameText={nameText}
+            showName={showName}
+            showVersion={showVersion}
+            version={version}
           />
         ) : (
           <ChangeLogDisplay

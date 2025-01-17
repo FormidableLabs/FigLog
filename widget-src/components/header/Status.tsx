@@ -29,7 +29,7 @@ export const Status = ({ status }: StatusProps) => {
       break;
     case '5':
       statusEmoji = '🧊';
-      statusLabel = 'Depreciated';
+      statusLabel = 'Deprecated';
       break;
     case '6':
       statusEmoji = '🚨';
